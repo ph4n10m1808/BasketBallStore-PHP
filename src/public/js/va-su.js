@@ -1,7 +1,7 @@
 $(document).ready(() => {
     $("#login-container input").on("keyup", (event) => {
         $(event.currentTarget).parent().children("label").children("span").html("");
-        $(event.currentTarget).parent().parent().children(".msg-check-login").html("");
+        $(event.currentTarget).parent().parent().find(".msg-check-login").html("");
     })
 })
 
@@ -17,6 +17,11 @@ $(document).ready(function () {
 $(document).ready(() => {
     $("#form-login").on("submit", (e) => {
         e.preventDefault();
+
+        const $btn = $("#button-login");
+        const originalText = $btn.html();
+        $btn.html('<i class="fas fa-spinner fa-spin me-2"></i>Signing in...').prop("disabled", true);
+
         $.post(
             "Middlewares/login.php",
             {
@@ -27,21 +32,50 @@ $(document).ready(() => {
                 const msg = JSON.parse(data);
                 console.log(msg);
 
-                let check = true;
-                for (const each in msg) {
-                    if (msg[each]) {
-                        check = false;
+                // Check only login-related message fields (not redirect)
+                const hasError = msg.msgUsername || msg.msgPassword || msg.msgLogin;
+
+                if (hasError) {
+                    $("#login-container .msg-check-username").html(msg?.msgUsername || "");
+                    $("#login-container .msg-check-password").html(msg?.msgPassword || "");
+
+                    // Show/hide the error alert box
+                    if (msg.msgLogin) {
+                        $("#login-container .msg-check-login").html(msg.msgLogin);
+                        $("#login-error-alert").fadeIn(300);
+                    } else {
+                        $("#login-error-alert").fadeOut(200);
                     }
-                }
-                if (!check) {
-                    $("#login-container .msg-check-username").html(msg?.msgUsername);
-                    $("#login-container .msg-check-password").html(msg?.msgPassword);
-                    $("#login-container .msg-check-login").html(msg?.msgLogin);
+
+                    // Shake animation on error
+                    $("#form-login").addClass("shake-animation");
+                    setTimeout(() => $("#form-login").removeClass("shake-animation"), 500);
+
+                    $btn.html(originalText).prop("disabled", false);
                 } else {
-                    console.log(1);
-                    window.location = "?page=home";
+                    // Success - show toast then redirect
+                    $btn.html('<i class="fas fa-check me-2"></i>Success!');
+                    $btn.removeClass("btn-login-gradient").addClass("btn-success");
+
+                    if (typeof $.toast === "function") {
+                        $.toast({
+                            heading: 'Đăng nhập thành công!',
+                            text: 'Đang chuyển hướng...',
+                            icon: 'success',
+                            position: 'top-right',
+                            showHideTransition: 'slide',
+                            hideAfter: 1500
+                        });
+                    }
+
+                    setTimeout(() => {
+                        window.location.href = msg?.redirect || "?page=home";
+                    }, 800);
                 }
-            })
+            }).fail(function() {
+                $btn.html(originalText).prop("disabled", false);
+                $("#login-container .msg-check-login").html("Có lỗi xảy ra, vui lòng thử lại.");
+            });
     })
 })
 
@@ -76,7 +110,19 @@ $(document).ready(function () {
                     $("#register-container .msg-check-email").html(msg?.msgEmail);
                     $("#register-container .msg-check-phone").html(msg?.msgPhone);
                 } else {
-                    window.location = "?page=login";
+                    if (typeof $.toast === "function") {
+                        $.toast({
+                            heading: 'Đăng ký thành công!',
+                            text: 'Đang chuyển đến trang đăng nhập...',
+                            icon: 'success',
+                            position: 'top-right',
+                            showHideTransition: 'slide',
+                            hideAfter: 1500
+                        });
+                    }
+                    setTimeout(() => {
+                        window.location = "?page=login";
+                    }, 800);
                 }
             }
         );

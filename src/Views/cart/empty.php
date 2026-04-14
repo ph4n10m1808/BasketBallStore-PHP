@@ -13,7 +13,7 @@
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center mt-5">
                 <div class="pad-normal line-height col-xs-12 col-sm-8 col-md-8 col-lg-7 nofloat automarg">
-                    <a style="width: 100%; " href="?page=home" class="btn-lg btn btn-primary f14"></strong>VỀ
+                    <a style="width: 100%; " href="?page=home" class="btn-lg btn btn-primary f14"><strong>VỀ
                         TRANG CHỦ</strong></a></div>
             </div>
         </div>

@@ -1,0 +1,20 @@
+# Lọc rác git và metadata
+.git
+.gitignore
+
+# Lọc tài liệu
+*.md
+WALKTHROUGH.md
+CHANGELOG.md
+README.md
+
+# Lọc dependencies gốc nếu có
+node_modules/
+package-lock.json
+
+# Lọc cấu hình local
+.env
+.env.example
+docker-compose.yml
+Dockerfile
+db/

@@ -30,24 +30,24 @@
                 $auth = "";
                 switch ($user['id_auth']) {
                     case 1:
-                        $auth = '<li class="border"><a class="dropdown-item text-success" href="admin?mod=dashboard" target="_blank">Trang quản lý</a></li>';
+                        $auth = '<li><a class="dropdown-item text-success" href="admin/?mod=dashboard" target="_blank"><i class="fas fa-cog me-2" style="width:16px;"></i>Trang quản lý</a></li>';
                         break;
                     case 2:
                         $auth = '<li class="border"><a class="dropdown-item text-info" href="#">Trang nhân viên</a></li>';
                         break;
                 }
                 echo '
-                        <span class="dropdown p-8 me-5 d-flex align-items-center" style="font-size: 12px">
-                            <i class="fa-solid fa-user me-2"></i>
-                            <span class="nav-link dropdown-toggle position-relative" role="button" aria-expanded="false" style="font-size: 12px">
+                        <span class="dropdown p-8 me-5 d-flex align-items-center" style="font-size: 12px; cursor: pointer;">
+                            <i class="fa-solid fa-user me-2" style="color: #4f46e5;"></i>
+                            <span class="nav-link dropdown-toggle position-relative" role="button" aria-expanded="false" style="font-size: 12px; padding: 4px 0;">
                               ' . $d_name . '
                             </span>
-                            <ul class="dropdown-menu dropdown-content p-0 position-absolute" style="right: 0;top: 15px">
-                                <li class="border"><a class="dropdown-item" href="?page=profile">Tài khoản</a></li>
+                            <ul class="dropdown-menu dropdown-content p-0 position-absolute" style="right: 0; top: 100%; margin-top: 4px;">
+                                <li><a class="dropdown-item" href="?page=profile"><i class="fas fa-user-circle me-2" style="color:#94a3b8; width:16px;"></i>Tài khoản</a></li>
                                 ' . $auth . '
-                                <li class="border"><a class="dropdown-item" href="?page=bill">Đơn hàng của bạn</a></li>
-
-                                <li class="border"><a class="dropdown-item text-danger" href="?page=logout">Đăng xuất</a></li>
+                                <li><a class="dropdown-item" href="?page=bill"><i class="fas fa-box me-2" style="color:#94a3b8; width:16px;"></i>Đơn hàng của bạn</a></li>
+                                <li><hr class="dropdown-divider my-1"></li>
+                                <li><a class="dropdown-item text-danger" href="?page=logout"><i class="fas fa-sign-out-alt me-2" style="width:16px;"></i>Đăng xuất</a></li>
                             </ul>
                         </span>
                 ';
@@ -115,8 +115,8 @@
                     <div class="position-relative me-3 d-flex align-items-center w-100">
                         <input class="form-control position-relative pe-5 w-100" type="text" placeholder="Tìm kiếm..."
                                aria-label="Search" name="keyword">
-                        <a type="submit" class="button fa-solid fa-magnifying-glass position-absolute mx-lg-3 gray-darker"
-                           style="right: 8px !important;  "></a>
+                        <button type="submit" class="button fa-solid fa-magnifying-glass position-absolute mx-lg-3 gray-darker border-0 bg-transparent"
+                           style="right: 8px !important;  "></button>
                     </div>
                     <a href="?page=cart" class="btn btn-outline-success px-3 pb-1 border-0"><i
                                 class="fa-sharp fa-solid fa-cart-shopping"></i>

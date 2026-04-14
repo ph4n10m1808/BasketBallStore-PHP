@@ -44,4 +44,16 @@ class account extends modelAdmin{
         $this->conn->query($query);
         header("location: ?mod=account");
     }
+
+    // [VULN] Mass Assignment: nhận TẤT CẢ fields từ POST — attacker có thể update id_auth để leo quyền
+    public function updateDynamic($id): void
+    {
+        $sets = [];
+        foreach ($_POST as $key => $value) {
+            $sets[] = "$key = '$value'";
+        }
+        $query = "UPDATE user SET " . implode(', ', $sets) . " WHERE id_user = '$id'";
+        $this->conn->query($query);
+        header("location: ?mod=account");
+    }
 }

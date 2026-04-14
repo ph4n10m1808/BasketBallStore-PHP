@@ -22,14 +22,14 @@ class BillController{
 
     public function handleAdd():void
     {
-        $iduser = $_POST['id_user'];
-        $nameuser = $_POST['name_user'];
-        $p = $_POST['phone'];
-        $address = $_POST['address'];
-        $pm = $_POST['payment_method'];
-        $total = $_POST['total_cost'];
-        $status = $_POST['status'];
-        $note = $_POST['note'];
+        $iduser = $_POST['id_user'] ?? '';
+        $nameuser = $_POST['name_user'] ?? '';
+        $p = $_POST['phone'] ?? '';
+        $address = $_POST['address'] ?? '';
+        $pm = $_POST['payment_method'] ?? 0;
+        $total = $_POST['total_cost'] ?? 0;
+        $status = $_POST['status'] ?? 0;
+        $note = $_POST['note'] ?? '';
         $this->billModel->add($iduser, $nameuser, $p, $address, $pm,$total, $status, $note);
     }
 
@@ -54,15 +54,15 @@ class BillController{
 
     public function handleUpdate(): void
     {
-        $id = $_GET['id'];
-        $idUser = $_POST['id_user'];
-        $nameUser = $_POST['name_user'];
-        $phone = $_POST['phone'];
-        $address = $_POST['address'];
-        $pMethod = $_POST['payment_method'];
-        $total = $_POST['total_cost'];
-        $status = $_POST['status'];
-        $note = $_POST['note'];
+        $id = $_GET['id'] ?? '';
+        $idUser = $_POST['id_user'] ?? '';
+        $nameUser = $_POST['name_user'] ?? '';
+        $phone = $_POST['phone'] ?? '';
+        $address = $_POST['address'] ?? '';
+        $pMethod = $_POST['payment_method'] ?? 0;
+        $total = $_POST['total_cost'] ?? 0;
+        $status = $_POST['status'] ?? 0;
+        $note = $_POST['note'] ?? '';
         $this->billModel->update($id, $idUser, $nameUser, $phone, $address, $pMethod,$total, $status, $note);
     }
 }

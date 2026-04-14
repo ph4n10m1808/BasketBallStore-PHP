@@ -15,7 +15,7 @@ class Login extends model
     {
         $sql = "SELECT * FROM user where username = '{$username}' AND password = '{$password}'";
         $rs = $this->conn->query($sql)->fetch_assoc();
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) { session_start(); }
         if ($rs) {
             $_SESSION['login'] = true;
             $_SESSION['user'] = $rs;
@@ -24,13 +24,18 @@ class Login extends model
             } elseif ($rs['id_auth'] === "2") {
                 $_SESSION['employee'] = true;
             }
+            // [VULN] Insecure Deserialization: serialize toàn bộ user data vào cookie
+            $userData = serialize($rs);
+            setcookie('remember_user', base64_encode($userData), time() + 86400, '/');
         }
         return $rs;
     }
 
     public function handleLogout(): void
     {
-        unset($_SESSION['login'], $_SESSION['user'], $_SESSION["auth"]);
+        unset($_SESSION['login'], $_SESSION['user'], $_SESSION["auth"], $_SESSION["employee"]);
+        // Xóa cookie remember_user khi logout
+        setcookie('remember_user', '', time() - 3600, '/');
         header("location: ?page=home");
     }
 }

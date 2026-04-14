@@ -16,6 +16,14 @@ class ProfileController{
         require_once "Views/index.php";
     }
 
+    // [VULN] IDOR: Xem profile bất kỳ user nào mà không kiểm tra quyền
+    public function viewOtherProfile(): void
+    {
+        $userId = $_GET['id'] ?? '';
+        $dataUser = $this->profileModel->getProfileById($userId);
+        require_once "Views/index.php";
+    }
+
     public function handleChangeInfo($fn, $ln, $g, $e, $p, $address)
     {
         $idUser = $_SESSION['user']['id_user'];
@@ -35,7 +43,6 @@ class ProfileController{
     }
 
     public function handleChangePassword($oldPw, $newPw, $confirmPw){
-        session_start();
         $result = array();
         $result["msgOldPw"] = $this->check_model->checkEmpty($oldPw);
         $result["msgNewPw"] = $this->check_model->checkEmpty($newPw);

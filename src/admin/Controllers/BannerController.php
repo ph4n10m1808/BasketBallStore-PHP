@@ -1,6 +1,9 @@
 <?php
 require_once "./Models/banner.php";
+require_once __DIR__ . "/ImageUploadTrait.php";
+
 class BannerController{
+    use ImageUploadTrait;
     public banner $bannerModel;
 
     public function __construct(){
@@ -19,15 +22,12 @@ class BannerController{
 
     public function handleAdd(): void
     {
-        $dirSave = "../public/imgs/Banner/";
+        $banner = $this->formatImage("url_banner", "Banner");
 
-        $banner = "";
-        $target_file = $dirSave . basename($_FILES["url_banner"]["name"]);
-
-        $status_upload = move_uploaded_file($_FILES["url_banner"]["tmp_name"], $target_file);
-
-        if ($status_upload) {
-            $banner =  "imgs/Banner/" . basename($_FILES["url_banner"]["name"]);
+        if (empty($banner)) {
+            setcookie('msg', 'Upload ảnh thất bại. Vui lòng chọn lại ảnh.', time() + 5, '/');
+            header("location: ?mod=banner&act=add");
+            return;
         }
 
         $status = $_POST['status'];
@@ -50,22 +50,15 @@ class BannerController{
     public function handleUpdate(): void
     {
         $id = $_GET['id'];
-        $bannerImage = $this->formatImage("url_banner");
+        $bannerImage = $this->formatImage("url_banner", "Banner");
+
+        if (empty($bannerImage)) {
+            setcookie('msg', 'Upload ảnh thất bại. Vui lòng chọn lại ảnh.', time() + 5, '/');
+            header("location: ?mod=banner&act=edit&id=" . $id);
+            return;
+        }
+
         $this->bannerModel->update($id, $bannerImage);
     }
 
-    public function formatImage($nameInput): string
-    {
-        $dirSave = "../public/imgs/Banner/";
-
-        $image = "";
-        $target_file = $dirSave . basename($_FILES[(string) $nameInput]["name"]);
-
-        $status_upload = move_uploaded_file($_FILES[(string) $nameInput]["tmp_name"], $target_file);
-
-        if ($status_upload) {
-            $image =  "imgs/Banner/" . basename($_FILES[(string) $nameInput]["name"]);
-        }
-        return $image;
-    }
 }

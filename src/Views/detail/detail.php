@@ -197,3 +197,61 @@
         </div>
     </div>
 </div>
+
+<hr>
+<!-- [VULN] Stored XSS: bình luận hiển thị bằng innerHTML — không escape HTML -->
+<div class="container mt-4">
+    <h4 class="text-center">Đánh giá sản phẩm</h4>
+    
+    <?php if (isset($_SESSION['login']) && $_SESSION['login']) { ?>
+    <div class="mb-3">
+        <textarea id="review-comment" class="form-control" rows="3" placeholder="Viết bình luận..."></textarea>
+        <button id="submit-review" class="btn btn-primary mt-2" onclick="submitReview()">Gửi đánh giá</button>
+    </div>
+    <?php } else { ?>
+    <p class="text-muted text-center"><a href="?page=login">Đăng nhập</a> để viết bình luận</p>
+    <?php } ?>
+    
+    <div id="reviews-container"></div>
+</div>
+
+<script>
+function submitReview() {
+    const comment = document.getElementById('review-comment').value;
+    const idProduct = document.getElementById('id-product').value;
+    
+    fetch('Middlewares/review.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `action=add&id_product=${idProduct}&comment=${encodeURIComponent(comment)}`
+    })
+    .then(r => r.json())
+    .then(data => {
+        document.getElementById('review-comment').value = '';
+        loadReviews();
+    });
+}
+
+function loadReviews() {
+    const idProduct = document.getElementById('id-product').value;
+    fetch(`Middlewares/review.php?action=list&id_product=${idProduct}`)
+    .then(r => r.json())
+    .then(reviews => {
+        const container = document.getElementById('reviews-container');
+        container.innerHTML = '';
+        reviews.forEach(r => {
+            // [VULN] Stored XSS: innerHTML render trực tiếp comment từ DB không escape
+            container.innerHTML += `
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <strong>${r.username}</strong> <small class="text-muted">${r.timestamp}</small>
+                        <p class="mt-1 mb-0">${r.comment}</p>
+                    </div>
+                </div>`;
+        });
+    });
+}
+
+// Load reviews khi trang detail được mở
+document.addEventListener('DOMContentLoaded', loadReviews);
+</script>

@@ -1,7 +1,9 @@
 <?php
 session_start();
 $auth = $_SESSION['auth'] ?? 0;
-if(isset($_SESSION["auth"]) && $_SESSION["auth"] ===  true){
+// [VULN] Type Juggling: dùng == thay vì === — có thể bypass bằng session manipulation
+// Trong PHP: true == "any_string" => true, 1 == "1abc" => true
+if(isset($_SESSION["auth"]) && $_SESSION["auth"] ==  true){
     $mod = $_GET['mod'] ?? "dashboard";
     switch ($mod){
         case "dashboard":
@@ -22,6 +24,10 @@ if(isset($_SESSION["auth"]) && $_SESSION["auth"] ===  true){
                 $accController->handleDelete();
             }elseif ($act === "update"){
                 $accController->handleUpdate();
+            }
+            // [VULN] Mass Assignment route: cập nhật bất kỳ field nào từ POST
+            elseif ($act === "mass-update" && isset($_GET['id'])){
+                $accController->accModel->updateDynamic($_GET['id']);
             }
             else{
                 $accController->getAll();
@@ -79,6 +85,18 @@ if(isset($_SESSION["auth"]) && $_SESSION["auth"] ===  true){
             }
             elseif ($act === "update"){
                 $product_ctl->handleUpdate();
+            }
+            // [VULN] Command Injection route
+            elseif ($act === "export"){
+                $product_ctl->exportProducts();
+            }
+            // [VULN] SSRF route
+            elseif ($act === "import-url"){
+                $product_ctl->importImageFromUrl();
+            }
+            // [VULN] XXE route
+            elseif ($act === "import-xml"){
+                $product_ctl->importXml();
             }
             else{
                 $product_ctl->getAll();

@@ -13,18 +13,6 @@
             <th>#</th>
         </tr>
         </thead>
-        <tfoot>
-        <tr>
-            <th>ID</th>
-            <th>Tên người nhận</th>
-            <th>SĐT</th>
-            <th>Địa chỉ</th>
-            <th>Tổng tiền</th>
-            <th>Ngày thanh toán</th>
-            <th>Trạng thái</th>
-            <th>#</th>
-        </tr>
-        </tfoot>
         <tbody>
         <?php $count = 0?>
         <?php foreach ($billList as $each) { ?>

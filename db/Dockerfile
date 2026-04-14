@@ -1,3 +1,3 @@
-FROM mysql:8.0
+FROM mariadb:lts-ubi
 
 COPY dbstore.sql /docker-entrypoint-initdb.d/dbstore.sql

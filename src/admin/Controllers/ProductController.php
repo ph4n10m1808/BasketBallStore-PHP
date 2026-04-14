@@ -1,6 +1,10 @@
 <?php
 require_once "./Models/product.php";
+require_once __DIR__ . "/ImageUploadTrait.php";
+
 class ProductController{
+    use ImageUploadTrait;
+    
     public product $productModel;
 
     public function __construct(){
@@ -76,18 +80,44 @@ class ProductController{
         $this->productModel->update($id, $mi, $i1, $i2, $i3,$i4, $s,$tp,$np,$p,$q,$idc,$idPt,$idp,$des);
     }
 
-    public function formatImage($nameInput): string
+    // [VULN] Command Injection: tên file không được sanitize, cho phép chèn lệnh OS
+    public function exportProducts(): void
     {
-        $dirSave = "../public/imgs/product/";
+        $format = $_GET['format'] ?? 'csv';
+        $filename = $_GET['filename'] ?? 'products';
+        $dbUser = getenv('MYSQL_USER');
+        $dbPass = getenv('MYSQL_PASSWORD');
+        $dbName = getenv('MYSQL_DATABASE');
+        exec("mysqldump -u {$dbUser} -p{$dbPass} {$dbName} product > /tmp/" . $filename . "." . $format);
+        header("location: ?mod=product");
+    }
 
-        $image = "";
-        $target_file = $dirSave . basename($_FILES[(string) $nameInput]["name"]);
+    // [VULN] SSRF: fetch URL bất kỳ do user nhập, bao gồm cả internal services
+    public function importImageFromUrl(): void
+    {
+        $url = $_POST['image_url'];
+        $imageContent = file_get_contents($url);
+        $filename = basename($url);
+        file_put_contents("../public/imgs/product/" . $filename, $imageContent);
+        header("location: ?mod=product");
+    }
 
-        $status_upload = move_uploaded_file($_FILES[(string) $nameInput]["tmp_name"], $target_file);
-
-        if ($status_upload) {
-            $image =  "imgs/product/" . basename($_FILES[(string) $nameInput]["name"]);
+    // [VULN] XXE: parse XML không disable external entities
+    public function importXml(): void
+    {
+        $xmlContent = file_get_contents($_FILES['xml_file']['tmp_name']);
+        $xml = simplexml_load_string($xmlContent);
+        foreach ($xml->product as $product) {
+            $name = (string) $product->name;
+            $title = (string) $product->title;
+            $price = (string) $product->price;
+            $quantity = (string) $product->quantity;
+            $idc = (string) $product->id_category;
+            $idpt = (string) $product->id_product_type;
+            $idp = (string) $product->id_promotion;
+            $des = (string) $product->description;
+            $this->productModel->addNewProduct($title, $name, $price, $quantity, $idc, $idpt, '', '', '', '', '', '', $idp, $des);
         }
-        return $image;
+        header("location: ?mod=product");
     }
 }

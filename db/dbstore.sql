@@ -282,7 +282,7 @@ CREATE TABLE `typical_products` (
 
 LOCK TABLES `typical_products` WRITE;
 /*!40000 ALTER TABLE `typical_products` DISABLE KEYS */;
-INSERT INTO `typical_products` VALUES (1,'imgs/Banner/ball.jpg','','Basketball ball','Với chất liệu da PU siêu bền, chất da bám tay, chống mòn hiệu quả hơn, phù hợp sử dụng Outdoor cực tốt mang lại cảm giác cầm bóng, dẫn bóng, ném bóng tốt hơn.'),(2,'imgs/Banner/socks.jpg','','NBA socks','Chất dày, co giãn tốt giúp gót, bàn chân ít bị ma sát vào bên trong giày dễ gây ra phồng, rộp da chân, ửng đỏ, dát mà còn là phụ kiện tăng thẩm cùng đôi giày của bạn.'),(3,'imgs/Banner/uniform.jpg','','Jersey VBA','Quần Áo bóng rổ NBA Jersey các siêu sao với chất liệu vải cao cấp, logo đội bóng, tên cầu thủ, số áo được thêu rất chắc chắn, độ bền rất cao, không bị bong, tróc.');
+INSERT INTO `typical_products` VALUES (1,'imgs/Banner/ball.jpg','11','Basketball ball','Với chất liệu da PU siêu bền, chất da bám tay, chống mòn hiệu quả hơn, phù hợp sử dụng Outdoor cực tốt mang lại cảm giác cầm bóng, dẫn bóng, ném bóng tốt hơn.'),(2,'imgs/Banner/socks.jpg','10','NBA socks','Chất dày, co giãn tốt giúp gót, bàn chân ít bị ma sát vào bên trong giày dễ gây ra phồng, rộp da chân, ửng đỏ, dát mà còn là phụ kiện tăng thẩm cùng đôi giày của bạn.'),(3,'imgs/Banner/uniform.jpg','6','Jersey VBA','Quần Áo bóng rổ NBA Jersey các siêu sao với chất liệu vải cao cấp, logo đội bóng, tên cầu thủ, số áo được thêu rất chắc chắn, độ bền rất cao, không bị bong, tróc.');
 /*!40000 ALTER TABLE `typical_products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -333,3 +333,25 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2022-11-21 10:12:48
+
+--
+-- Table structure for table `product_reviews` (for review/comment feature)
+--
+
+DROP TABLE IF EXISTS `product_reviews`;
+CREATE TABLE `product_reviews` (
+  `id_review` int(11) NOT NULL AUTO_INCREMENT,
+  `id_product` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL DEFAULT 0,
+  `username` varchar(255) NOT NULL DEFAULT 'anonymous',
+  `comment` text NOT NULL,
+  `timestamp` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id_review`),
+  KEY `review_product` (`id_product`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Add reset_token column to user table (for password reset feature)
+--
+
+ALTER TABLE `user` ADD COLUMN IF NOT EXISTS `reset_token` varchar(255) DEFAULT NULL;

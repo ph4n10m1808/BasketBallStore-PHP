@@ -10,7 +10,7 @@ class EachProductType extends model{
        (SELECT type_promotion FROM promotion WHERE id_promotion = product.id_promotion) AS name_sale,
        (SELECT name_pt FROM product_type WHERE id_product_type = product.id_product_type) AS p_type_name
        FROM product WHERE id_product_type = $idPT ORDER BY status DESC , n_stars DESC";
-        return $this->extracted($query);
+        return $this->queryWithPromotion($query);
     }
 
     public function getCategory($id): array
@@ -20,7 +20,7 @@ class EachProductType extends model{
        (SELECT type_promotion FROM promotion WHERE id_promotion = product.id_promotion) AS name_sale,
        (SELECT name_pt FROM product_type WHERE id_product_type = product.id_product_type) AS p_type_name
        FROM product WHERE id_category = $id ORDER BY status DESC , n_stars DESC";
-        return $this->extracted($query);
+        return $this->queryWithPromotion($query);
     }
 
     public function getNameCategory($id): bool|array|null
@@ -47,23 +47,7 @@ class EachProductType extends model{
        (SELECT type_promotion from promotion WHERE id_promotion = product.id_promotion) as name_sale,
        (SELECT name_pt from product_type WHERE id_product_type = product.id_product_type) as p_type_name
        FROM product WHERE name_product LIKE '%$keyword%' OR title_product LIKE '%$keyword%' ORDER BY status DESC , n_stars DESC LIMIT 0, 15";
-        return $this->extracted($query);
+        return $this->queryWithPromotion($query);
     }
 
-    public function extracted(string $query): array
-    {
-        $data = $this->conn->query($query);
-        $rs = array();
-        while ($row = $data->fetch_assoc()) {
-            $rs[] = $row;
-        }
-        for ($i = 0, $iMax = count($rs); $i < $iMax; $i++) {
-            if ($rs[$i]["type_p"] === "0") {
-                $rs[$i]["d_price"] = $rs[$i]["price"] - $rs[$i]['d_price'];
-            } elseif ($rs[$i]["type_p"] === "1") {
-                $rs[$i]["d_price"] = $rs[$i]["price"] * (1 - $rs[$i]['d_price'] / 100);
-            }
-        }
-        return $rs;
-    }
 }

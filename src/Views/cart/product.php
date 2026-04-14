@@ -36,7 +36,7 @@
                         <?php }else{ ?>
                             <div class="float-end">
                                 <p class="text-danger">Bạn cần cập nhập địa chỉ để tiến hành thanh toán</p>
-                                <a href="?page=account" class="float-end">Cập nhập ở đây</a>
+                                <a href="?page=profile" class="float-end">Cập nhập ở đây</a>
                             </div>
                         <?php } ?>
                     <?php }else{ ?>
