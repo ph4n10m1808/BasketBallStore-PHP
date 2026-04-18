@@ -18,6 +18,12 @@
             <label for="">Email: <?= $detailStuff['email'] ?></label>
         </div>
         <div class="form-group">
-            <label for="">Role: <?php if($detailStuff['id_auth']==="1"){echo "Admin";}elseif ($detailStuff['id_auth']==="2"){echo "Employee";}else{echo "User";} ?></label>
+            <label for="">Role: <?php if ($detailStuff['id_auth'] === "1") {
+                echo "Admin";
+            } elseif ($detailStuff['id_auth'] === "2") {
+                echo "Employee";
+            } else {
+                echo "User";
+            } ?></label>
         </div>
 </table>

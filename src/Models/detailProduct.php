@@ -2,7 +2,8 @@
 
 require_once "model.php";
 
-class DetailProduct extends model{
+class DetailProduct extends model
+{
     public function getData($id): bool|array|null
     {
         $query = "SELECT * FROM product WHERE id_product = '$id'";
@@ -19,9 +20,9 @@ class DetailProduct extends model{
         return $this->queryWithPromotion($query);
     }
 
-    public function getPT($idPT): bool|array|null
+    public function getProductType($idProductType): bool|array|null
     {
-        $query = "SELECT name_pt FROM product_type WHERE id_product_type = $idPT";
+        $query = "SELECT name_pt FROM product_type WHERE id_product_type = $idProductType";
         return $this->conn->query($query)->fetch_assoc();
     }
 

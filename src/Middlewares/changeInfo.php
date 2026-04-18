@@ -3,7 +3,9 @@
 require_once __DIR__ . "/../Controllers/ProfileController.php";
 
 $profileObj = new ProfileController();
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $fn = $_POST['firstname'] ?? $_SESSION['user']['firstname'];
 $ln = $_POST['lastname'] ?? $_SESSION['user']['lastname'];
 $g = $_POST['gender'] ?? $_SESSION['user']['gender'];

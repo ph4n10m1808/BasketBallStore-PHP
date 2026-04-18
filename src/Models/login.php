@@ -1,13 +1,13 @@
 <?php
+
 require_once("model.php");
 
 class Login extends model
 {
-
-    public function handleRegister($fn, $ln, $g, $us, $pw, $e, $p): void
+    public function handleRegister($firstName, $lastName, $gender, $username, $password, $email, $phone): void
     {
         $sql = "INSERT INTO user(last_name, first_name, phone, gender, email, address, username, password) 
-                values ('{$ln}', '{$fn}', '{$p}', $g, '{$e}', '', '{$us}', '{$pw}')";
+                values ('{$lastName}', '{$firstName}', '{$phone}', $gender, '{$email}', '', '{$username}', '{$password}')";
         $this->conn->query($sql);
     }
 
@@ -15,7 +15,9 @@ class Login extends model
     {
         $sql = "SELECT * FROM user where username = '{$username}' AND password = '{$password}'";
         $rs = $this->conn->query($sql)->fetch_assoc();
-        if (session_status() === PHP_SESSION_NONE) { session_start(); }
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         if ($rs) {
             $_SESSION['login'] = true;
             $_SESSION['user'] = $rs;

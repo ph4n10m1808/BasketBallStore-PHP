@@ -27,7 +27,7 @@
             <label for="">Giới tính</label>
             <select id="" name="gender" class="form-control">
                 <option value="1" >Nam</option>
-                <option value="0" <?= $detailStuff['gender'] === "0" ? "selected":""?>>Nữ</option>
+                <option value="0" <?= $detailStuff['gender'] === "0" ? "selected" : ""?>>Nữ</option>
             </select>
         </div>
         <div class="form-group">
@@ -54,8 +54,8 @@
             <label for="">Phân quyền</label>
             <select id="" name="id_auth" class="form-control">
                 <option value="3">User</option>
-                <option value="2" <?= $detailStuff['id_auth'] === "2" ? "selected":""?>>Employee</option>
-                <option value="1" <?= $detailStuff['id_auth'] === "1" ? "selected":""?>>Admin</option>
+                <option value="2" <?= $detailStuff['id_auth'] === "2" ? "selected" : ""?>>Employee</option>
+                <option value="1" <?= $detailStuff['id_auth'] === "1" ? "selected" : ""?>>Admin</option>
             </select>
         </div>
 

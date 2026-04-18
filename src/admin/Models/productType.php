@@ -2,16 +2,17 @@
 
 require_once "model.php";
 
-class productType extends modelAdmin{
+class productType extends modelAdmin
+{
     public function getAll(): mysqli_result|bool
     {
         $query = "SELECT * FROM product_type";
         return $this->conn->query($query);
     }
 
-    public function add($npt, $img, $des, $idc): void
+    public function add($nameProductType, $logo, $description, $idCategory): void
     {
-        $query = "INSERT INTO product_type(name_pt, logo_pt, description, id_category) VALUES ('$npt', '$img', '$des', $idc)";
+        $query = "INSERT INTO product_type(name_pt, logo_pt, description, id_category) VALUES ('$nameProductType', '$logo', '$description', $idCategory)";
         $this->conn->query($query);
         header("location: ?mod=productType");
     }
@@ -23,7 +24,8 @@ class productType extends modelAdmin{
         header("location: ?mod=productType");
     }
 
-    public function view($id){
+    public function view($id)
+    {
         $query = "SELECT * FROM product_type WHERE id_product_type = '$id'";
         return $this->conn->query($query)->fetch_assoc();
     }
@@ -34,10 +36,10 @@ class productType extends modelAdmin{
         return $this->conn->query($query);
     }
 
-    public function update($id, $namePT, $logo, $des, $idC): void
+    public function update($id, $nameProductType, $logo, $description, $idCategory): void
     {
         $query = "UPDATE product_type 
-                    SET name_pt = '$namePT', logo_pt = '$logo', description = '$des', id_category = '$idC'
+                    SET name_pt = '$nameProductType', logo_pt = '$logo', description = '$description', id_category = '$idCategory'
                     WHERE id_product_type = '$id'";
         $this->conn->query($query);
         header("location: ?mod=productType");

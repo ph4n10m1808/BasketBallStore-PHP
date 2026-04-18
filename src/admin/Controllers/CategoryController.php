@@ -1,16 +1,19 @@
 <?php
+
 require_once "./Models/category.php";
-class CategoryController{
+class CategoryController
+{
     public category $categoryModel;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->categoryModel = new category();
     }
 
     public function handleGetAll(): void
     {
         $categoryList = $this->categoryModel->getAll();
-        if(isset($_GET['id']) && $_GET['act'] === "edit"){
+        if (isset($_GET['id']) && $_GET['act'] === "edit") {
             $id = $_GET['id'];
             $detailStuff = $this->categoryModel->view($id)->fetch_assoc();
         }
@@ -19,11 +22,11 @@ class CategoryController{
 
     public function handleAdd(): void
     {
-        $nc = $_POST['name_category'];
-        $this->categoryModel->add($nc);
+        $nameCategory = $_POST['name_category'] ?? '';
+        $this->categoryModel->add($nameCategory);
     }
 
-    public function viewDetail():void
+    public function viewDetail(): void
     {
         $id = $_GET['id'];
         $detailStuff = $this->categoryModel->view($id)->fetch_assoc();
@@ -39,7 +42,7 @@ class CategoryController{
     public function handleUpdate(): void
     {
         $id = $_GET['id'];
-        $nameC = $_POST['name_category'];
-        $this->categoryModel->update($id, $nameC);
+        $nameCategory = $_POST['name_category'] ?? '';
+        $this->categoryModel->update($id, $nameCategory);
     }
 }

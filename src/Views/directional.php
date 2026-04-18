@@ -1,4 +1,5 @@
 <?php
+
 $route = $_GET["page"] ?? "home";
 
 switch ($route) {
@@ -28,25 +29,24 @@ switch ($route) {
         require_once "detail/detail.php";
         break;
     case "product":
-        if(isset($data) && $data) {
+        if (isset($data) && $data) {
             require_once "productType/productType.php";
-        }
-        else{
+        } else {
             require_once "error/error.php";
         }
         break;
     case "profile":
-        if(isset($_SESSION['user']) && $_SESSION['user']){
+        if (isset($_SESSION['user']) && $_SESSION['user']) {
             require_once "profile/profile.php";
         }
         break;
     case "search":
-        if(isset($dataSearch)){
+        if (isset($dataSearch)) {
             require_once "search/search.php";
         }
         break;
     case "bill":
-        if(isset($_SESSION['user']) && $_SESSION['user']){
+        if (isset($_SESSION['user']) && $_SESSION['user']) {
             require_once "bill/bill.php";
         }
         break;

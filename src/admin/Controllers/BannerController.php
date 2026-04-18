@@ -1,19 +1,22 @@
 <?php
+
 require_once "./Models/banner.php";
 require_once __DIR__ . "/ImageUploadTrait.php";
 
-class BannerController{
+class BannerController
+{
     use ImageUploadTrait;
     public banner $bannerModel;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->bannerModel = new banner();
     }
 
     public function getAll(): void
     {
         $bannerList = $this->bannerModel->getAll();
-        if(isset($_GET['id']) && $_GET['act'] === "edit"){
+        if (isset($_GET['id']) && $_GET['act'] === "edit") {
             $id = $_GET['id'];
             $detailStuff = $this->bannerModel->view($id)->fetch_assoc();
         }
@@ -34,7 +37,7 @@ class BannerController{
         $this->bannerModel->add($banner, $status);
     }
 
-    public function viewDetail():void
+    public function viewDetail(): void
     {
         $id = $_GET['id'];
         $detailStuff = $this->bannerModel->view($id)->fetch_assoc();
@@ -44,16 +47,29 @@ class BannerController{
     public function handleDelete(): void
     {
         $id = $_GET['id'];
+
+        // Fetch banner details to get the image URL
+        $banner = $this->bannerModel->view($id)->fetch_assoc();
+        if ($banner && !empty($banner['url_banner'])) {
+            $this->deleteImage($banner['url_banner']);
+        }
+
         $this->bannerModel->delete($id);
     }
 
     public function handleUpdate(): void
     {
         $id = $_GET['id'];
-        $bannerImage = $this->formatImage("url_banner", "Banner");
+
+        // Fetch current banner to get old image
+        $oldBanner = $this->bannerModel->view($id)->fetch_assoc();
+        $oldImage = $oldBanner ? $oldBanner['url_banner'] : null;
+
+        // Use updateImage helper (pass subDir as "Banner" because formatImage expects it)
+        $bannerImage = $this->updateImage("url_banner", $oldImage, "Banner");
 
         if (empty($bannerImage)) {
-            setcookie('msg', 'Upload ảnh thất bại. Vui lòng chọn lại ảnh.', time() + 5, '/');
+            setcookie('msg', 'Upload ảnh thất bại hoặc không có ảnh nào. Vui lòng chọn lại ảnh.', time() + 5, '/');
             header("location: ?mod=banner&act=edit&id=" . $id);
             return;
         }

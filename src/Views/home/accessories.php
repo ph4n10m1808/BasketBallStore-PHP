@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between flex-wrap">
         <a href="?page=product&type=3" class="gray-darker fw-bold fs-4">PHỤ KIỆN</a>
         <ul class="d-flex" style="flex-wrap: nowrap">
-            <?php foreach ($listProductTypeAccessories as $each){ ?>
+            <?php foreach ($listProductTypeAccessories as $each) { ?>
                 <li class="me-3"><a href="?page=product&id=<?= $each["id_product_type"] ?>"><?= $each['name_pt'] ?></a></li>
             <?php } ?>
         </ul>

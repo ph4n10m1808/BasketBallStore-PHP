@@ -11,11 +11,24 @@ class Connect
         $password = getenv('MYSQL_PASSWORD');
         $db_name = getenv('MYSQL_DATABASE');
 
-        $this->conn = new mysqli($servername, $username, $password, $db_name);
-        $this->conn->set_charset('utf8');
+        $max_retries = 10;
+        $retry_count = 0;
 
-        if ($this->conn->connect_error) {
-            die("Connection failed: " . $this->conn->connect_error);
+        while ($retry_count < $max_retries) {
+            try {
+                $this->conn = new mysqli($servername, $username, $password, $db_name);
+                if (!$this->conn->connect_error) {
+                    $this->conn->set_charset('utf8');
+                    return;
+                }
+            } catch (mysqli_sql_exception $e) {
+                if ($retry_count === $max_retries - 1) {
+                    die("Connection failed after $max_retries retries: " . $e->getMessage());
+                }
+            }
+
+            $retry_count++;
+            sleep(2); // Wait for 2 seconds before retrying
         }
     }
 }

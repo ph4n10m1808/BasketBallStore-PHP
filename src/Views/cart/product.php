@@ -15,7 +15,7 @@
                 <div class="ms-3 w-100">
                     <div class="d-flex align-items-center justify-content-between">
                         <p class="fw-bold m-0">Tổng giá sản phẩm: </p>
-                        <p class="fw-bold m-0 float-end" id="total-cost-product"><?= number_format($_SESSION['totalCart']-30000) ?> đ</p>
+                        <p class="fw-bold m-0 float-end" id="total-cost-product"><?= number_format($_SESSION['totalCart'] - 30000) ?> đ</p>
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <p class="fw-bold ">Phí vận chuyển: </p>
@@ -26,20 +26,20 @@
                         <p class="fw-bold">Tổng tiền: </p>
                         <p class="fw-bold text-danger float-end" id="total-cost"><?= number_format($_SESSION['totalCart']) ?> đ</p>
                     </div>
-                    <?php if(isset($_SESSION['user'])){ ?>
-                        <?php if($_SESSION['user']['address']){ ?>
+                    <?php if (isset($_SESSION['user'])) { ?>
+                        <?php if ($_SESSION['user']['address']) { ?>
                             <div class="d-flex align-items-center justify-content-between">
                                 <p class="fw-bold">Address:</p>
                                 <p class="fw-bold float-end"><?= $_SESSION['user']['address'] ?></p>
                             </div>
                             <a href="?page=cart&act=pay" class="btn btn-primary float-end" onclick="alert('Thanh toán thành công')">Thanh toán</a>
-                        <?php }else{ ?>
+                        <?php } else { ?>
                             <div class="float-end">
                                 <p class="text-danger">Bạn cần cập nhập địa chỉ để tiến hành thanh toán</p>
                                 <a href="?page=profile" class="float-end">Cập nhập ở đây</a>
                             </div>
                         <?php } ?>
-                    <?php }else{ ?>
+                    <?php } else { ?>
                         <div class="float-end d-flex align-content-center justify-content-center">
                             <p class="text-danger fw-bold m-0 m-2">Bạn cần đăng nhập để tiến hành thanh toán</p>
                             <a href="?page=login&act=pay" class="btn btn-primary ">Đăng nhập</a>
@@ -63,7 +63,7 @@
                         <a href="?page=detail&id=<?= $each['id_product'] ?>">
                             <p class="fw-bold mb-1"><?= $each['title_product'] ?></p>
                         </a>
-                        <?php if($each['size']){ ?>
+                        <?php if ($each['size']) { ?>
                             <p class="text-muted mb-0"><strong>Size: </strong><?= $each["size"] ?></p>
                         <?php } ?>
                         <div class="text-muted mb-0">

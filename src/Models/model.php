@@ -1,9 +1,12 @@
 <?php
-require_once ("connection.php");
 
-class model{
+require_once("connection.php");
+
+class model
+{
     public mysqli $conn;
-    public function __construct(){
+    public function __construct()
+    {
         $conn_obj = new Connection();
         $this->conn = $conn_obj->conn;
     }

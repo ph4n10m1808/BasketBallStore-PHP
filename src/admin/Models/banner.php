@@ -1,7 +1,9 @@
 <?php
+
 require_once "model.php";
 
-class banner extends modelAdmin{
+class banner extends modelAdmin
+{
     public function getAll(): mysqli_result|bool
     {
         $query = "SELECT * FROM banner";

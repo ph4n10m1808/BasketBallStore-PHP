@@ -1,4 +1,5 @@
 <?php
+
 $mod = $_GET["mod"] ?? "dashboard";
 
 switch ($mod) {
@@ -6,7 +7,7 @@ switch ($mod) {
         require_once("dashboard/dashboard.php");
         break;
     case "account":
-        require_once ("account/account.php");
+        require_once("account/account.php");
         break;
     case "banner":
         require_once "banner/banner.php";

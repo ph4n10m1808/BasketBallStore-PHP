@@ -5,22 +5,23 @@ require_once "login.php";
 
 class Profile extends model
 {
-    public function handleChange($idUser, $fn, $ln, $g, $e, $p, $address): void
+    public function handleChange($idUser, $firstName, $lastName, $gender, $email, $phone, $address): void
     {
         $username = $_SESSION['user']['username'];
 
-        $sql = "UPDATE user SET last_name = '$ln', first_name = '$fn', phone = '$p', gender = '$g', email = '$e', address = '$address' WHERE id_user = '$idUser'";
+        $sql = "UPDATE user SET last_name = '$lastName', first_name = '$firstName', phone = '$phone', gender = '$gender', email = '$email', address = '$address' WHERE id_user = '$idUser'";
         $this->conn->query($sql);
-        $_SESSION['user']['last_name'] = $ln;
-        $_SESSION['user']['first_name'] = $fn;
-        $_SESSION['user']['phone'] = $p;
-        $_SESSION['user']['gender'] = $g;
-        $_SESSION['user']['email'] = $e;
+        $_SESSION['user']['last_name'] = $lastName;
+        $_SESSION['user']['first_name'] = $firstName;
+        $_SESSION['user']['phone'] = $phone;
+        $_SESSION['user']['gender'] = $gender;
+        $_SESSION['user']['email'] = $email;
         $_SESSION['user']['address'] = $address;
     }
 
-    public function changePassword($idUser, $newPw){
-        $query = "UPDATE user SET password = '$newPw' WHERE id_user = '$idUser'";
+    public function changePassword($idUser, $newPassword)
+    {
+        $query = "UPDATE user SET password = '$newPassword' WHERE id_user = '$idUser'";
         $this->conn->query($query);
     }
 

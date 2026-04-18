@@ -40,7 +40,7 @@
                     <a href="?mod=bill&act=detail&id=<?= $each['id_bill'] ?>" type="button" class="btn btn-primary">View</a>
                     <a href="?mod=bill&act=edit&id=<?= $each['id_bill'] ?>" type="button" class="btn btn-warning">Edit</a>
                     <a href="?mod=bill&act=delete&id=<?= $each['id_bill'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Delete</a>
-                    <?php if($each['status']==="0"){ ?>
+                    <?php if ($each['status'] === "0") { ?>
                         <a href='?mod=bill&act=confirm&id=<?= $each['id_bill'] ?>' type='button' class='btn btn-success'>Done</a>
                     <?php } ?>
                 </td>

@@ -5,9 +5,9 @@ $cartObj = new CartController();
 
 $id = $_POST['id'];
 
-if($id){
+if ($id) {
     $cartObj->deleteItemSession($id);
     echo true;
-}else{
+} else {
     echo false;
 }

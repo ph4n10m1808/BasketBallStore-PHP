@@ -2,7 +2,8 @@
 
 require_once "model.php";
 
-class EachProductType extends model{
+class EachProductType extends model
+{
     public function getProductType($idPT): array
     {
         $query = "SELECT *, (SELECT value FROM promotion WHERE id_promotion = product.id_promotion) AS d_price,
@@ -29,9 +30,9 @@ class EachProductType extends model{
         return $this->conn->query($query)->fetch_assoc();
     }
 
-    public function getNamePT($id): bool|array|null
+    public function getNameProductType($idProductType): bool|array|null
     {
-        $query = "SELECT name_pt, id_product_type FROM product_type WHERE id_product_type = $id";
+        $query = "SELECT name_pt, id_product_type FROM product_type WHERE id_product_type = $idProductType";
         return $this->conn->query($query)->fetch_assoc();
     }
 
@@ -41,7 +42,8 @@ class EachProductType extends model{
         return $this->conn->query($query)->fetch_assoc();
     }
 
-    public function searchProduct($keyword){
+    public function searchProduct($keyword)
+    {
         $query = "SELECT id_product,main_image,title_product,price, (SELECT value from promotion where id_promotion = product.id_promotion) as d_price,
        (SELECT type_sale from promotion WHERE id_promotion = product.id_promotion) as type_p,
        (SELECT type_promotion from promotion WHERE id_promotion = product.id_promotion) as name_sale,

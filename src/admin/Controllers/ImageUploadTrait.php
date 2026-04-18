@@ -11,7 +11,7 @@ trait ImageUploadTrait
 
         // Ensure upload directory exists and is writable
         if (!is_dir($dirSave)) {
-            @mkdir($dirSave, 0777, true);
+            @mkdir($dirSave, 0770, true);
         }
 
         $image = "";
@@ -30,5 +30,42 @@ trait ImageUploadTrait
             $image = "imgs/{$subDir}/" . basename($_FILES[$nameInput]["name"]);
         }
         return $image;
+    }
+
+    /**
+     * Delete an image from the public directory
+     *
+     * @param string|null $imagePath Relative path from the public directory (e.g., 'imgs/product/file.jpg')
+     */
+    public function deleteImage(?string $imagePath): void
+    {
+        if (!empty($imagePath)) {
+            $filePath = __DIR__ . "/../../public/" . $imagePath;
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+        }
+    }
+
+    /**
+     * Handle updating an image: uploads new image if provided, deletes old image, and returns the path to save in DB.
+     *
+     * @param string $inputName The name of the file input
+     * @param string|null $oldImage The existing image path from the database
+     * @param string $subDir The subdirectory to save the image in
+     * @return string The image path to save in the database
+     */
+    public function updateImage(string $inputName, ?string $oldImage, string $subDir = "product"): string
+    {
+        $newImage = $this->formatImage($inputName, $subDir);
+
+        if (!empty($newImage)) {
+            // If a new image was successfully uploaded, delete the old one
+            $this->deleteImage($oldImage);
+            return $newImage;
+        }
+
+        // Otherwise, keep the old image
+        return $oldImage ?? "";
     }
 }

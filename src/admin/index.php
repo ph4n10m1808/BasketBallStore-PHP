@@ -1,11 +1,12 @@
 <?php
+
 session_start();
 $auth = $_SESSION['auth'] ?? 0;
 // [VULN] Type Juggling: dùng == thay vì === — có thể bypass bằng session manipulation
 // Trong PHP: true == "any_string" => true, 1 == "1abc" => true
-if(isset($_SESSION["auth"]) && $_SESSION["auth"] ==  true){
+if (isset($_SESSION["auth"]) && $_SESSION["auth"] ==  true) {
     $mod = $_GET['mod'] ?? "dashboard";
-    switch ($mod){
+    switch ($mod) {
         case "dashboard":
             require_once "Controllers/DashboardController.php";
             $dashboardM = new DashboardController();
@@ -15,21 +16,19 @@ if(isset($_SESSION["auth"]) && $_SESSION["auth"] ==  true){
             require_once "Controllers/AccountController.php";
             $accController = new AccountController();
             $act = $_GET['act'] ?? "";
-            if($act === "store"){
+            if ($act === "store") {
                 $accController->handleAdd();
-            }elseif ($act === "detail"){
+            } elseif ($act === "detail") {
                 $accController->viewDetail();
-            }
-            elseif ($act==="delete"){
+            } elseif ($act === "delete") {
                 $accController->handleDelete();
-            }elseif ($act === "update"){
+            } elseif ($act === "update") {
                 $accController->handleUpdate();
             }
             // [VULN] Mass Assignment route: cập nhật bất kỳ field nào từ POST
-            elseif ($act === "mass-update" && isset($_GET['id'])){
+            elseif ($act === "mass-update" && isset($_GET['id'])) {
                 $accController->accModel->updateDynamic($_GET['id']);
-            }
-            else{
+            } else {
                 $accController->getAll();
             }
             break;
@@ -37,17 +36,15 @@ if(isset($_SESSION["auth"]) && $_SESSION["auth"] ==  true){
             require_once "Controllers/BannerController.php";
             $bannerObj = new BannerController();
             $act = $_GET['act'] ?? "";
-            if($act === "store"){
+            if ($act === "store") {
                 $bannerObj->handleAdd();
-            }elseif ($act==="detail"){
+            } elseif ($act === "detail") {
                 $bannerObj->viewDetail();
-            }
-            elseif ($act === "delete"){
+            } elseif ($act === "delete") {
                 $bannerObj->handleDelete();
-            }elseif ($act === "update"){
+            } elseif ($act === "update") {
                 $bannerObj->handleUpdate();
-            }
-            else{
+            } else {
                 $bannerObj->getAll();
             }
             break;
@@ -55,19 +52,17 @@ if(isset($_SESSION["auth"]) && $_SESSION["auth"] ==  true){
             require_once "Controllers/BillController.php";
             $billObj = new BillController();
             $act = $_GET['act'] ?? "";
-            if($act === "store"){
+            if ($act === "store") {
                 $billObj->handleAdd();
-            }elseif ($act === "detail"){
+            } elseif ($act === "detail") {
                 $billObj->viewDetail();
-            }elseif ($act === "delete"){
+            } elseif ($act === "delete") {
                 $billObj->handleDelete();
-            }elseif ($act === "update"){
+            } elseif ($act === "update") {
                 $billObj->handleUpdate();
-            }
-            elseif ($act === "confirm"){
+            } elseif ($act === "confirm") {
                 $billObj->handleConfirm();
-            }
-            else{
+            } else {
                 $billObj->getAll();
             }
             break;
@@ -75,30 +70,27 @@ if(isset($_SESSION["auth"]) && $_SESSION["auth"] ==  true){
             require_once "Controllers/ProductController.php";
             $product_ctl = new ProductController();
             $act = $_GET['act'] ?? "";
-            if($act==="store"){
+            if ($act === "store") {
                 $product_ctl->handleAdd();
-            }elseif ($act==="detail"){
+            } elseif ($act === "detail") {
                 $product_ctl->handleViewDetail();
-            }
-            elseif ($act === "delete"){
+            } elseif ($act === "delete") {
                 $product_ctl->handleDelete();
-            }
-            elseif ($act === "update"){
+            } elseif ($act === "update") {
                 $product_ctl->handleUpdate();
             }
             // [VULN] Command Injection route
-            elseif ($act === "export"){
+            elseif ($act === "export") {
                 $product_ctl->exportProducts();
             }
             // [VULN] SSRF route
-            elseif ($act === "import-url"){
+            elseif ($act === "import-url") {
                 $product_ctl->importImageFromUrl();
             }
             // [VULN] XXE route
-            elseif ($act === "import-xml"){
+            elseif ($act === "import-xml") {
                 $product_ctl->importXml();
-            }
-            else{
+            } else {
                 $product_ctl->getAll();
             }
             break;
@@ -106,17 +98,15 @@ if(isset($_SESSION["auth"]) && $_SESSION["auth"] ==  true){
             require_once "Controllers/ProductTypeController.php";
             $productTypeObj = new ProductTypeController();
             $act = $_GET['act'] ?? "";
-            if($act === "store"){
+            if ($act === "store") {
                 $productTypeObj->handleAdd();
-            }elseif ($act==="detail"){
+            } elseif ($act === "detail") {
                 $productTypeObj->viewDetail();
-            }
-            elseif ($act === "delete"){
+            } elseif ($act === "delete") {
                 $productTypeObj->handleDelete();
-            }elseif ($act === "update"){
+            } elseif ($act === "update") {
                 $productTypeObj->handleUpdate();
-            }
-            else{
+            } else {
                 $productTypeObj->handleGetAll();
             }
             break;
@@ -124,18 +114,15 @@ if(isset($_SESSION["auth"]) && $_SESSION["auth"] ==  true){
             require_once "Controllers/CategoryController.php";
             $categoryObj = new CategoryController();
             $act = $_GET['act'] ?? "";
-            if($act==="store"){
+            if ($act === "store") {
                 $categoryObj->handleAdd();
-            }elseif ($act==="detail"){
+            } elseif ($act === "detail") {
                 $categoryObj->viewDetail();
-            }
-            elseif ($act==="delete"){
+            } elseif ($act === "delete") {
                 $categoryObj->handleDelete();
-            }
-            elseif ($act === "update"){
+            } elseif ($act === "update") {
                 $categoryObj->handleUpdate();
-            }
-            else{
+            } else {
                 $categoryObj->handleGetAll();
             }
             break;
@@ -143,17 +130,15 @@ if(isset($_SESSION["auth"]) && $_SESSION["auth"] ==  true){
             require_once "Controllers/PromotionController.php";
             $promotionObj = new PromotionController();
             $act = $_GET['act'] ?? "";
-            if($act==="store"){
+            if ($act === "store") {
                 $promotionObj->handleAdd();
-            }elseif ($act==="detail"){
+            } elseif ($act === "detail") {
                 $promotionObj->viewDetail();
-            }elseif ($act === "delete"){
+            } elseif ($act === "delete") {
                 $promotionObj->handleDelete();
-            }
-            elseif ($act === "update"){
+            } elseif ($act === "update") {
                 $promotionObj->handleUpdate();
-            }
-            else{
+            } else {
                 $promotionObj->handleGetAll();
 
             }
@@ -161,6 +146,6 @@ if(isset($_SESSION["auth"]) && $_SESSION["auth"] ==  true){
         default:
             require_once "view/index.php";
     }
-} else{
+} else {
     header("location: ../?page=home");
 }

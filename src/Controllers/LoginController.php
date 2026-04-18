@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . "/../Models/login.php";
 require_once __DIR__ . "/../Models/check.php";
 
@@ -23,20 +24,20 @@ class LoginController
         require_once("Views/index.php");
     }
 
-    public function handleRegister($fn, $ln, $g, $us, $pw, $tpw, $e, $p)
+    public function handleRegister($firstName, $lastName, $gender, $username, $password, $confirmPassword, $email, $phone)
     {
         $result = array();
-        $result["msgFn"] = $this->check_model->checkEmpty($fn);
-        $result["msgLn"] = $this->check_model->checkEmpty($ln);
-        $result["msgGender"] = $this->check_model->checkEmpty($g);
-        $result["msgUsername"] = $this->check_model->checkUsernameReg($us);
-        $result["msgEmail"] = $this->check_model->checkEmailReg($e);
-        $result["msgPhone"] = $this->check_model->checkPhoneReg($p);
-        $result["msgPassword"] = $this->check_model->checkPassword($pw, $tpw);
+        $result["msgFn"] = $this->check_model->checkEmpty($firstName);
+        $result["msgLn"] = $this->check_model->checkEmpty($lastName);
+        $result["msgGender"] = $this->check_model->checkEmpty($gender);
+        $result["msgUsername"] = $this->check_model->checkUsernameReg($username);
+        $result["msgEmail"] = $this->check_model->checkEmailReg($email);
+        $result["msgPhone"] = $this->check_model->checkPhoneReg($phone);
+        $result["msgPassword"] = $this->check_model->checkPassword($password, $confirmPassword);
 
         $checkRegex = implode('', $result);
         if (!$checkRegex) {
-            $this->login_model->handleRegister($fn, $ln, $g, $us, md5($pw), $e, $p);
+            $this->login_model->handleRegister($firstName, $lastName, $gender, $username, md5($password), $email, $phone);
 
         } else {
             return $result;

@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . "/../Models/home.php";
 class HomeController
 {
@@ -12,7 +13,7 @@ class HomeController
     {
         $data_banner = $this->home_model->getBanner();
         $data_typical_products = $this->home_model->getTypicalProducts(0, 3);
-        $data_newest_shoes = $this->home_model->getLatestProducts(0, 8,1);
+        $data_newest_shoes = $this->home_model->getLatestProducts(0, 8, 1);
         $data_newest_pants = $this->home_model->getLastProductType(0, 8, 5);
         $data_newest_accessories = $this->home_model->getOutstandingProduct(0, 8, 3);
         $data_newest_shirts = $this->home_model->getLastProductType(0, 8, 6);

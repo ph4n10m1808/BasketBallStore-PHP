@@ -1,13 +1,16 @@
 <?php
+
 require_once "./Models/product.php";
 require_once __DIR__ . "/ImageUploadTrait.php";
 
-class ProductController{
+class ProductController
+{
     use ImageUploadTrait;
-    
+
     public product $productModel;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->productModel = new product();
     }
 
@@ -17,7 +20,7 @@ class ProductController{
         $categoryList = $this->productModel->getCategory();
         $productTypeList = $this->productModel->getProductType();
         $promotionList = $this->productModel->getPromotion();
-        if(isset($_GET['id']) && $_GET['act'] === "edit"){
+        if (isset($_GET['id']) && $_GET['act'] === "edit") {
             $id = $_GET['id'];
             $detailStuff = $this->productModel->view($id);
         }
@@ -26,27 +29,26 @@ class ProductController{
 
     public function handleAdd(): void
     {
+        $mainImage = $this->formatImage("main_image");
+        $image1 = $this->formatImage("image1");
+        $image2 = $this->formatImage("image2");
+        $image3 = $this->formatImage("image3");
+        $image4 = $this->formatImage("image4");
+        $size = $_POST['size'] ?? "";
 
-        $mi = $this->formatImage("main_image");
-        $i1 = $this->formatImage("image1");
-        $i2 = $this->formatImage("image2");
-        $i3 = $this->formatImage("image3");
-        $i4 = $this->formatImage("image4");
-        $s = $_POST['size'];
+        $titleProduct = $_POST["title_product"] ?? "";
+        $nameProduct = $_POST["name_product"] ?? "";
+        $price = $_POST["price"] ?? "";
+        $quantity = $_POST["quantity"] ?? "";
+        $idCategory = $_POST["id_category"] ?? "";
+        $idProductType = $_POST["id_product_type"] ?? "";
+        $idPromotion = $_POST["id_promotion"] ?? "";
+        $description = $_POST["description"] ?? "";
 
-        $tp = $_POST["title_product"];
-        $np = $_POST["name_product"];
-        $p = $_POST["price"];
-        $q = $_POST["quantity"];
-        $idc = $_POST["id_category"];
-        $idPt = $_POST["id_product_type"];
-        $idp = $_POST["id_promotion"];
-        $des = $_POST["description"] ?? "";
-
-        $this->productModel->addNewProduct($tp, $np, $p, $q, $idc, $idPt, $mi, $i1, $i2, $i3, $i4, $s, $idp, $des);
+        $this->productModel->addNewProduct($titleProduct, $nameProduct, $price, $quantity, $idCategory, $idProductType, $mainImage, $image1, $image2, $image3, $image4, $size, $idPromotion, $description);
     }
 
-    public function handleViewDetail():void
+    public function handleViewDetail(): void
     {
         $id = $_GET['id'];
         $detailProduct = $this->productModel->view($id);
@@ -56,28 +58,51 @@ class ProductController{
     public function handleDelete(): void
     {
         $id = $_GET["id"];
+
+        // Fetch product details to get image URLs
+        $product = $this->productModel->view($id);
+        if ($product) {
+            $images = [
+                $product['main_image'],
+                $product['image1'],
+                $product['image2'],
+                $product['image3'],
+                $product['image4']
+            ];
+
+            foreach ($images as $img) {
+                $this->deleteImage($img);
+            }
+        }
+
         $this->productModel->deleteProduct($id);
     }
 
     public function handleUpdate(): void
     {
         $id = $_GET["id"];
-        $mi = $_FILES['main_image']['name'] ? $this->formatImage("main_image") : $_POST['old_main_image'];
 
-        $i1 = $_FILES['image1']['name'] ? $this->formatImage("image1") : $_POST['old_image1'];
-        $i2 = $_FILES['image2']['name'] ? $this->formatImage("image2") : $_POST['old_image2'];
-        $i3 = $_FILES['image3']['name'] ? $this->formatImage("image3") : $_POST['old_image3'];
-        $i4 = $_FILES['image4']['name'] ? $this->formatImage("image4") : $_POST['old_image4'];
-        $s = $_POST['size'];
-        $tp = $_POST["title_product"];
-        $np = $_POST["name_product"];
-        $p = $_POST["price"];
-        $q = $_POST["quantity"];
-        $idc = $_POST["id_category"];
-        $idPt = $_POST["id_product_type"];
-        $idp = $_POST["id_promotion"];
-        $des = $_POST["description"] ?? "";
-        $this->productModel->update($id, $mi, $i1, $i2, $i3,$i4, $s,$tp,$np,$p,$q,$idc,$idPt,$idp,$des);
+        // Fetch current product to get old images
+        $oldProduct = $this->productModel->view($id);
+
+        // Update images using the helper method
+        $mainImage = $this->updateImage("main_image", $oldProduct ? $oldProduct['main_image'] : null);
+        $image1 = $this->updateImage("image1", $oldProduct ? $oldProduct['image1'] : null);
+        $image2 = $this->updateImage("image2", $oldProduct ? $oldProduct['image2'] : null);
+        $image3 = $this->updateImage("image3", $oldProduct ? $oldProduct['image3'] : null);
+        $image4 = $this->updateImage("image4", $oldProduct ? $oldProduct['image4'] : null);
+
+        $size = $_POST['size'] ?? "";
+        $titleProduct = $_POST["title_product"] ?? "";
+        $nameProduct = $_POST["name_product"] ?? "";
+        $price = $_POST["price"] ?? "";
+        $quantity = $_POST["quantity"] ?? "";
+        $idCategory = $_POST["id_category"] ?? "";
+        $idProductType = $_POST["id_product_type"] ?? "";
+        $idPromotion = $_POST["id_promotion"] ?? "";
+        $description = $_POST["description"] ?? "";
+
+        $this->productModel->update($id, $mainImage, $image1, $image2, $image3, $image4, $size, $titleProduct, $nameProduct, $price, $quantity, $idCategory, $idProductType, $idPromotion, $description);
     }
 
     // [VULN] Command Injection: tên file không được sanitize, cho phép chèn lệnh OS

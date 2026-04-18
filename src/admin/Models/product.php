@@ -2,7 +2,8 @@
 
 require_once "model.php";
 
-class product extends modelAdmin{
+class product extends modelAdmin
+{
     public function getAllProduct(): mysqli_result|bool
     {
         $query = "SELECT * FROM product";
@@ -28,12 +29,12 @@ class product extends modelAdmin{
         return $this->conn->query($query);
     }
 
-    public function addNewProduct($tp, $np, $p, $q, $idc, $idpt, $mi, $i1, $i2, $i3, $i4, $s, $idp, $des): void
+    public function addNewProduct($titleProduct, $nameProduct, $price, $quantity, $idCategory, $idProductType, $mainImage, $image1, $image2, $image3, $image4, $size, $idPromotion, $description): void
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $time =  date('Y-m-d H:i:s');
         $query = "INSERT INTO product(title_product, name_product, price, quantity, id_category, id_product_type, main_image, image1, image2, image3, image4, size, id_promotion, description, timestamp ) 
-                    VALUES ('$tp', '$np', $p, $q, $idc, $idpt, '$mi', '$i1', '$i2', '$i3', '$i4', '$s', '$idp', '$des', '$time')";
+                    VALUES ('$titleProduct', '$nameProduct', $price, $quantity, $idCategory, $idProductType, '$mainImage', '$image1', '$image2', '$image3', '$image4', '$size', '$idPromotion', '$description', '$time')";
         $this->conn->query($query);
         header("location: ?mod=product");
     }
@@ -51,10 +52,10 @@ class product extends modelAdmin{
         header("location: ?mod=product");
     }
 
-    public function update($id, $mi, $i1, $i2, $i3,$i4, $s,$tp,$np,$p,$q,$idc,$idPt,$idp,$des): void
+    public function update($id, $mainImage, $image1, $image2, $image3, $image4, $size, $titleProduct, $nameProduct, $price, $quantity, $idCategory, $idProductType, $idPromotion, $description): void
     {
         $query = "UPDATE product 
-                    SET title_product = '$tp', name_product = '$np', price = '$p', quantity = '$q', id_category = '$idc', id_product_type = '$idPt', main_image = '$mi', image1 = '$i1', image2 = '$i2', image3 = '$i3', image4 = '$i4', size = '$s', id_promotion = '$idp', description = '$des'
+                    SET title_product = '$titleProduct', name_product = '$nameProduct', price = '$price', quantity = '$quantity', id_category = '$idCategory', id_product_type = '$idProductType', main_image = '$mainImage', image1 = '$image1', image2 = '$image2', image3 = '$image3', image4 = '$image4', size = '$size', id_promotion = '$idPromotion', description = '$description'
                     WHERE id_product = '$id'";
         $this->conn->query($query);
         header("location: ?mod=product");

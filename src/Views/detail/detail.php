@@ -48,7 +48,7 @@
         <ul style="display: flex; list-style: none; flex-wrap: wrap;" class="p-0">
             <?php
             if ($arr[0]) {
-            ?>
+                ?>
 
             <?php foreach ($arr as $each) {
                 ?>

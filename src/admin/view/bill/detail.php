@@ -29,7 +29,7 @@
     <div class="form-group">
         <label for="">Note: <?= $detailStuff['note'] ?></label>
     </div>
-    <?php if($detailStuff['status']==="0"){ ?>
+    <?php if ($detailStuff['status'] === "0") { ?>
         <a href="?mod=bill&act=confirm&id=<?= $_GET['id'] ?>" type="button" class="btn btn-success">Done</a>
 
     <?php } ?>

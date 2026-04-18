@@ -1,16 +1,19 @@
 <?php
+
 require_once "./Models/promotion.php";
-class PromotionController{
+class PromotionController
+{
     public promotion $promotionModel;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->promotionModel = new promotion();
     }
 
     public function handleGetAll(): void
     {
         $promotionList = $this->promotionModel->getAll();
-        if(isset($_GET['id']) && $_GET['act'] === "edit"){
+        if (isset($_GET['id']) && $_GET['act'] === "edit") {
             $id = $_GET['id'];
             $detailStuff = $this->promotionModel->view($id);
         }
@@ -19,13 +22,13 @@ class PromotionController{
 
     public function handleAdd(): void
     {
-        $np = $_POST["name_promotion"] ?? "";
-        $tp = $_POST["type_promotion"] ?? "";
-        $v = $_POST["value"] ?? "";
-        $this->promotionModel->add($np, $tp, $v);
+        $namePromotion = $_POST["name_promotion"] ?? "";
+        $typePromotion = $_POST["type_promotion"] ?? "";
+        $value = $_POST["value"] ?? "";
+        $this->promotionModel->add($namePromotion, $typePromotion, $value);
     }
 
-    public function viewDetail():void
+    public function viewDetail(): void
     {
         $id = $_GET['id'];
         $detailStuff = $this->promotionModel->view($id);
@@ -41,11 +44,11 @@ class PromotionController{
     public function handleUpdate(): void
     {
         $id = $_GET['id'];
-        $name = $_POST['name_promotion'];
-        $tP = $_POST['type_promotion'];
-        $tS = $_POST['type_sale'];
+        $namePromotion = $_POST['name_promotion'];
+        $typePromotion = $_POST['type_promotion'];
+        $typeSale = $_POST['type_sale'];
         $value = $_POST['value'];
         $status = $_POST['status'];
-        $this->promotionModel->update($id, $name, $tP, $tS, $value, $status);
+        $this->promotionModel->update($id, $namePromotion, $typePromotion, $typeSale, $value, $status);
     }
 }

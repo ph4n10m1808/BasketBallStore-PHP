@@ -1,14 +1,17 @@
 <?php
-require_once ("connect.php");
 
-class modelAdmin{
+require_once("connect.php");
+
+class modelAdmin
+{
     public mysqli $conn;
-    public function __construct(){
+    public function __construct()
+    {
         $conn_obj = new Connect();
         $this->conn = $conn_obj->conn;
     }
 
-    function resultReturnArray($query): array
+    public function resultReturnArray($query): array
     {
         $result = $this->conn->query($query);
 

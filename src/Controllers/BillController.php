@@ -1,7 +1,9 @@
 <?php
+
 require_once __DIR__ . "/../Models/bill.php";
 
-class BillController{
+class BillController
+{
     public Bill $billModel;
 
     public function __construct()

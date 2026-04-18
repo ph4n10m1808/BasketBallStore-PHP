@@ -13,7 +13,7 @@
             <label for="cars">Danh mục: </label>
             <select id="" name="id_category" class="form-control">
                 <?php foreach ($categoryList as $each) { ?>
-                    <option value="<?= $each['id_category'] ?>"  <?= $each['id_category'] === $detailStuff['id_category'] ? "selected":"" ?>><?= $each['name_category'] ?></option>
+                    <option value="<?= $each['id_category'] ?>"  <?= $each['id_category'] === $detailStuff['id_category'] ? "selected" : "" ?>><?= $each['name_category'] ?></option>
                 <?php } ?>
             </select>
         </div>
@@ -21,7 +21,7 @@
             <label for="cars">Loại sản phẩm: </label>
             <select id="" name="id_product_type" class="form-control">
                 <?php foreach ($productTypeList as $each) { ?>
-                    <option value="<?= $each['id_product_type'] ?>" <?= $each['id_product_type'] === $detailStuff['id_product_type'] ? "selected":"" ?>><?= $each['name_pt'] ?></option>
+                    <option value="<?= $each['id_product_type'] ?>" <?= $each['id_product_type'] === $detailStuff['id_product_type'] ? "selected" : "" ?>><?= $each['name_pt'] ?></option>
                 <?php } ?>
             </select>
         </div>

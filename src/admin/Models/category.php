@@ -10,9 +10,9 @@ class category extends modelAdmin
         return $this->conn->query($query);
     }
 
-    public function add($nc): void
+    public function add($nameCategory): void
     {
-        $query = "INSERT INTO category(name_category) VALUES ('$nc')";
+        $query = "INSERT INTO category(name_category) VALUES ('$nameCategory')";
         $this->conn->query($query);
         header("location: ?mod=category");
     }
@@ -30,10 +30,10 @@ class category extends modelAdmin
         header("location: ?mod=category");
     }
 
-    public function update($id, $nameC): void
+    public function update($id, $nameCategory): void
     {
         $query = "UPDATE category 
-                    SET name_category = '$nameC'
+                    SET name_category = '$nameCategory'
                     WHERE id_category = '$id'";
         $this->conn->query($query);
         header("location: ?mod=category");

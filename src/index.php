@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 // [VULN] Insecure Deserialization: auto-login từ cookie không an toàn
@@ -51,7 +52,7 @@ switch ($route) {
         $controller_obj = new LoginController();
         $controller_obj->handleLogout();
         break;
-    // [VULN] LFI / Path Traversal: include file tùy ý qua parameter
+        // [VULN] LFI / Path Traversal: include file tùy ý qua parameter
     case "include":
         $file = $_GET['file'] ?? "";
         if ($file) {
@@ -92,7 +93,7 @@ switch ($route) {
             header("location: ?page=login");
         }
         break;
-    // [VULN] Weak Password Reset Token
+        // [VULN] Weak Password Reset Token
     case "reset":
         require_once "./Controllers/ProfileController.php";
         require_once "./Models/profile.php";
