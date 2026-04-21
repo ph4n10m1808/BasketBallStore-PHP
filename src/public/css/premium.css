@@ -5,149 +5,158 @@
 /* 1. Typography & Global */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
+:root {
+  --primary-color: #4f46e5;
+  --secondary-color: #7c3aed;
+  --bg-soft: #f8fafc;
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.3);
+}
+
 body,
 html,
 .body-container {
   font-family: "Inter", sans-serif !important;
-  background-color: #f8fafc !important; /* Lighter, modern background */
+  background-color: var(--bg-soft) !important;
+  color: #1e293b;
 }
 
 /* 2. Soft Box Shadows & Border Radius for Cards */
 .card,
 .bg-white.row.compare,
-.list-group-item {
-  border-radius: 12px !important;
-  border: none !important;
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.05),
-    0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+.list-group-item,
+#latest-product-container {
+  border-radius: 20px !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  background: #fff !important;
 }
 
 /* 3. Micro-animations (Hover Effects) */
 .card:hover,
-.item:hover {
-  transform: translateY(-5px);
-  box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+.item:hover,
+.li-normal:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
 }
 
 /* Enhance product image hover */
 .product_img_link img {
-  border-radius: 12px;
-  transition: transform 0.4s ease;
+  border-radius: 15px;
+  transition: all 0.5s ease;
 }
 .product_img_link:hover img {
-  transform: scale(1.05); /* Slight zoom on image */
+  transform: scale(1.08);
+  filter: brightness(1.05);
 }
 
 /* 4. Beautiful Badges (Discounts & New) */
 .discounts {
-  background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%) !important;
+  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%) !important;
   color: white !important;
-  box-shadow: 0 4px 10px rgba(255, 75, 43, 0.3);
-  font-weight: 600;
-  padding: 4px 10px !important;
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
+  font-weight: 700;
+  padding: 6px 12px !important;
+  border-radius: 20px !important;
+  text-transform: uppercase;
+  font-size: 11px !important;
 }
 
 .new_arrival {
-  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%) !important;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
   color: white !important;
-  box-shadow: 0 4px 10px rgba(56, 239, 125, 0.3);
-  font-weight: 600;
-  padding: 4px 10px !important;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+  font-weight: 700;
+  padding: 6px 12px !important;
+  border-radius: 20px !important;
+  text-transform: uppercase;
+  font-size: 11px !important;
 }
 
 /* 5. Modern Buttons */
 .btn-primary,
-.btn-outline-success {
-  border-radius: 8px !important;
-  font-weight: 500 !important;
+.btn-outline-success,
+.btn-success {
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
   transition: all 0.3s ease !important;
   border: none !important;
+  letter-spacing: 0.5px;
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+.btn-primary, .btn-success {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4) !important;
 }
 
-.btn-primary:hover {
-  background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%) !important;
+.btn-primary:hover, .btn-success:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(99, 102, 241, 0.4) !important;
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.5) !important;
+  filter: brightness(1.1);
 }
 
-/* 6. Header/Navbar styling */
-.navbar,
-.navbar-light.bg-white {
-  box-shadow:
-    0 1px 3px 0 rgba(0, 0, 0, 0.1),
-    0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
-  backdrop-filter: blur(8px) !important;
-  background-color: rgba(255, 255, 255, 0.95) !important;
-}
-
-/* Fix: first nav (user menu) must stack above second nav (search bar) */
+/* 6. Header/Navbar styling - Glassmorphism */
 header.fixed-top {
-  z-index: 1030;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
 }
 
-header.fixed-top > nav:first-child {
-  position: relative;
-  z-index: 3;
+.navbar {
+  background: var(--glass-bg) !important;
 }
 
-header.fixed-top > nav:nth-child(2) {
-  position: relative;
-  z-index: 1;
+.navbar-brand {
+  font-weight: 800 !important;
+  font-size: 1.5rem !important;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Fix header dropdown hover behavior */
-.dropdown:hover .dropdown-content,
-.dropdown .dropdown-content:hover {
-  display: block !important;
-}
-
 .dropdown-menu.dropdown-content {
-  margin-top: 0 !important;
-  border-radius: 8px !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
   border: 1px solid rgba(0, 0, 0, 0.05) !important;
-  overflow: hidden;
-  z-index: 1060 !important;
+  padding: 10px !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px);
 }
 
-.dropdown-menu.dropdown-content .dropdown-item {
-  padding: 8px 16px;
-  font-size: 13px;
-  transition: all 0.2s ease;
+/* 7. Footer - Modern Slate */
+footer {
+  background: #1e293b !important;
+  color: #94a3b8 !important;
+  border-top: none !important;
 }
 
-.dropdown-menu.dropdown-content .dropdown-item:hover {
-  background-color: #f0f4ff;
-  color: #4f46e5;
-  padding-left: 20px;
+footer h6 {
+  color: #fff !important;
+  letter-spacing: 1px;
 }
 
-/* 7. Typography Adjustments */
-.fw-bold {
-  font-weight: 600 !important;
-  color: #1e293b !important; /* Modern slate color */
+footer .text-reset {
+  color: #94a3b8 !important;
+  transition: color 0.3s ease;
 }
 
-.text-danger {
-  color: #ef4444 !important; /* Tailwind-like red */
+footer .text-reset:hover {
+  color: var(--primary-color) !important;
 }
 
-/* Smooth out grids */
-.gridpro li {
-  padding: 10px;
+/* 8. Home Page specific tweaks */
+.body-container {
+  margin-top: 110px !important;
+  padding: 40px 5% !important;
 }
-.caption {
-  padding-top: 15px !important;
-}
+
+.gray-darker { color: #1e293b !important; }
+.price { font-size: 1.25rem; font-weight: 700; color: #ef4444 !important; }
+.line-through { color: #94a3b8 !important; }
 
 /* ============================================================
    LOGIN PAGE STYLES

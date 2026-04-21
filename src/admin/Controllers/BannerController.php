@@ -15,11 +15,15 @@ class BannerController
 
     public function getAll(): void
     {
-        $bannerList = $this->bannerModel->getAll();
-        if (isset($_GET['id']) && $_GET['act'] === "edit") {
+        $act = $_GET['act'] ?? "";
+
+        if ($act === "edit" && isset($_GET['id'])) {
             $id = $_GET['id'];
-            $detailStuff = $this->bannerModel->view($id)->fetch_assoc();
+            $banner = $this->bannerModel->view($id)->fetch_assoc();
+        } elseif ($act === "") {
+            $bannerList = $this->bannerModel->getAll();
         }
+
         require_once "view/index.php";
     }
 
@@ -40,7 +44,7 @@ class BannerController
     public function viewDetail(): void
     {
         $id = $_GET['id'];
-        $detailStuff = $this->bannerModel->view($id)->fetch_assoc();
+        $banner = $this->bannerModel->view($id)->fetch_assoc();
         require_once "view/index.php";
     }
 

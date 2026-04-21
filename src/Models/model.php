@@ -14,33 +14,30 @@ class model
     public function resultReturnArray($query): array
     {
         $result = $this->conn->query($query);
-
-        $data = array();
-
-        while ($row = $result->fetch_assoc()) {
-            $data[] = $row;
-        }
-        return $data;
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
 
     /**
      * Thực thi query và tính giá khuyến mãi cho kết quả
-     * Gộp từ các method extracted() trùng lặp trong Home, Cart, DetailProduct, EachProductType
      */
     public function queryWithPromotion(string $query): array
     {
-        $data = $this->conn->query($query);
-        $rs = array();
-        while ($row = $data->fetch_assoc()) {
-            $rs[] = $row;
-        }
-        for ($i = 0, $iMax = count($rs); $i < $iMax; $i++) {
-            if ($rs[$i]["type_p"] === "0") {
-                $rs[$i]["d_price"] = $rs[$i]["price"] - $rs[$i]['d_price'];
-            } elseif ($rs[$i]["type_p"] === "1") {
-                $rs[$i]["d_price"] = $rs[$i]["price"] * (1 - $rs[$i]['d_price'] / 100);
+        $result = $this->conn->query($query);
+        if (!$result) return [];
+        
+        $rs = $result->fetch_all(MYSQLI_ASSOC);
+        
+        foreach ($rs as &$row) {
+            if ($row["type_p"] === "0") {
+                $row["d_price"] = $row["price"] - $row['d_price'];
+            } elseif ($row["type_p"] === "1") {
+                $row["d_price"] = $row["price"] * (1 - $row['d_price'] / 100);
+            } else {
+                // Không có promotion hoặc type_p không hợp lệ → giữ nguyên giá gốc
+                $row["d_price"] = $row["price"];
             }
         }
+        unset($row); // Giải phóng reference sau foreach by-reference
         return $rs;
     }
 }

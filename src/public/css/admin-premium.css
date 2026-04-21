@@ -1,0 +1,125 @@
+/* ============================================================
+   ADMIN PREMIUM UI ENHANCEMENTS
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap");
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    --success-gradient: linear-gradient(135deg, #1cc88a 0%, #13855c 100%);
+    --info-gradient: linear-gradient(135deg, #36b9cc 0%, #258391 100%);
+    --warning-gradient: linear-gradient(135deg, #f6c23e 0%, #dda20a 100%);
+    --danger-gradient: linear-gradient(135deg, #e74a3b 0%, #be2617 100%);
+    --dark-gradient: linear-gradient(135deg, #5a5c69 0%, #373840 100%);
+}
+
+body {
+    font-family: 'Outfit', sans-serif !important;
+    background-color: #f0f2f5 !important;
+}
+
+/* 1. Sidebar Modernization */
+.sidebar {
+    background: var(--primary-gradient) !important;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .nav-item .nav-link {
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sidebar .nav-item .nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    margin: 0 10px;
+}
+
+.sidebar-brand-text {
+    letter-spacing: 1px;
+    font-weight: 700 !important;
+}
+
+/* 2. Topbar Glassmorphism */
+.topbar {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* 3. Card Enhancements */
+.card {
+    border: none !important;
+    border-radius: 15px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-header {
+    background-color: transparent !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+    font-weight: 700;
+}
+
+/* 4. Dashboard Stat Cards */
+.border-left-primary { border-left: 0.25rem solid #4e73df !important; }
+.border-left-success { border-left: 0.25rem solid #1cc88a !important; }
+.border-left-info { border-left: 0.25rem solid #36b9cc !important; }
+.border-left-warning { border-left: 0.25rem solid #f6c23e !important; }
+
+/* 5. Buttons */
+.btn {
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    padding: 8px 20px !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-primary {
+    background: var(--primary-gradient) !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(78, 115, 223, 0.3) !important;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(78, 115, 223, 0.4) !important;
+}
+
+/* 6. Tables */
+.table {
+    color: #4a5568 !important;
+}
+
+.table thead th {
+    background-color: #f8fafc !important;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #edf2f7 !important;
+}
+
+/* 7. Forms */
+.form-control {
+    border-radius: 10px !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 12px 15px !important;
+    transition: all 0.2s ease !important;
+}
+
+.form-control:focus {
+    border-color: #4e73df !important;
+    box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.1) !important;
+}
+
+/* 8. Utility Classes */
+.bg-gradient-primary { background: var(--primary-gradient) !important; }
+.bg-gradient-success { background: var(--success-gradient) !important; }
+.bg-gradient-info { background: var(--info-gradient) !important; }
+.bg-gradient-warning { background: var(--warning-gradient) !important; }
+.bg-gradient-danger { background: var(--danger-gradient) !important; }

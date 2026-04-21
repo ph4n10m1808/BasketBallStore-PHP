@@ -12,27 +12,29 @@ class EachProductTypeController
 
     public function getProductType()
     {
-        $idProductType = $_GET['id'];
-        $data = $this->eachProductType->getProductType($idProductType);
+        $idProductType = $_GET['id'] ?? '';
+        $productList = $this->eachProductType->getProductType($idProductType);
         $productTypeName = $this->eachProductType->getNameProductType($idProductType);
-        if ($data) {
-            $category = $this->eachProductType->getCategoryName($data[0]['id_category']);
+        // BUG-8 fix: Khởi tạo $category để tránh undefined variable trong view
+        $category = null;
+        if ($productList) {
+            $category = $this->eachProductType->getNameCategory($productList[0]['id_category']);
         }
         require_once "Views/index.php";
     }
 
     public function getCategory()
     {
-        $idCategory = $_GET['type'];
-        $data = $this->eachProductType->getCategory($idCategory);
+        $idCategory = $_GET['type'] ?? '';
+        $productList = $this->eachProductType->getCategory($idCategory);
         $categoryName = $this->eachProductType->getNameCategory($idCategory);
         require_once "Views/index.php";
     }
 
     public function searchProduct()
     {
-        $keyword = $_POST['keyword'];
-        $dataSearch = $this->eachProductType->searchProduct($keyword);
+        $keyword = $_POST['keyword'] ?? '';
+        $searchResults = $this->eachProductType->searchProduct($keyword);
         require_once "Views/index.php";
     }
 }

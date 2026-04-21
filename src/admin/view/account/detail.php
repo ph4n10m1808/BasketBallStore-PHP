@@ -1,26 +1,26 @@
 <table class="table" id="dataTable" width="100%" cellspacing="0">
         <div class="form-group">
-            <label for="">Họ và tên: <?= $detailStuff['first_name'] . " " . $detailStuff['last_name']  ?> </label>
+            <label for="">Họ và tên: <?= $account['first_name'] . " " . $account['last_name']  ?> </label>
         </div>
         <div class="form-group">
-            <label for="">Giới tính: <?=  $detailStuff['gender'] === "1" ? "Nam" : "Nữ" ?> </label>
+            <label for="">Giới tính: <?=  $account['gender'] === "1" ? "Nam" : "Nữ" ?> </label>
         </div>
         <div class="form-group">
-            <label for="">Số Điện Thoại: <?= $detailStuff['phone'] ?></label>
+            <label for="">Số Điện Thoại: <?= $account['phone'] ?></label>
         </div>
         <div class="form-group">
-            <label for="">Địa chỉ: <?= $detailStuff['address'] ?></label>
+            <label for="">Địa chỉ: <?= $account['address'] ?></label>
         </div>
         <div class="form-group">
-            <label for="">Username: <?= $detailStuff['username'] ?></label>
+            <label for="">Username: <?= $account['username'] ?></label>
         </div>
         <div class="form-group">
-            <label for="">Email: <?= $detailStuff['email'] ?></label>
+            <label for="">Email: <?= $account['email'] ?></label>
         </div>
         <div class="form-group">
-            <label for="">Role: <?php if ($detailStuff['id_auth'] === "1") {
+            <label for="">Role: <?php if ($account['id_auth'] === "1") {
                 echo "Admin";
-            } elseif ($detailStuff['id_auth'] === "2") {
+            } elseif ($account['id_auth'] === "2") {
                 echo "Employee";
             } else {
                 echo "User";

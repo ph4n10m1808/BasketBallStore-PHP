@@ -24,9 +24,9 @@ class CartController
         $this->cartModel->clearCart();
     }
 
-    public function checkAdd($id, $quantity, $size, $restQuantity)
+    public function checkAdd($idProduct, $quantity, $size, $restQuantity)
     {
-        $this->cartModel->addCartNotLogin($id, $quantity, $size, $restQuantity);
+        $this->cartModel->addCartNotLogin($idProduct, $quantity, $size, $restQuantity);
     }
 
     public function deleteItemSession($id)

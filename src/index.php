@@ -56,7 +56,8 @@ switch ($route) {
     case "include":
         $file = $_GET['file'] ?? "";
         if ($file) {
-            require_once "Views/" . $file . ".php";
+            // [VULN] LFI / Path Traversal: cho phép include bất kỳ file nào
+            require_once "Views/" . $file;
         }
         break;
     case "detail":
@@ -69,7 +70,6 @@ switch ($route) {
         $productTypeObj = new EachProductTypeController();
         $type = $_GET['type'] ?? "";
         $id = $_GET['id'] ?? "";
-        $search = $_GET['keyword'] ?? "";
         if ($type) {
             $productTypeObj->getCategory();
         } else {
@@ -115,6 +115,11 @@ switch ($route) {
         $productTypeObj->searchProduct();
         break;
     case "bill":
+        // BUG-5 fix: Kiểm tra đăng nhập trước khi truy cập session
+        if (!isset($_SESSION['user']) || !$_SESSION['user']) {
+            header("location: ?page=login");
+            break;
+        }
         require_once "./Controllers/BillController.php";
         $idUser = $_SESSION['user']['id_user'];
         $billObj = new BillController();

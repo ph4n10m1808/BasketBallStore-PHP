@@ -8,16 +8,16 @@
         <div class="form-group">
             <label for="cars">Danh mục: </label>
             <select id="" name="id_category" class="form-control">
-                <?php foreach ($categoryList as $each) { ?>
-                    <option value="<?= $each['id_category'] ?>"><?= $each['name_category'] ?></option>
+                <?php foreach ($categoryList as $category) { ?>
+                    <option value="<?= $category['id_category'] ?>"><?= $category['name_category'] ?></option>
                 <?php } ?>
             </select>
         </div>
         <div class="form-group">
             <label for="cars">Loại sản phẩm: </label>
             <select id="" name="id_product_type" class="form-control">
-                <?php foreach ($productTypeList as $each) { ?>
-                    <option value="<?= $each['id_product_type'] ?>"><?= $each['name_pt'] ?></option>
+                <?php foreach ($productTypeList as $productType) { ?>
+                    <option value="<?= $productType['id_product_type'] ?>"><?= $productType['name_pt'] ?></option>
                 <?php } ?>
             </select>
         </div>
@@ -64,18 +64,18 @@
         <div class="form-group">
             <label for="cars">Mã khuyến mãi </label>
             <select id="" name="id_promotion" class="form-control">
-                <?php foreach ($promotionList as $each) { ?>
-                    <option value="<?= $each['id_promotion'] ?>"><?= $each['name_promotion'] ?></option>
+                <?php foreach ($promotionList as $promotion) { ?>
+                    <option value="<?= $promotion['id_promotion'] ?>"><?= $promotion['name_promotion'] ?></option>
                 <?php } ?>
             </select>
         </div>
         <label for="">Mô tả</label>
         <div class="form-group">
-            <textarea class="form-control" id="summernote" placeholder="" name="MoTa"></textarea>
+            <textarea class="form-control" id="summernote" placeholder="" name="description"></textarea>
         </div>
         <div class="form-group">
             <label for="">Trạng thái</label>
-            <input type="checkbox" id="" placeholder="" value="1" name="TrangThai"><em>(Check cho phép hiện thị sản phẩm)</em>
+            <input type="checkbox" id="" placeholder="" value="1" name="status"><em>(Check cho phép hiện thị sản phẩm)</em>
         </div>
         <button type="submit" class="btn btn-primary">Create</button>
     </form>

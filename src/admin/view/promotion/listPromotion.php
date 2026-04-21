@@ -23,17 +23,17 @@
         </tr>
         </tfoot>
         <tbody>
-        <?php foreach ($promotionList as $each) { ?>
+        <?php foreach ($promotionList as $promotion) { ?>
             <tr>
-                <td><?= $each["id_promotion"] ?></td>
-                <td><?= $each["name_promotion"] ?></td>
-                <td><?= $each["type_promotion"] ?></td>
-                <td><?= $each["value"] ?></td>
-                <td><?= $each["start_day"] ?></td>
+                <td><?= $promotion["id_promotion"] ?></td>
+                <td><?= $promotion["name_promotion"] ?></td>
+                <td><?= $promotion["type_promotion"] ?></td>
+                <td><?= $promotion["value"] ?></td>
+                <td><?= $promotion["start_day"] ?></td>
                 <td>
-                    <a href="?mod=promotion&act=detail&id=<?= $each['id_promotion'] ?>" type="button" class="btn btn-success">Xem</a>
-                    <a href="?mod=promotion&act=edit&id=<?= $each['id_promotion'] ?>" type="button" class="btn btn-warning">Sửa</a>
-                    <a href="?mod=promotion&act=delete&id=<?= $each['id_promotion'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
+                    <a href="?mod=promotion&act=detail&id=<?= $promotion['id_promotion'] ?>" type="button" class="btn btn-success">Xem</a>
+                    <a href="?mod=promotion&act=edit&id=<?= $promotion['id_promotion'] ?>" type="button" class="btn btn-warning">Sửa</a>
+                    <a href="?mod=promotion&act=delete&id=<?= $promotion['id_promotion'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
 
                     <?php if (isset($_SESSION['isLogin_Admin']) && $_SESSION['isLogin_Admin'] == true) { ?>
 

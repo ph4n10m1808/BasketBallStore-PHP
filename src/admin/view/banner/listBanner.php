@@ -21,16 +21,16 @@
         </tr>
         </tfoot>
         <tbody>
-        <?php foreach ($bannerList as $each) { ?>
+        <?php foreach ($bannerList as $banner) { ?>
             <tr>
-                <td><?= $each["id_banner"] ?></td>
-                <td class="text-center"><img style="max-width: 200px" src="../public/<?= $each["url_banner"] ?>" alt=""></td>
-                <td><?= $each["status"]?></td>
-                <td><?= $each["timestamp"]?></td>
+                <td><?= $banner["id_banner"] ?></td>
+                <td class="text-center"><img style="max-width: 200px" src="../public/<?= $banner["url_banner"] ?>" alt=""></td>
+                <td><?= $banner["status"]?></td>
+                <td><?= $banner["timestamp"]?></td>
                 <td>
-                    <a href="?mod=banner&act=detail&id=<?= $each['id_banner'] ?>" type="button" class="btn btn-success">Xem</a>
-                    <a href="?mod=banner&act=edit&id=<?= $each['id_banner'] ?>" type="button" class="btn btn-warning">Sửa</a>
-                    <a href="?mod=banner&act=delete&id=<?= $each['id_banner'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
+                    <a href="?mod=banner&act=detail&id=<?= $banner['id_banner'] ?>" type="button" class="btn btn-success">Xem</a>
+                    <a href="?mod=banner&act=edit&id=<?= $banner['id_banner'] ?>" type="button" class="btn btn-warning">Sửa</a>
+                    <a href="?mod=banner&act=delete&id=<?= $banner['id_banner'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>
         <?php } ?>

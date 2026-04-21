@@ -13,36 +13,36 @@
     <form action="?mod=promotion&act=update&id=<?= $_GET['id'] ?>" method="POST" role="form" enctype="multipart/form-data">
         <div class="form-group">
             <label for="">ID</label>
-            <input type="text" class="form-control" id="" placeholder="" disabled value="<?= $detailStuff['id_promotion'] ?>">
+            <input type="text" class="form-control" id="" placeholder="" disabled value="<?= $promotion['id_promotion'] ?>">
         </div>
         <div class="form-group">
             <label for="">Name Promotion</label>
-            <input type="text" class="form-control" id="" placeholder="" name="name_promotion" value="<?= $detailStuff['name_promotion'] ?>">
+            <input type="text" class="form-control" id="" placeholder="" name="name_promotion" value="<?= $promotion['name_promotion'] ?>">
         </div>
         <div class="form-group">
             <label for="">Type Promotion</label>
-            <input type="text" class="form-control" id="" placeholder="" name="type_promotion" value="<?= $detailStuff['type_promotion'] ?>">
+            <input type="text" class="form-control" id="" placeholder="" name="type_promotion" value="<?= $promotion['type_promotion'] ?>">
         </div>
         <div class="form-group">
             <label for="cars">Type sale: </label>
             <select id="" name="type_sale" class="form-control">
-                <option value="0" <?= $detailStuff['type_sale'] === "0" ? "selected" : "" ?>>Direct reduction</option>
-                <option value="1" <?= $detailStuff['type_sale'] === "1" ? "selected" : "" ?>>Decrease in percentage</option>
+                <option value="0" <?= $promotion['type_sale'] === "0" ? "selected" : "" ?>>Direct reduction</option>
+                <option value="1" <?= $promotion['type_sale'] === "1" ? "selected" : "" ?>>Decrease in percentage</option>
             </select>
         </div>
         <div class="form-group">
             <label for="">Value</label>
-            <input type="text" class="form-control" id="" placeholder="" name="value" value="<?= $detailStuff['value'] ?>">
+            <input type="text" class="form-control" id="" placeholder="" name="value" value="<?= $promotion['value'] ?>">
         </div>
         <div class="form-group">
             <label for="">Start day</label>
-            <input type="text" class="form-control" id="" placeholder="" disabled name="value" value="<?= $detailStuff['start_day'] ?>">
+            <input type="text" class="form-control" id="" placeholder="" disabled name="value" value="<?= $promotion['start_day'] ?>">
         </div>
         <div class="form-group">
             <label for="cars">Status: </label>
             <select id="" name="status" class="form-control">
-                <option value="0" <?= $detailStuff['status'] === "0" ? "selected" : "" ?>>No Active</option>
-                <option value="1" <?= $detailStuff['status'] === "1" ? "selected" : "" ?>>Active</option>
+                <option value="0" <?= $promotion['status'] === "0" ? "selected" : "" ?>>No Active</option>
+                <option value="1" <?= $promotion['status'] === "1" ? "selected" : "" ?>>Active</option>
             </select>
         </div>
 

@@ -5,11 +5,17 @@ class Home extends model
 {
     public function getLatestProducts($start, $end, $idCategory): array
     {
-        $query = "SELECT *, (SELECT value from promotion where id_promotion = product.id_promotion) as d_price,
-       (SELECT type_sale from promotion WHERE id_promotion = product.id_promotion) as type_p,
-       (SELECT type_promotion from promotion WHERE id_promotion = product.id_promotion) as name_sale,
-       (SELECT name_pt from product_type WHERE id_product_type = product.id_product_type) as p_type_name
-       FROM product WHERE id_category = $idCategory AND status >= 1 ORDER BY timestamp DESC LIMIT $start, $end";
+        $query = "SELECT p.*, 
+                    prom.value as d_price,
+                    prom.type_sale as type_p,
+                    prom.type_promotion as name_sale,
+                    pt.name_pt as p_type_name
+                FROM product p
+                LEFT JOIN promotion prom ON p.id_promotion = prom.id_promotion
+                LEFT JOIN product_type pt ON p.id_product_type = pt.id_product_type
+                WHERE p.id_category = $idCategory AND p.status >= 1 
+                ORDER BY p.timestamp DESC 
+                LIMIT $start, $end";
         return $this->queryWithPromotion($query);
     }
 
@@ -27,21 +33,33 @@ class Home extends model
 
     public function getLastProductType($start, $end, $idProductType): array
     {
-        $query = "SELECT *, (SELECT value from promotion where id_promotion = product.id_promotion) as d_price,
-       (SELECT type_sale from promotion WHERE id_promotion = product.id_promotion) as type_p,
-       (SELECT type_promotion from promotion WHERE id_promotion = product.id_promotion) as name_sale,
-       (SELECT name_pt from product_type WHERE id_product_type = product.id_product_type) as p_type_name
-       FROM product WHERE id_product_type = $idProductType AND status = 1 ORDER BY status DESC , n_stars DESC LIMIT $start, $end";
+        $query = "SELECT p.*, 
+                    prom.value as d_price,
+                    prom.type_sale as type_p,
+                    prom.type_promotion as name_sale,
+                    pt.name_pt as p_type_name
+                FROM product p
+                LEFT JOIN promotion prom ON p.id_promotion = prom.id_promotion
+                LEFT JOIN product_type pt ON p.id_product_type = pt.id_product_type
+                WHERE p.id_product_type = $idProductType AND p.status >= 1 
+                ORDER BY p.status DESC, p.n_stars DESC 
+                LIMIT $start, $end";
         return $this->queryWithPromotion($query);
     }
 
     public function getOutstandingProduct($start, $end, $idCategory): array
     {
-        $query = "SELECT *, (SELECT value from promotion where id_promotion = product.id_promotion) as d_price,
-       (SELECT type_sale from promotion WHERE id_promotion = product.id_promotion) as type_p,
-       (SELECT type_promotion from promotion WHERE id_promotion = product.id_promotion) as name_sale,
-       (SELECT name_pt from product_type WHERE id_product_type = product.id_product_type) as p_type_name
-       FROM product WHERE id_category = $idCategory AND status >= 1 ORDER BY timestamp DESC , n_stars DESC LIMIT $start, $end";
+        $query = "SELECT p.*, 
+                    prom.value as d_price,
+                    prom.type_sale as type_p,
+                    prom.type_promotion as name_sale,
+                    pt.name_pt as p_type_name
+                FROM product p
+                LEFT JOIN promotion prom ON p.id_promotion = prom.id_promotion
+                LEFT JOIN product_type pt ON p.id_product_type = pt.id_product_type
+                WHERE p.id_category = $idCategory AND p.status >= 1 
+                ORDER BY p.timestamp DESC, p.n_stars DESC 
+                LIMIT $start, $end";
         return $this->queryWithPromotion($query);
     }
 

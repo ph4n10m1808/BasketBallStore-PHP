@@ -13,11 +13,15 @@ class AccountController
 
     public function getAll(): void
     {
-        $accountList = $this->accModel->getAllAccount();
-        if (isset($_GET['id']) && $_GET['act'] === "edit") {
+        $act = $_GET['act'] ?? "";
+
+        if ($act === "edit" && isset($_GET['id'])) {
             $id = $_GET['id'];
-            $detailStuff = $this->accModel->view($id)->fetch_assoc();
+            $account = $this->accModel->view($id)->fetch_assoc();
+        } elseif ($act === "") {
+            $accountList = $this->accModel->getAllAccount();
         }
+        
         require_once "view/index.php";
     }
 
@@ -38,7 +42,7 @@ class AccountController
     public function viewDetail(): void
     {
         $id = $_GET['id'] ?? '';
-        $detailStuff = $this->accModel->view($id)->fetch_assoc();
+        $account = $this->accModel->view($id)->fetch_assoc();
         require_once "view/index.php";
     }
 

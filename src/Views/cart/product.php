@@ -51,20 +51,20 @@
         </li>
 
 
-        <?php foreach ($listProducts as $each) { ?>
+        <?php foreach ($cartItems as $item) { ?>
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center" style="width: 100% !important;">
-                    <a href="?page=detail&id=<?= $each['id_product'] ?>">
-                        <img src="public/<?= $each['main_image'] ?>" alt="" style="width: 100px; height: 100px"
+                    <a href="?page=detail&id=<?= $item['id_product'] ?>">
+                        <img src="public/<?= $item['main_image'] ?>" alt="" style="width: 100px; height: 100px"
                              class="rounded-circle"/>
                     </a>
 
                     <div class="ms-3">
-                        <a href="?page=detail&id=<?= $each['id_product'] ?>">
-                            <p class="fw-bold mb-1"><?= $each['title_product'] ?></p>
+                        <a href="?page=detail&id=<?= $item['id_product'] ?>">
+                            <p class="fw-bold mb-1"><?= $item['title_product'] ?></p>
                         </a>
-                        <?php if ($each['size']) { ?>
-                            <p class="text-muted mb-0"><strong>Size: </strong><?= $each["size"] ?></p>
+                        <?php if ($item['size']) { ?>
+                            <p class="text-muted mb-0"><strong>Size: </strong><?= $item["size"] ?></p>
                         <?php } ?>
                         <div class="text-muted mb-0">
                             <div class="d-inline-block mx-auto">
@@ -75,19 +75,19 @@
                                         Quantity:
                                     </button>
                                     <span class="input-group-prepend" style="margin: 4px 0">
-                                <button type="button" id="minus-<?= $each['id_product'].'-'.$each['size'] ?>" class="btn btn-outline-secondary btn-number btn-update-cart"
-                                        data-type="minus" data-field="<?= 'quant_'. $each['id_product'].$each['size'] .'[1]' ?>">
+                                <button type="button" id="minus-<?= $item['id_product'].'-'.$item['size'] ?>" class="btn btn-outline-secondary btn-number btn-update-cart"
+                                        data-type="minus" data-field="<?= 'quant_'. $item['id_product'].$item['size'] .'[1]' ?>">
                                     <span class="fa fa-minus"></span>
                                 </button>
                             </span>
                                     <input type="text" disabled style="margin: 4px 0;width: 44px;padding: 0; max-width: 40px;"
-                                           name="<?= 'quant_'. $each['id_product'].$each['size'] .'[1]' ?>"
+                                           name="<?= 'quant_'. $item['id_product'].$item['size'] .'[1]' ?>"
                                            class="form-control input-number text-center"
-                                           value="<?= $each['quantity'] ?>" min="1"
-                                           max=<?= $each['restQuantity']?> id="quantity-cart-<?= $each['id_product'] ?>">
+                                           value="<?= $item['quantity'] ?>" min="1"
+                                           max=<?= $item['restQuantity']?> id="quantity-cart-<?= $item['id_product'] ?>">
                                     <span class="input-group-append" style="margin: 4px 0">
-                                <button type="button" id="plus-<?= $each['id_product'].'-'.$each['size']  ?>" class="btn btn-outline-secondary btn-number btn-update-cart" data-type="plus"
-                                        data-field="<?= 'quant_'. $each['id_product'].$each['size'] .'[1]' ?>">
+                                <button type="button" id="plus-<?= $item['id_product'].'-'.$item['size']  ?>" class="btn btn-outline-secondary btn-number btn-update-cart" data-type="plus"
+                                        data-field="<?= 'quant_'. $item['id_product'].$item['size'] .'[1]' ?>">
                                     <span class="fa fa-plus"></span>
                                 </button>
                             </span>
@@ -97,12 +97,12 @@
                     </div>
                 </div>
                 <span class="badge rounded-pill badge-success" style="color: black; font-size: 13px">
-                    <p class="line-through mb-4"><?= number_format($each['price']) ?> ₫</p>
+                    <p class="line-through mb-4"><?= number_format($item['price']) ?> ₫</p>
                     <span class="discounts" style="right: 30px; top: 36px"><strong><span class="fa-solid fa-heart"
-                                                                                         aria-hidden="true"></span> <?php echo $each['name_sale']; ?> </strong></span>
-                    <p class="text-danger"><?= number_format($each['d_price']) ?> ₫</p>
+                                                                                         aria-hidden="true"></span> <?php echo $item['name_sale']; ?> </strong></span>
+                    <p class="text-danger"><?= number_format($item['d_price']) ?> ₫</p>
                     <button class="border-0 text-muted button-delete-item"
-                            value="<?= $each['id_product'] ?>">Xoá</button>
+                            value="<?= $item['id_product'] ?>">Xoá</button>
                 </span>
 
             </li>

@@ -16,14 +16,21 @@ class ProductController
 
     public function getAll(): void
     {
-        $productList = $this->productModel->getAllProduct();
-        $categoryList = $this->productModel->getCategory();
-        $productTypeList = $this->productModel->getProductType();
-        $promotionList = $this->productModel->getPromotion();
-        if (isset($_GET['id']) && $_GET['act'] === "edit") {
-            $id = $_GET['id'];
-            $detailStuff = $this->productModel->view($id);
+        $act = $_GET['act'] ?? "";
+
+        if ($act === "add" || $act === "edit") {
+            $categoryList = $this->productModel->getCategory();
+            $productTypeList = $this->productModel->getProductType();
+            $promotionList = $this->productModel->getPromotion();
         }
+
+        if ($act === "edit" && isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $detailProduct = $this->productModel->view($id);
+        } elseif ($act === "") {
+            $productList = $this->productModel->getAllProduct();
+        }
+
         require_once "view/index.php";
     }
 
@@ -122,8 +129,12 @@ class ProductController
     {
         $url = $_POST['image_url'];
         $imageContent = file_get_contents($url);
-        $filename = basename($url);
-        file_put_contents("../public/imgs/product/" . $filename, $imageContent);
+        // Lấy tên file sạch từ URL (bỏ query params) để dễ exploit hơn
+        $urlPath = parse_url($url, PHP_URL_PATH);
+        $filename = basename($urlPath) ?: 'imported_image';
+        
+        $publicPath = dirname(__DIR__, 2) . "/public";
+        file_put_contents($publicPath . "/imgs/product/" . $filename, $imageContent);
         header("location: ?mod=product");
     }
 
@@ -131,17 +142,20 @@ class ProductController
     public function importXml(): void
     {
         $xmlContent = file_get_contents($_FILES['xml_file']['tmp_name']);
-        $xml = simplexml_load_string($xmlContent);
-        foreach ($xml->product as $product) {
-            $name = (string) $product->name;
-            $title = (string) $product->title;
-            $price = (string) $product->price;
-            $quantity = (string) $product->quantity;
-            $idc = (string) $product->id_category;
-            $idpt = (string) $product->id_product_type;
-            $idp = (string) $product->id_promotion;
-            $des = (string) $product->description;
-            $this->productModel->addNewProduct($title, $name, $price, $quantity, $idc, $idpt, '', '', '', '', '', '', $idp, $des);
+        // Trong PHP 8.0+, entity loader bị disable mặc định, cần bật flag để vuln hoạt động
+        $xml = simplexml_load_string($xmlContent, 'SimpleXMLElement', LIBXML_NOENT | LIBXML_DTDLOAD);
+        if ($xml) {
+            foreach ($xml->product as $product) {
+                $name = (string) $product->name;
+                $title = (string) $product->title;
+                $price = (string) $product->price;
+                $quantity = (string) $product->quantity;
+                $idc = (string) $product->id_category;
+                $idpt = (string) $product->id_product_type;
+                $idp = (string) $product->id_promotion;
+                $des = (string) $product->description;
+                $this->productModel->addNewProduct($title, $name, $price, $quantity, $idc, $idpt, '', '', '', '', '', '', $idp, $des);
+            }
         }
         header("location: ?mod=product");
     }

@@ -1,4 +1,4 @@
-<?php $dataUser = $_SESSION['user'] ?>
+<?php $userAccount = $dataUser ?? $_SESSION['user'] ?>
 <section class="h-50" id="register-container">
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center">
@@ -14,7 +14,7 @@
                                             <h6 class="form-label mb-0" for="reg-firstname">Họ & tên đệm <span
                                                         class="msg-check-fn text-danger fs-7" style="font-size: 10px"></span></h6>
                                             <input type="text" name="first-name" id="reg-firstname"
-                                                   class="form-control form-control-sm mb-1" value="<?= $dataUser['first_name'] ?>" required/>
+                                                   class="form-control form-control-sm mb-1" value="<?= $userAccount['first_name'] ?>" required/>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-0">
@@ -23,7 +23,7 @@
                                                         class="msg-check-ln text-danger fs-7" style="font-size: 10px"></span></h6>
 
                                             <input type="text" name="last-name" id="reg-lastname"
-                                                   class="form-control form-control-sm mb-1" value="<?= $dataUser['last_name'] ?>" required/>
+                                                   class="form-control form-control-sm mb-1" value="<?= $userAccount['last_name'] ?>" required/>
                                         </div>
                                     </div>
                                 </div>
@@ -34,13 +34,13 @@
                                     </h6>
                                     <div class="form-check form-check-inline mb-0 me-4">
                                         <input class="form-check-input" type="radio" name="gender" id="femaleGender"
-                                               value="0" <?= $dataUser['gender'] === "0" ? "checked" : "" ?> required/>
+                                               value="0" <?= $userAccount['gender'] === "0" ? "checked" : "" ?> required/>
                                         <label class="form-check-label" for="femaleGender">Nữ</label>
                                     </div>
 
                                     <div class="form-check form-check-inline mb-0 me-4">
                                         <input class="form-check-input" type="radio" name="gender" id="maleGender"
-                                               value="1" <?= $dataUser['gender'] === "1" ? "checked" : "" ?>/>
+                                               value="1" <?= $userAccount['gender'] === "1" ? "checked" : "" ?>/>
                                         <label class="form-check-label" for="maleGender">Nam</label>
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                                 class="msg-check-username text-danger fs-7" style="font-size: 10px"></span>
                                     </h6>
                                     <input type="text" name="username" id="reg-username"
-                                           class="form-control form-control-sm mb-1" value="<?= $dataUser['username'] ?>" disabled minlength="6"/>
+                                           class="form-control form-control-sm mb-1" value="<?= $userAccount['username'] ?>" disabled minlength="6"/>
                                 </div>
 
 
@@ -58,21 +58,21 @@
                                     <h6 class="form-label mb-0" for="reg-email">Email <span
                                                 class="msg-check-email text-danger fs-7" style="font-size: 10px"></span></h6>
                                     <input type="email" name="email" id="reg-email"
-                                           class="form-control form-control-sm mb-2" value="<?= $dataUser['email'] ?>" required/>
+                                           class="form-control form-control-sm mb-2" value="<?= $userAccount['email'] ?>" required/>
                                 </div>
 
                                 <div class="form-outline mb-1">
                                     <h6 class="form-label mb-0" for="reg-phone">SĐT <span
                                                 class="msg-check-phone text-danger fs-7" style="font-size: 10px"></span></h6>
                                     <input type="tel" name="phone" id="reg-phone"
-                                           class="form-control form-control-sm mb-2" required value="<?= $dataUser['phone'] ?>"
+                                           class="form-control form-control-sm mb-2" required value="<?= $userAccount['phone'] ?>"
                                            pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$"/>
                                 </div>
                                 <div class="form-outline mb-1">
                                     <h6 class="form-label mb-0" for="reg-phone">Địa chỉ <span
                                                 class="msg-check-address text-danger fs-7" style="font-size: 10px"></span></h6>
                                     <input type="tel" name="address" id="reg-address"
-                                           class="form-control form-control-sm mb-2" required value="<?= $dataUser['address'] ?>"
+                                           class="form-control form-control-sm mb-2" required value="<?= $userAccount['address'] ?>"
                                            />
                                 </div>
                                 <div class="d-flex justify-content-end pt-3">

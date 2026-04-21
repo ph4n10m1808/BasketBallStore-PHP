@@ -1,35 +1,35 @@
 <table class="table" id="dataTable" width="100%" cellspacing="0">
     <div class="form-group">
-        <label for="" class="text-danger">Total Cost: <?= $detailStuff['total_cost'] . " VND" ?></label>
+        <label for="" class="text-danger">Total Cost: <?= $bill['total_cost'] . " VND" ?></label>
     </div>
     <div class="form-group">
-        <label for="">ID Bill: <?= $detailStuff['id_bill'] ?> </label>
+        <label for="">ID Bill: <?= $bill['id_bill'] ?> </label>
     </div>
     <div class="form-group">
-        <label for="">ID User: <?= $detailStuff['id_user'] ?> </label>
+        <label for="">ID User: <?= $bill['id_user'] ?> </label>
     </div>
     <div class="form-group">
-        <label for="">Name User: <?= $detailStuff['name_user'] ?> </label>
+        <label for="">Name User: <?= $bill['name_user'] ?> </label>
     </div>
     <div class="form-group">
-        <label for="">Phone: <?=  $detailStuff['phone'] ?> </label>
+        <label for="">Phone: <?=  $bill['phone'] ?> </label>
     </div>
     <div class="form-group">
-        <label for="">Address: <?= $detailStuff['address'] ?></label>
+        <label for="">Address: <?= $bill['address'] ?></label>
     </div>
     <div class="form-group">
-        <label for="">Payment Method: <?= $detailStuff['payment_method'] === "1" ? "Credit Card" : "COD" ?></label>
+        <label for="">Payment Method: <?= $bill['payment_method'] === "1" ? "Credit Card" : "COD" ?></label>
     </div>
     <div class="form-group">
-        <label for="">Add Day: <?= $detailStuff['timestamp'] ?></label>
+        <label for="">Add Day: <?= $bill['timestamp'] ?></label>
     </div>
     <div class="form-group">
-        <label for="">Status: <?= $detailStuff['status'] === "1" ? "Done" : "Unpaid" ?></label>
+        <label for="">Status: <?= $bill['status'] === "1" ? "Done" : "Unpaid" ?></label>
     </div>
     <div class="form-group">
-        <label for="">Note: <?= $detailStuff['note'] ?></label>
+        <label for="">Note: <?= $bill['note'] ?></label>
     </div>
-    <?php if ($detailStuff['status'] === "0") { ?>
+    <?php if ($bill['status'] === "0") { ?>
         <a href="?mod=bill&act=confirm&id=<?= $_GET['id'] ?>" type="button" class="btn btn-success">Done</a>
 
     <?php } ?>

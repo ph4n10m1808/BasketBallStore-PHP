@@ -16,6 +16,7 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.3/css/sb-admin-2.css" integrity="sha512-1HclAOkQSKIyDqJS8azD2GusAZTbtDrChZU0o0UL2+3lDw2KeMLCEYOQzsO2joppy8L+CVKI3SkXBeZb3vUwYA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="public/css/admin-premium.css">
 </head>
 
 <body id="page-top">
@@ -58,28 +59,24 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
     <script src="public/vendor/jquery/jquery.min.js"></script>
     <script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="public/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="public/vendor/datatables/jquery.dataTables.min.js"></script>
 
     <!-- Custom scripts for all pages-->
 <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.3/js/sb-admin-2.min.js" integrity="sha512-COtY6/Rv4GyQdDShOyay/0YI4ePJ7QeKwtJIOCQ3RNE32WOPI4IYxq6Iz5JWcQpnylt/20KBvqEROZTEj/Hopw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
 
     <!-- Page level plugins -->
     <script src="public/vendor/chart.js/Chart.min.js"></script>
-
+w
     <!-- Page level custom scripts -->
     <script src="public/js/demo/chart-area-demo.js"></script>
     <script src="public/js/demo/chart-pie-demo.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="public/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
 
     <!-- Page level plugins -->
+    <script src="public/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="public/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="public/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 

@@ -12,10 +12,13 @@ class CategoryController
 
     public function handleGetAll(): void
     {
-        $categoryList = $this->categoryModel->getAll();
-        if (isset($_GET['id']) && $_GET['act'] === "edit") {
+        $act = $_GET['act'] ?? "";
+        if (isset($_GET['id']) && $act === "edit") {
             $id = $_GET['id'];
-            $detailStuff = $this->categoryModel->view($id)->fetch_assoc();
+            $category = $this->categoryModel->view($id)->fetch_assoc();
+        }
+        if ($act === "" || !isset($act)) {
+            $categoryList = $this->categoryModel->getAll();
         }
         require_once "view/index.php";
     }
@@ -29,7 +32,7 @@ class CategoryController
     public function viewDetail(): void
     {
         $id = $_GET['id'];
-        $detailStuff = $this->categoryModel->view($id)->fetch_assoc();
+        $category = $this->categoryModel->view($id)->fetch_assoc();
         require_once "view/index.php";
     }
 

@@ -13,10 +13,15 @@ class DashboardController
 
     public function getData(): void
     {
-        $monthlyEarnings = number_format($this->dashboardModel->getMonthlyEarnings());
-        $annualEarnings = number_format($this->dashboardModel->getAnnualEarnings());
-        $pendingRequests = $this->dashboardModel->getPendingRequests();
-        $tasksPercentage = $this->dashboardModel->getTasksPercentage();
+        $stats = $this->dashboardModel->getStats();
+        
+        $monthlyEarnings = number_format($stats['monthly_earnings']);
+        $annualEarnings = number_format($stats['annual_earnings']);
+        $pendingRequests = $stats['pending_requests'];
+        
+        $total = $stats['total_bills'];
+        $completed = $stats['completed_bills'];
+        $tasksPercentage = ($total > 0) ? (int)(($completed / $total) * 100) : 0;
 
         require_once "view/index.php";
     }

@@ -21,16 +21,16 @@
         </tr>
         </tfoot>
         <tbody>
-        <?php foreach ($productTypeList as $each) { ?>
+        <?php foreach ($productTypeList as $productType) { ?>
             <tr>
-                <td><?= $each["id_product_type"] ?></td>
-                <td><?= $each["name_pt"] ?></td>
-                <td><?= $each["description"]?></td>
-                <td class="text-center"><img style="max-width: 50px" src="../public/<?= $each["logo_pt"] ?>" alt=""></td>
+                <td><?= $productType["id_product_type"] ?></td>
+                <td><?= $productType["name_pt"] ?></td>
+                <td><?= $productType["description"]?></td>
+                <td class="text-center"><img style="max-width: 50px" src="../public/<?= $productType["logo_pt"] ?>" alt=""></td>
                 <td>
-                    <a href="?mod=productType&act=detail&id=<?= $each['id_product_type'] ?>" type="button" class="btn btn-success">Xem</a>
-                    <a href="?mod=productType&act=edit&id=<?= $each['id_product_type'] ?>" type="button" class="btn btn-warning">Sửa</a>
-                    <a href="?mod=productType&act=delete&id=<?= $each['id_product_type'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
+                    <a href="?mod=productType&act=detail&id=<?= $productType['id_product_type'] ?>" type="button" class="btn btn-success">Xem</a>
+                    <a href="?mod=productType&act=edit&id=<?= $productType['id_product_type'] ?>" type="button" class="btn btn-warning">Sửa</a>
+                    <a href="?mod=productType&act=delete&id=<?= $productType['id_product_type'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>
         <?php } ?>

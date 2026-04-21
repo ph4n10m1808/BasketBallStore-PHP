@@ -29,7 +29,7 @@ switch ($route) {
         require_once "detail/detail.php";
         break;
     case "product":
-        if (isset($data) && $data) {
+        if (isset($productList) && $productList) {
             require_once "productType/productType.php";
         } else {
             require_once "error/error.php";
@@ -41,7 +41,7 @@ switch ($route) {
         }
         break;
     case "search":
-        if (isset($dataSearch)) {
+        if (isset($searchResults)) {
             require_once "search/search.php";
         }
         break;

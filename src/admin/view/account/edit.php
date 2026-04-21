@@ -13,38 +13,38 @@
     <form action="?mod=account&act=update&id=<?= $_GET['id'] ?>" method="POST" role="form" enctype="multipart/form-data">
         <div class="form-group">
             <label for="">ID</label>
-            <input type="text" class="form-control" id="" placeholder="" disabled value="<?= $detailStuff['id_user'] ?>">
+            <input type="text" class="form-control" id="" placeholder="" disabled value="<?= $account['id_user'] ?>">
         </div>
         <div class="form-group">
             <label for="">Họ</label>
-            <input type="text" class="form-control" id="" placeholder="" name="first_name" value="<?= $detailStuff['first_name'] ?>">
+            <input type="text" class="form-control" id="" placeholder="" name="first_name" value="<?= $account['first_name'] ?>">
         </div>
         <div class="form-group">
             <label for="">Tên</label>
-            <input type="text" class="form-control" id="" placeholder="" name="last_name" value="<?= $detailStuff['last_name'] ?>">
+            <input type="text" class="form-control" id="" placeholder="" name="last_name" value="<?= $account['last_name'] ?>">
         </div>
         <div class="form-group">
             <label for="">Giới tính</label>
             <select id="" name="gender" class="form-control">
                 <option value="1" >Nam</option>
-                <option value="0" <?= $detailStuff['gender'] === "0" ? "selected" : ""?>>Nữ</option>
+                <option value="0" <?= $account['gender'] === "0" ? "selected" : ""?>>Nữ</option>
             </select>
         </div>
         <div class="form-group">
             <label for="">Số Điện Thoại</label>
-            <input type="text" class="form-control" id="" placeholder="" name="phone" value="<?= $detailStuff['phone'] ?>">
+            <input type="text" class="form-control" id="" placeholder="" name="phone" value="<?= $account['phone'] ?>">
         </div>
         <div class="form-group">
             <label for="">Địa chỉ</label>
-            <input type="text" class="form-control" id="" placeholder="" name="address" value="<?= $detailStuff['address'] ?>">
+            <input type="text" class="form-control" id="" placeholder="" name="address" value="<?= $account['address'] ?>">
         </div>
         <div class="form-group">
             <label for="">Tên Tài Khoản</label>
-            <input type="text" class="form-control" id="" placeholder="" name="username" disabled value="<?= $detailStuff['username'] ?>">
+            <input type="text" class="form-control" id="" placeholder="" name="username" disabled value="<?= $account['username'] ?>">
         </div>
         <div class="form-group">
             <label for="">Email</label>
-            <input type="Email" class="form-control" id="" placeholder="" name="email" value="<?= $detailStuff['email'] ?>">
+            <input type="Email" class="form-control" id="" placeholder="" name="email" value="<?= $account['email'] ?>">
         </div>
 <!--        <div class="form-group">-->
 <!--            <label for="">Mật Khẩu</label>-->
@@ -54,8 +54,8 @@
             <label for="">Phân quyền</label>
             <select id="" name="id_auth" class="form-control">
                 <option value="3">User</option>
-                <option value="2" <?= $detailStuff['id_auth'] === "2" ? "selected" : ""?>>Employee</option>
-                <option value="1" <?= $detailStuff['id_auth'] === "1" ? "selected" : ""?>>Admin</option>
+                <option value="2" <?= $account['id_auth'] === "2" ? "selected" : ""?>>Employee</option>
+                <option value="1" <?= $account['id_auth'] === "1" ? "selected" : ""?>>Admin</option>
             </select>
         </div>
 

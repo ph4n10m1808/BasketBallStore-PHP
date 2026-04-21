@@ -13,12 +13,19 @@ class BillController
 
     public function getAll(): void
     {
-        $billList = $this->billModel->getAll();
-        $userList = $this->billModel->getUser();
-        if (isset($_GET['id']) && $_GET['act'] === "edit") {
-            $id = $_GET['id'];
-            $detailStuff = $this->billModel->view($id)->fetch_assoc();
+        $act = $_GET['act'] ?? "";
+
+        if ($act === "add" || $act === "edit") {
+            $userList = $this->billModel->getUser();
         }
+
+        if ($act === "edit" && isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $bill = $this->billModel->view($id)->fetch_assoc();
+        } elseif ($act === "") {
+            $billList = $this->billModel->getAll();
+        }
+
         require_once "view/index.php";
     }
 
@@ -38,7 +45,7 @@ class BillController
     public function viewDetail(): void
     {
         $id = $_GET['id'];
-        $detailStuff = $this->billModel->view($id)->fetch_assoc();
+        $bill = $this->billModel->view($id)->fetch_assoc();
         require_once "view/index.php";
     }
 

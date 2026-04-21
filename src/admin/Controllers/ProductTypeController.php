@@ -15,12 +15,19 @@ class ProductTypeController
 
     public function handleGetAll(): void
     {
-        $productTypeList = $this->productTypeModel->getAll();
-        $categoryList = $this->productTypeModel->getCategory();
-        if (isset($_GET['id']) && $_GET['act'] === "edit") {
-            $id = $_GET['id'];
-            $detailStuff = $this->productTypeModel->view($id);
+        $act = $_GET['act'] ?? "";
+
+        if ($act === "add" || $act === "edit") {
+            $categoryList = $this->productTypeModel->getCategory();
         }
+
+        if ($act === "edit" && isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $productType = $this->productTypeModel->view($id);
+        } elseif ($act === "") {
+            $productTypeList = $this->productTypeModel->getAll();
+        }
+
         require_once "view/index.php";
     }
 
@@ -37,7 +44,7 @@ class ProductTypeController
     public function viewDetail(): void
     {
         $id = $_GET['id'];
-        $detailStuff = $this->productTypeModel->view($id);
+        $productType = $this->productTypeModel->view($id);
         require_once "view/index.php";
     }
 

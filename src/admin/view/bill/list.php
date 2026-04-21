@@ -27,21 +27,21 @@
         </tr>
         </tfoot>
         <tbody>
-        <?php foreach ($billList as $each) { ?>
+        <?php foreach ($billList as $bill) { ?>
             <tr>
-                <td><?= $each["id_bill"] ?></td>
-                <td><?= $each["name_user"] ?></td>
-                <td><?= $each["phone"] ?></td>
-                <td><?= $each["address"] ?></td>
-                <td><?= number_format($each["total_cost"]) . " VND" ?></td>
-                <td style="max-width: 100px"><?= $each["timestamp"] ?></td>
-                <td><?= $each["status"] === "1" ? "Done" : "Unpaid" ?></td>
+                <td><?= $bill["id_bill"] ?></td>
+                <td><?= $bill["name_user"] ?></td>
+                <td><?= $bill["phone"] ?></td>
+                <td><?= $bill["address"] ?></td>
+                <td><?= number_format($bill["total_cost"]) . " VND" ?></td>
+                <td style="max-width: 100px"><?= $bill["timestamp"] ?></td>
+                <td><?= $bill["status"] === "1" ? "Done" : "Unpaid" ?></td>
                 <td>
-                    <a href="?mod=bill&act=detail&id=<?= $each['id_bill'] ?>" type="button" class="btn btn-primary">View</a>
-                    <a href="?mod=bill&act=edit&id=<?= $each['id_bill'] ?>" type="button" class="btn btn-warning">Edit</a>
-                    <a href="?mod=bill&act=delete&id=<?= $each['id_bill'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Delete</a>
-                    <?php if ($each['status'] === "0") { ?>
-                        <a href='?mod=bill&act=confirm&id=<?= $each['id_bill'] ?>' type='button' class='btn btn-success'>Done</a>
+                    <a href="?mod=bill&act=detail&id=<?= $bill['id_bill'] ?>" type="button" class="btn btn-primary">View</a>
+                    <a href="?mod=bill&act=edit&id=<?= $bill['id_bill'] ?>" type="button" class="btn btn-warning">Edit</a>
+                    <a href="?mod=bill&act=delete&id=<?= $bill['id_bill'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Delete</a>
+                    <?php if ($bill['status'] === "0") { ?>
+                        <a href='?mod=bill&act=confirm&id=<?= $bill['id_bill'] ?>' type='button' class='btn btn-success'>Done</a>
                     <?php } ?>
                 </td>
             </tr>

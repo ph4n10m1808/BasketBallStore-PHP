@@ -1,7 +1,7 @@
-<?php $_SESSION['product'] = $dataDetail ?>
+<?php $_SESSION['product'] = $productDetail ?>
 <input type="text" hidden id="size-selected" />
-<input type="text" hidden id="id-product" value="<?= $_GET['id'] ?>">
-<input type="text" hidden id="type-product" value="<?= $dataDetail['size'] ?>">
+<input type="text" hidden id="id-product" value="<?= $_GET['id'] ?? '' ?>">
+<input type="text" hidden id="type-product" value="<?= $productDetail['size'] ?>">
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a class="text-dark" href="index.php">Home</a></li>
@@ -12,51 +12,51 @@
     </ol>
 </nav>
 <div class="d-flex justify-content-between">
-    <h4 class="d-flex"><?= $dataDetail['title_product'] ?></h4>
+    <h4 class="d-flex"><?= $productDetail['title_product'] ?></h4>
     <p class="text-muted"><?= $productType ?></p>
 </div>
 <div class="d-flex">
     <div class="d-flex">
         <div class="d-flex flex-column">
             <img style="max-width: 150px; margin: 4px; border: 1px solid #dddddd; cursor: pointer"
-                src="public/<?= $dataDetail['image1'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="">
+                src="public/<?= $productDetail['image1'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="">
             <img style="max-width: 150px; margin: 4px; border: 1px solid #dddddd; cursor: pointer"
-                src="public/<?= $dataDetail['image2'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="">
+                src="public/<?= $productDetail['image2'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="">
             <img style="max-width: 150px; margin: 4px; border: 1px solid #dddddd; cursor: pointer"
-                src="public/<?= $dataDetail['image3'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="">
+                src="public/<?= $productDetail['image3'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="">
             <img style="max-width: 150px; margin: 4px; border: 1px solid #dddddd; cursor: pointer"
-                src="public/<?= $dataDetail['image4'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="">
+                src="public/<?= $productDetail['image4'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="">
         </div>
         <div>
             <img id="image-detail" class="" style=" margin: 4px; border: 1px solid #dddddd; width: 50vw"
-                src="public/<?= $dataDetail['image1'] ?>" alt="">
+                src="public/<?= $productDetail['image1'] ?>" alt="">
         </div>
     </div>
     <div style="margin-left: 20px">
         <hr style="margin-top: 4px">
-        <h3><?= $dataDetail['name_product'] ?></h3>
+        <h3><?= $productDetail['name_product'] ?></h3>
         <p>
-            <strong class="line-through"><?= number_format($dataDetail['price']) ?></strong> <strong>₫</strong>
+            <strong class="line-through"><?= number_format($productDetail['price']) ?></strong> <strong>₫</strong>
             <span style="margin: 0 10px" class="label label-danger f12 border-0"><span class="fa-solid fa-heart"
                     aria-hidden="true"></span> Giảm 13% </span>
-            Remaining: <strong><?= number_format($dataDetail['price']) ?></strong> <strong>₫</strong>
+            Remaining: <strong><?= number_format($productDetail['price']) ?></strong> <strong>₫</strong>
         </p>
         <hr>
         <!--        -->
-        <?php $arr = explode("/", $dataDetail['size']); ?>
-        <?= $arr[0] ? "<h4>Size:</h4>" : "" ?>
+        <?php $sizeList = explode("/", $productDetail['size']); ?>
+        <?= $sizeList[0] ? "<h4>Size:</h4>" : "" ?>
         <ul style="display: flex; list-style: none; flex-wrap: wrap;" class="p-0">
             <?php
-            if ($arr[0]) {
+            if ($sizeList[0]) {
                 ?>
 
-            <?php foreach ($arr as $each) {
+            <?php foreach ($sizeList as $sizeValue) {
                 ?>
             <li class="text-center size-button" onclick="selectSize(this)"
                 style="width: 60px;background-color: #FFFFFF; border: 1px solid #dddddd; padding: 4px 8px; margin: 4px; cursor: pointer; height: 60px">
-                <a style="font-size: 14px; text-align: center"><strong><?= $each ?></strong>
-                    <?php if ($dataDetail['id_category'] === "1") { ?>
-                    <p class="text-muted m-0 fs-7"><strong><?= ((float) $each) - 33.5 ?></strong> <span
+                <a style="font-size: 14px; text-align: center"><strong><?= $sizeValue ?></strong>
+                    <?php if ($productDetail['id_category'] === "1") { ?>
+                    <p class="text-muted m-0 fs-7"><strong><?= ((float) $sizeValue) - 33.5 ?></strong> <span
                             style="font-size: 8px;">US</span></p>
                     <?php } ?>
                 </a>
@@ -88,7 +88,7 @@
         </div>
         <hr>
         <div>
-            <p>Số sản phẩm còn lại: <span id="quantity-product"><?= $dataDetail['quantity'] ?></span></p>
+            <p>Số sản phẩm còn lại: <span id="quantity-product"><?= $productDetail['quantity'] ?></span></p>
         </div>
         <div class="container">
             <div class="d-inline-block mx-auto">
@@ -105,7 +105,7 @@
                         </button>
                     </span>
                     <input type="text" style="margin: 4px 0;width: 40px; max-width: 40px;" name="quant[1]"
-                        class="form-control input-number text-center" value="1" min="1" max=<?= $dataDetail['quantity']?> id="quantity-cart">
+                        class="form-control input-number text-center" value="1" min="1" max=<?= $productDetail['quantity']?> id="quantity-cart">
                     <span class="input-group-append" style="margin: 4px 0">
                         <button type="button" class="btn btn-outline-secondary btn-number" data-type="plus"
                             data-field="quant[1]" onclick="console.log(document.querySelector('#quantity-cart').value)">
@@ -130,30 +130,30 @@
 </div>
 <hr>
 <div class="text-center">
-    <h4 class="text-center"><?= $dataDetail['name_product'] ?></h4>
+    <h4 class="text-center"><?= $productDetail['name_product'] ?></h4>
     <p class="text-center" style="color: #999999"><?= $productType ?></p>
     <div style="margin-left: 8rem; text-align: left !important;">
-        <p><strong>Description: </strong><?= $dataDetail['description'] ?></p>
-        <p><strong>Reviews: </strong><?= $dataDetail['n_reviews'] ?></p>
-        <p><strong>Stars: </strong><?= $dataDetail['n_stars'] ?></p>
+        <p><strong>Description: </strong><?= $productDetail['description'] ?></p>
+        <p><strong>Reviews: </strong><?= $productDetail['n_reviews'] ?></p>
+        <p><strong>Stars: </strong><?= $productDetail['n_stars'] ?></p>
         <p><strong>Some pictures: </strong></p>
     </div>
     <ul style="list-style: none; display: flex; justify-content: center; flex-wrap: wrap; padding: 0">
         <li>
-            <img class="mt-2 mb-2" style="width: 90%" src="public/<?= $dataDetail['image1'] ?>" alt="">
+            <img class="mt-2 mb-2" style="width: 90%" src="public/<?= $productDetail['image1'] ?>" alt="">
             <p class="text-center">Image 1</p>
         </li>
         <li>
-            <img class="mt-2 mb-2" style="width: 90%" src="public/<?= $dataDetail['image2'] ?>" alt="">
+            <img class="mt-2 mb-2" style="width: 90%" src="public/<?= $productDetail['image2'] ?>" alt="">
             <p class="text-center">Image 2</p>
         </li>
         <li>
-            <img class="mt-2 mb-2" style="width: 90%" src="public/<?= $dataDetail['image3'] ?>" alt="">
+            <img class="mt-2 mb-2" style="width: 90%" src="public/<?= $productDetail['image3'] ?>" alt="">
             <p class="text-center">Image 3</p>
 
         </li>
         <li>
-            <img class="mt-2 mb-2" style="width: 90%" src="public/<?= $dataDetail['image4'] ?>" alt="">
+            <img class="mt-2 mb-2" style="width: 90%" src="public/<?= $productDetail['image4'] ?>" alt="">
             <p class="text-center">Image 4</p>
         </li>
     </ul>
@@ -166,26 +166,26 @@
     <div class="mt-4">
         <div class="bg-white mt-2">
             <ul class="gridpro d-flex flex-wrap">
-                <?php foreach ($relatedProducts as $each) { ?>
+                <?php foreach ($relatedProducts as $product) { ?>
                 <li class="col-xs-6 col-sm-3 col-md-3 col-lg-3 col-gr grid li-normal">
                     <a class="product_img_link pro_img_home gray-darker nodeco " title=" Zoom Freak 3 Low Battery "
-                        href="?page=detail&id=<?= $each['id_product'] ?>">
-                        <img src="public/<?php echo $each['main_image'] ?>" alt=" Zoom Freak 3 Low Battery "
+                        href="?page=detail&id=<?= $product['id_product'] ?>">
+                        <img src="public/<?php echo $product['main_image'] ?>" alt=" Zoom Freak 3 Low Battery "
                             class="img-responsive front">
                         <span class="gitf hide"><img src=''></span>
                         <div class="b_dis_home">
                             <span class="discounts"><strong><span class="fa-solid fa-heart" aria-hidden="true"></span>
-                                    <?php echo $each['name_sale']; ?> </strong></span>
+                                    <?php echo $product['name_sale']; ?> </strong></span>
                         </div>
                         <span class="group hide">Sản phẩm nổi bật</span>
                         <div class="caption padpro">
-                            <h4 class="f13 nomargin"><strong><?php echo $each['title_product'] ?></strong></h4>
-                            <div class="gray-light f11 line-height-normal mb-0"><?php echo $each['p_type_name']; ?>
+                            <h4 class="f13 nomargin"><strong><?php echo $product['title_product'] ?></strong></h4>
+                            <div class="gray-light f11 line-height-normal mb-0"><?php echo $product['p_type_name']; ?>
                             </div>
                             <div class="content_price">
-                                <span class="price"><?php echo number_format($each['d_price']); ?> ₫</span>
+                                <span class="price"><?php echo number_format($product['d_price']); ?> ₫</span>
                                 &nbsp;&nbsp;&nbsp;&nbsp;<span
-                                    class="gray-light line-through f13"><?php echo number_format($each['price']) ?>
+                                    class="gray-light line-through f13"><?php echo number_format($product['price']) ?>
                                     ₫</span>
                             </div>
                         </div>
@@ -239,13 +239,13 @@ function loadReviews() {
     .then(reviews => {
         const container = document.getElementById('reviews-container');
         container.innerHTML = '';
-        reviews.forEach(r => {
+        reviews.forEach(review => {
             // [VULN] Stored XSS: innerHTML render trực tiếp comment từ DB không escape
             container.innerHTML += `
                 <div class="card mb-2">
                     <div class="card-body">
-                        <strong>${r.username}</strong> <small class="text-muted">${r.timestamp}</small>
-                        <p class="mt-1 mb-0">${r.comment}</p>
+                        <strong>${review.username}</strong> <small class="text-muted">${review.timestamp}</small>
+                        <p class="mt-1 mb-0">${review.comment}</p>
                     </div>
                 </div>`;
         });

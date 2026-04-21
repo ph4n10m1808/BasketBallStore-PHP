@@ -27,25 +27,25 @@
         </tr>
         </tfoot>
         <tbody>
-        <?php foreach ($accountList as $each) { ?>
+        <?php foreach ($accountList as $account) { ?>
             <tr>
-                <td><?= $each["id_user"] ?></td>
-                <td><?= $each["username"] ?></td>
-                <td><?= $each["last_name"] . " " . $each["first_name"] ?></td>
-                <td><?= $each["email"] ?></td>
-                <td><?= $each["phone"] ?></td>
-                <td><?= $each["gender"] === "1" ? "Nam" : "Nữ" ?></td>
-                <td><?php if ($each['id_auth'] === "1") {
+                <td><?= $account["id_user"] ?></td>
+                <td><?= $account["username"] ?></td>
+                <td><?= $account["last_name"] . " " . $account["first_name"] ?></td>
+                <td><?= $account["email"] ?></td>
+                <td><?= $account["phone"] ?></td>
+                <td><?= $account["gender"] === "1" ? "Nam" : "Nữ" ?></td>
+                <td><?php if ($account['id_auth'] === "1") {
                     echo "Admin";
-                } elseif ($each['id_auth'] === "2") {
+                } elseif ($account['id_auth'] === "2") {
                     echo "Employee";
                 } else {
                     echo "User";
                 } ?></td>
                 <td>
-                    <a href="?mod=account&act=detail&id=<?= $each['id_user'] ?>" type="button" class="btn btn-success">Xem</a>
-                    <a href="?mod=account&act=edit&id=<?= $each['id_user'] ?>" type="button" class="btn btn-warning">Sửa</a>
-                    <a href="?mod=account&act=delete&id=<?= $each['id_user'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
+                    <a href="?mod=account&act=detail&id=<?= $account['id_user'] ?>" type="button" class="btn btn-success">Xem</a>
+                    <a href="?mod=account&act=edit&id=<?= $account['id_user'] ?>" type="button" class="btn btn-warning">Sửa</a>
+                    <a href="?mod=account&act=delete&id=<?= $account['id_user'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
 
                     <?php if (isset($_SESSION['isLogin_Admin']) && $_SESSION['isLogin_Admin'] == true) { ?>
 

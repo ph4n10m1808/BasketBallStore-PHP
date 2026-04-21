@@ -14,12 +14,6 @@ class modelAdmin
     public function resultReturnArray($query): array
     {
         $result = $this->conn->query($query);
-
-        $data = array();
-
-        while ($row = $result->fetch_assoc()) {
-            $data[] = $row;
-        }
-        return $data;
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
 }

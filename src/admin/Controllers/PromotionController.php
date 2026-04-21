@@ -12,11 +12,15 @@ class PromotionController
 
     public function handleGetAll(): void
     {
-        $promotionList = $this->promotionModel->getAll();
-        if (isset($_GET['id']) && $_GET['act'] === "edit") {
+        $act = $_GET['act'] ?? "";
+
+        if ($act === "edit" && isset($_GET['id'])) {
             $id = $_GET['id'];
-            $detailStuff = $this->promotionModel->view($id);
+            $promotion = $this->promotionModel->view($id);
+        } elseif ($act === "") {
+            $promotionList = $this->promotionModel->getAll();
         }
+
         require_once "view/index.php";
     }
 
@@ -31,7 +35,7 @@ class PromotionController
     public function viewDetail(): void
     {
         $id = $_GET['id'];
-        $detailStuff = $this->promotionModel->view($id);
+        $promotion = $this->promotionModel->view($id);
         require_once "view/index.php";
     }
 

@@ -13,11 +13,11 @@
     <form action="?mod=category&act=update&id=<?= $_GET['id'] ?>" method="POST" role="form" enctype="multipart/form-data">
         <div class="form-group">
             <label for="">ID</label>
-            <input type="text" class="form-control" id="" placeholder="" disabled value="<?= $detailStuff['id_category'] ?>">
+            <input type="text" class="form-control" id="" placeholder="" disabled value="<?= $category['id_category'] ?>">
         </div>
         <div class="form-group">
             <label for="">Name category</label>
-            <input type="text" class="form-control" id="" placeholder="" name="name_category" value="<?= $detailStuff['name_category'] ?>">
+            <input type="text" class="form-control" id="" placeholder="" name="name_category" value="<?= $category['name_category'] ?>">
         </div>
 
 

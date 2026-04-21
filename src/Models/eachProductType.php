@@ -6,21 +6,31 @@ class EachProductType extends model
 {
     public function getProductType($idPT): array
     {
-        $query = "SELECT *, (SELECT value FROM promotion WHERE id_promotion = product.id_promotion) AS d_price,
-       (SELECT type_sale FROM promotion WHERE id_promotion = product.id_promotion) AS type_p,
-       (SELECT type_promotion FROM promotion WHERE id_promotion = product.id_promotion) AS name_sale,
-       (SELECT name_pt FROM product_type WHERE id_product_type = product.id_product_type) AS p_type_name
-       FROM product WHERE id_product_type = $idPT ORDER BY status DESC , n_stars DESC";
+        $query = "SELECT p.*, 
+                    prom.value as d_price,
+                    prom.type_sale as type_p,
+                    prom.type_promotion as name_sale,
+                    pt.name_pt as p_type_name
+                FROM product p
+                LEFT JOIN promotion prom ON p.id_promotion = prom.id_promotion
+                LEFT JOIN product_type pt ON p.id_product_type = pt.id_product_type
+                WHERE p.id_product_type = $idPT 
+                ORDER BY p.status DESC, p.n_stars DESC";
         return $this->queryWithPromotion($query);
     }
 
     public function getCategory($id): array
     {
-        $query = "SELECT *, (SELECT value FROM promotion WHERE id_promotion = product.id_promotion) AS d_price,
-       (SELECT type_sale FROM promotion WHERE id_promotion = product.id_promotion) AS type_p,
-       (SELECT type_promotion FROM promotion WHERE id_promotion = product.id_promotion) AS name_sale,
-       (SELECT name_pt FROM product_type WHERE id_product_type = product.id_product_type) AS p_type_name
-       FROM product WHERE id_category = $id ORDER BY status DESC , n_stars DESC";
+        $query = "SELECT p.*, 
+                    prom.value as d_price,
+                    prom.type_sale as type_p,
+                    prom.type_promotion as name_sale,
+                    pt.name_pt as p_type_name
+                FROM product p
+                LEFT JOIN promotion prom ON p.id_promotion = prom.id_promotion
+                LEFT JOIN product_type pt ON p.id_product_type = pt.id_product_type
+                WHERE p.id_category = $id 
+                ORDER BY p.status DESC, p.n_stars DESC";
         return $this->queryWithPromotion($query);
     }
 
@@ -36,19 +46,19 @@ class EachProductType extends model
         return $this->conn->query($query)->fetch_assoc();
     }
 
-    public function getCategoryName($id): bool|array|null
-    {
-        $query = "SELECT name_category, id_category FROM category WHERE id_category = $id";
-        return $this->conn->query($query)->fetch_assoc();
-    }
-
     public function searchProduct($keyword)
     {
-        $query = "SELECT id_product,main_image,title_product,price, (SELECT value from promotion where id_promotion = product.id_promotion) as d_price,
-       (SELECT type_sale from promotion WHERE id_promotion = product.id_promotion) as type_p,
-       (SELECT type_promotion from promotion WHERE id_promotion = product.id_promotion) as name_sale,
-       (SELECT name_pt from product_type WHERE id_product_type = product.id_product_type) as p_type_name
-       FROM product WHERE name_product LIKE '%$keyword%' OR title_product LIKE '%$keyword%' ORDER BY status DESC , n_stars DESC LIMIT 0, 15";
+        $query = "SELECT p.id_product, p.main_image, p.title_product, p.price, p.status, p.n_stars,
+                    prom.value as d_price,
+                    prom.type_sale as type_p,
+                    prom.type_promotion as name_sale,
+                    pt.name_pt as p_type_name
+                FROM product p
+                LEFT JOIN promotion prom ON p.id_promotion = prom.id_promotion
+                LEFT JOIN product_type pt ON p.id_product_type = pt.id_product_type
+                WHERE p.name_product LIKE '%$keyword%' OR p.title_product LIKE '%$keyword%' 
+                ORDER BY p.status DESC, p.n_stars DESC 
+                LIMIT 0, 15";
         return $this->queryWithPromotion($query);
     }
 

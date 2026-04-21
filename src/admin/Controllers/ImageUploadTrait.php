@@ -7,7 +7,8 @@ trait ImageUploadTrait
 {
     public function formatImage(string $nameInput, string $subDir = "product"): string
     {
-        $dirSave = "../public/imgs/{$subDir}/";
+        $publicPath = dirname(__DIR__, 2) . "/public";
+        $dirSave = $publicPath . "/imgs/{$subDir}/";
 
         // Ensure upload directory exists and is writable
         if (!is_dir($dirSave)) {
@@ -40,9 +41,10 @@ trait ImageUploadTrait
     public function deleteImage(?string $imagePath): void
     {
         if (!empty($imagePath)) {
-            $filePath = __DIR__ . "/../../public/" . $imagePath;
+            $publicPath = dirname(__DIR__, 2) . "/public";
+            $filePath = $publicPath . "/" . $imagePath;
             if (file_exists($filePath)) {
-                unlink($filePath);
+                @unlink($filePath);
             }
         }
     }

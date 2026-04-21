@@ -22,29 +22,29 @@
                         <i class="fa-solid fa-pen"></i>
                     </a>';
             } else {
-                $user = $_SESSION["user"] ?? "";
-                $d_name = "";
-                if ($user) {
-                    $d_name = $user["first_name"] . " " . $user["last_name"];
+                $userAccount = $_SESSION["user"] ?? "";
+                $displayName = "";
+                if ($userAccount) {
+                    $displayName = $userAccount["first_name"] . " " . $userAccount["last_name"];
                 }
-                $auth = "";
-                switch ($user['id_auth']) {
+                $authMenu = "";
+                switch ($userAccount['id_auth']) {
                     case 1:
-                        $auth = '<li><a class="dropdown-item text-success" href="admin/?mod=dashboard" target="_blank"><i class="fas fa-cog me-2" style="width:16px;"></i>Trang quản lý</a></li>';
+                        $authMenu = '<li><a class="dropdown-item text-success" href="admin/?mod=dashboard" target="_blank"><i class="fas fa-cog me-2" style="width:16px;"></i>Trang quản lý</a></li>';
                         break;
                     case 2:
-                        $auth = '<li class="border"><a class="dropdown-item text-info" href="#">Trang nhân viên</a></li>';
+                        $authMenu = '<li class="border"><a class="dropdown-item text-info" href="#">Trang nhân viên</a></li>';
                         break;
                 }
                 echo '
                         <span class="dropdown p-8 me-5 d-flex align-items-center" style="font-size: 12px; cursor: pointer;">
                             <i class="fa-solid fa-user me-2" style="color: #4f46e5;"></i>
                             <span class="nav-link dropdown-toggle position-relative" role="button" aria-expanded="false" style="font-size: 12px; padding: 4px 0;">
-                              ' . $d_name . '
+                              ' . $displayName . '
                             </span>
                             <ul class="dropdown-menu dropdown-content p-0 position-absolute" style="right: 0; top: 100%; margin-top: 4px;">
                                 <li><a class="dropdown-item" href="?page=profile"><i class="fas fa-user-circle me-2" style="color:#94a3b8; width:16px;"></i>Tài khoản</a></li>
-                                ' . $auth . '
+                                ' . $authMenu . '
                                 <li><a class="dropdown-item" href="?page=bill"><i class="fas fa-box me-2" style="color:#94a3b8; width:16px;"></i>Đơn hàng của bạn</a></li>
                                 <li><hr class="dropdown-divider my-1"></li>
                                 <li><a class="dropdown-item text-danger" href="?page=logout"><i class="fas fa-sign-out-alt me-2" style="width:16px;"></i>Đăng xuất</a></li>

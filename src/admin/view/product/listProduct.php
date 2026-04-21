@@ -23,17 +23,17 @@
     </tr>
     </tfoot>
     <tbody>
-    <?php foreach ($productList as $each) { ?>
+    <?php foreach ($productList as $product) { ?>
         <tr>
-            <td><?= $each["id_product"] ?></td>
-            <td style="max-width: 300px"><?= $each["name_product"] ?></td>
-            <td><?= number_format($each["price"]) . " VND" ?></td>
-            <td><?= $each["quantity"] ?></td>
-            <td><img style="max-width: 100px" src="../public/<?= $each["main_image"] ?>" alt=""></td>
+            <td><?= $product["id_product"] ?></td>
+            <td style="max-width: 300px"><?= $product["name_product"] ?></td>
+            <td><?= number_format($product["price"]) . " VND" ?></td>
+            <td><?= $product["quantity"] ?></td>
+            <td><img style="max-width: 100px" src="../public/<?= $product["main_image"] ?>" alt=""></td>
             <td>
-                <a href="?mod=product&act=detail&id=<?= $each['id_product'] ?>" type="button" class="btn btn-success">Xem</a>
-                <a href="?mod=product&act=edit&id=<?= $each['id_product'] ?>" type="button" class="btn btn-warning">Sửa</a>
-                <a href="?mod=product&act=delete&id=<?= $each['id_product'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
+                <a href="?mod=product&act=detail&id=<?= $product['id_product'] ?>" type="button" class="btn btn-success">Xem</a>
+                <a href="?mod=product&act=edit&id=<?= $product['id_product'] ?>" type="button" class="btn btn-warning">Sửa</a>
+                <a href="?mod=product&act=delete&id=<?= $product['id_product'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
 
                 <?php if (isset($_SESSION['isLogin_Admin']) && $_SESSION['isLogin_Admin'] == true) { ?>
 
