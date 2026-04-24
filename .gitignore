@@ -3,3 +3,14 @@ log-union.txt
 WALKTHROUGH.md
 CHANGELOG.md
 .env
+
+# PHP / Composer
+/vendor/
+composer.lock
+.phpunit.cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

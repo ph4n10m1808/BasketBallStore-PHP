@@ -1,0 +1,258 @@
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║  BasketBallStore-PHP — CI Pipeline                              ║
+# ║  Runs on every push and pull request to main/develop            ║
+# ║  Jobs: lint → unit tests → integration tests → docker build    ║
+# ╚══════════════════════════════════════════════════════════════════╝
+
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, develop, master]
+  pull_request:
+    branches: [main, develop, master]
+  workflow_call:
+
+env:
+  PHP_VERSION: '8.4'
+  MYSQL_ROOT_PASSWORD: root_test_password
+  MYSQL_DATABASE: basketball_store
+  MYSQL_USER: test_user
+  MYSQL_PASSWORD: test_password
+
+jobs:
+  # ── Job 1: PHP Lint ────────────────────────────────────────────
+  lint:
+    name: 🔍 PHP Syntax Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: mysqli, pdo_mysql, gd, mbstring
+          tools: composer
+
+      - name: Check PHP syntax (all files)
+        run: |
+          echo "🔎 Scanning PHP files for syntax errors..."
+          find src/ -name "*.php" -print0 | xargs -0 -P$(nproc) -I{} php -l {} 2>&1 | tee /tmp/lint-output.txt
+          if grep -q "Parse error" /tmp/lint-output.txt; then
+            echo "❌ PHP syntax errors found!"
+            exit 1
+          fi
+          echo "✅ All PHP files passed syntax check"
+
+      - name: Check test files syntax
+        run: |
+          find tests/ -name "*.php" -print0 | xargs -0 -P$(nproc) -I{} php -l {}
+
+  # ── Job 2: Unit Tests ──────────────────────────────────────────
+  unit-tests:
+    name: 🧪 Unit Tests
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: mysqli, pdo_mysql, gd, mbstring
+          tools: composer
+          coverage: xdebug
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ runner.os }}-${{ hashFiles('composer.json') }}
+          restore-keys: composer-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Run unit tests
+        run: |
+          echo "🧪 Running Unit Tests..."
+          vendor/bin/phpunit --testsuite Unit --testdox --colors=always
+
+  # ── Job 3: Integration Tests (with MariaDB) ───────────────────
+  integration-tests:
+    name: 🗄️ Integration Tests
+    runs-on: ubuntu-latest
+    needs: lint
+
+    services:
+      mariadb:
+        image: mariadb:lts
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+          MYSQL_USER: ${{ env.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: mysqli, pdo_mysql, gd, mbstring
+          tools: composer
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ runner.os }}-${{ hashFiles('composer.json') }}
+          restore-keys: composer-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Wait for MariaDB
+        run: |
+          echo "⏳ Waiting for MariaDB to be ready..."
+          for i in $(seq 1 30); do
+            if mysql -h 127.0.0.1 -u root -p"$MYSQL_ROOT_PASSWORD" -e "SELECT 1" &>/dev/null; then
+              echo "✅ MariaDB is ready!"
+              break
+            fi
+            echo "  Attempt $i/30..."
+            sleep 2
+          done
+
+      - name: Import database schema
+        run: |
+          echo "📦 Importing database schema..."
+          mysql -h 127.0.0.1 -u root -p"$MYSQL_ROOT_PASSWORD" < db/dbstore.sql
+          echo "✅ Schema imported successfully"
+
+      - name: Verify schema imported
+        run: |
+          echo "🔍 Verifying tables exist..."
+          mysql -h 127.0.0.1 -u root -p"$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" -e "SHOW TABLES;"
+          TABLE_COUNT=$(mysql -h 127.0.0.1 -u root -p"$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" -N -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='$MYSQL_DATABASE';")
+          echo "✅ Found $TABLE_COUNT tables"
+
+      - name: Grant test user permissions
+        run: |
+          mysql -h 127.0.0.1 -u root -p"$MYSQL_ROOT_PASSWORD" -e "
+            GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'%';
+            FLUSH PRIVILEGES;
+          "
+
+      - name: Run integration tests
+        env:
+          MYSQL_HOSTNAME: 127.0.0.1
+          MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+          MYSQL_USER: ${{ env.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+        run: |
+          echo "🗄️ Running Integration Tests..."
+          vendor/bin/phpunit --testsuite Integration --testdox --colors=always
+
+  # ── Job 4: Docker Build Test ───────────────────────────────────
+  docker-build:
+    name: 🐳 Docker Build
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build web image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          load: true
+          tags: basketballstore-web:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build db image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./db
+          file: ./db/Dockerfile
+          push: false
+          load: true
+          tags: basketballstore-db:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Verify web image
+        run: |
+          echo "🔍 Inspecting web image..."
+          docker image inspect basketballstore-web:test --format='{{.Config.Cmd}}'
+          docker image inspect basketballstore-web:test --format='Size: {{.Size}} bytes'
+          echo "✅ Web image built successfully"
+
+      - name: Verify db image
+        run: |
+          echo "🔍 Inspecting db image..."
+          docker image inspect basketballstore-db:test --format='Size: {{.Size}} bytes'
+          echo "✅ DB image built successfully"
+
+      - name: Smoke test — Docker Compose up
+        run: |
+          echo "🚀 Starting full stack with Docker Compose..."
+          cp .env.example .env
+          sed -i 's/your_root_password/root_test_password/' .env
+          sed -i 's/your_db_password/test_password/' .env
+          
+          docker compose up -d --build
+          
+          echo "⏳ Waiting for services to be healthy..."
+          sleep 15
+          
+          echo "🔍 Checking service status..."
+          docker compose ps
+          
+          # Check web container is running
+          WEB_STATUS=$(docker compose ps web --format '{{.State}}')
+          echo "Web status: $WEB_STATUS"
+          
+          # Test HTTP response
+          echo "🌐 Testing HTTP response..."
+          for i in $(seq 1 10); do
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:80/ 2>/dev/null || echo "000")
+            if [ "$HTTP_CODE" != "000" ]; then
+              echo "✅ HTTP response code: $HTTP_CODE"
+              break
+            fi
+            echo "  Attempt $i/10 (got $HTTP_CODE)..."
+            sleep 3
+          done
+          
+          if [ "$HTTP_CODE" = "000" ]; then
+            echo "⚠️ Could not connect to web server"
+            docker compose logs web
+            exit 1
+          fi
+          
+          docker compose down -v
+          echo "✅ Docker Compose smoke test passed"

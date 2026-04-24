@@ -1,0 +1,171 @@
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║  BasketBallStore-PHP — CD Pipeline                              ║
+# ║  Triggers on release tag or manual dispatch                     ║
+# ║  Builds and pushes Docker images to GitHub Container Registry   ║
+# ╚══════════════════════════════════════════════════════════════════╝
+
+name: CD Pipeline
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  REGISTRY: ghcr.io
+  WEB_IMAGE_NAME: ${{ github.repository }}-web
+  DB_IMAGE_NAME: ${{ github.repository }}-db
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  # ── Job 1: Run CI first ────────────────────────────────────────
+  ci-check:
+    name: ✅ CI Verification
+    uses: ./.github/workflows/ci.yml
+
+  # ── Job 2: Build & Push Docker Images ──────────────────────────
+  build-and-push:
+    name: 📦 Build & Push Images
+    runs-on: ubuntu-latest
+    needs: ci-check
+
+    outputs:
+      web-image-tag: ${{ steps.meta-web.outputs.tags }}
+      db-image-tag: ${{ steps.meta-db.outputs.tags }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── Web Image ──
+      - name: Extract metadata (web)
+        id: meta-web
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.WEB_IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push web image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta-web.outputs.tags }}
+          labels: ${{ steps.meta-web.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # ── DB Image ──
+      - name: Extract metadata (db)
+        id: meta-db
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.DB_IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push db image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./db
+          file: ./db/Dockerfile
+          push: true
+          tags: ${{ steps.meta-db.outputs.tags }}
+          labels: ${{ steps.meta-db.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ── Job 3: Create Release ──────────────────────────────────────
+  create-release:
+    name: 🏷️ Create Release
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          body: |
+            ## 🐳 Docker Images
+
+            Pull the images from GitHub Container Registry:
+
+            ```bash
+            # Web Application
+            docker pull ${{ env.REGISTRY }}/${{ env.WEB_IMAGE_NAME }}:${{ github.ref_name }}
+
+            # Database
+            docker pull ${{ env.REGISTRY }}/${{ env.DB_IMAGE_NAME }}:${{ github.ref_name }}
+            ```
+
+            ## 🚀 Quick Start
+
+            ```bash
+            # Clone and start
+            git clone ${{ github.server_url }}/${{ github.repository }}.git
+            cd BasketBallStore-PHP
+            cp .env.example .env
+            # Edit .env with your credentials
+            docker compose up -d
+            ```
+
+  # ── Job 4: Deploy Notification ─────────────────────────────────
+  notify:
+    name: 📢 Deployment Summary
+    runs-on: ubuntu-latest
+    needs: [build-and-push, create-release]
+    if: always()
+
+    steps:
+      - name: Deployment summary
+        run: |
+          echo "╔══════════════════════════════════════════╗"
+          echo "║        Deployment Summary                ║"
+          echo "╠══════════════════════════════════════════╣"
+          echo "║ Repository: ${{ github.repository }}"
+          echo "║ Ref:        ${{ github.ref_name }}"
+          echo "║ SHA:        ${{ github.sha }}"
+          echo "║ Actor:      ${{ github.actor }}"
+          echo "║ Timestamp:  $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          echo "╠══════════════════════════════════════════╣"
+          echo "║ Web Image:  ${{ env.REGISTRY }}/${{ env.WEB_IMAGE_NAME }}"
+          echo "║ DB Image:   ${{ env.REGISTRY }}/${{ env.DB_IMAGE_NAME }}"
+          echo "╚══════════════════════════════════════════╝"

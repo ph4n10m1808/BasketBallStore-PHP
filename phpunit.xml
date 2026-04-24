@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         colors="true"
+         cacheDirectory=".phpunit.cache"
+         executionOrder="depends,defects"
+         failOnRisky="true"
+         failOnWarning="true">
+
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Integration">
+            <directory>tests/Integration</directory>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <env name="MYSQL_HOSTNAME" value="127.0.0.1"/>
+        <env name="MYSQL_DATABASE" value="basketball_store"/>
+        <env name="MYSQL_USER" value="test_user"/>
+        <env name="MYSQL_PASSWORD" value="test_password"/>
+        <env name="MYSQL_ROOT_PASSWORD" value="root_test_password"/>
+    </php>
+
+    <source>
+        <include>
+            <directory>src</directory>
+        </include>
+        <exclude>
+            <directory>src/Views</directory>
+            <directory>src/public</directory>
+            <directory>src/admin/view</directory>
+            <directory>src/admin/public</directory>
+        </exclude>
+    </source>
+</phpunit>
