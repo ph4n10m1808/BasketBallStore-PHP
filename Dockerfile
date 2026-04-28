@@ -18,10 +18,14 @@ RUN { \
     echo 'opcache.max_accelerated_files=4000'; \
     echo 'opcache.revalidate_freq=2'; \
     echo 'opcache.fast_shutdown=1'; \
+    } > /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+
+# Cấu hình PHP chung
+RUN { \
     echo 'memory_limit=256M'; \
     echo 'upload_max_filesize=64M'; \
     echo 'post_max_size=64M'; \
-    } > /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+    } > /usr/local/etc/php/conf.d/docker-php-custom.ini
 
 WORKDIR /var/www/html/
 COPY ./src .

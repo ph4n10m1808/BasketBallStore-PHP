@@ -37,9 +37,13 @@
         <h3><?= $productDetail['name_product'] ?></h3>
         <p>
             <strong class="line-through"><?= number_format($productDetail['price']) ?></strong> <strong>₫</strong>
-            <span style="margin: 0 10px" class="label label-danger f12 border-0"><span class="fa-solid fa-heart"
-                    aria-hidden="true"></span> Giảm 13% </span>
-            Remaining: <strong><?= number_format($productDetail['price']) ?></strong> <strong>₫</strong>
+            <?php if (isset($productDetail['d_price']) && $productDetail['d_price'] != $productDetail['price']) { ?>
+                <span style="margin: 0 10px" class="label label-danger f12 border-0"><span class="fa-solid fa-heart"
+                        aria-hidden="true"></span> <?= $productDetail['name_sale'] ?? 'Sale' ?> </span>
+                Remaining: <strong><?= number_format($productDetail['d_price']) ?></strong> <strong>₫</strong>
+            <?php } else { ?>
+                Remaining: <strong><?= number_format($productDetail['price']) ?></strong> <strong>₫</strong>
+            <?php } ?>
         </p>
         <hr>
         <!--        -->
@@ -168,16 +172,14 @@
             <ul class="gridpro d-flex flex-wrap">
                 <?php foreach ($relatedProducts as $product) { ?>
                 <li class="col-xs-6 col-sm-3 col-md-3 col-lg-3 col-gr grid li-normal">
-                    <a class="product_img_link pro_img_home gray-darker nodeco " title=" Zoom Freak 3 Low Battery "
+                    <a class="product_img_link pro_img_home gray-darker nodeco " title="<?= $product['title_product'] ?>"
                         href="?page=detail&id=<?= $product['id_product'] ?>">
-                        <img src="public/<?php echo $product['main_image'] ?>" alt=" Zoom Freak 3 Low Battery "
+                        <img src="public/<?php echo $product['main_image'] ?>" alt="<?= $product['title_product'] ?>"
                             class="img-responsive front">
-                        <span class="gitf hide"><img src=''></span>
                         <div class="b_dis_home">
                             <span class="discounts"><strong><span class="fa-solid fa-heart" aria-hidden="true"></span>
                                     <?php echo $product['name_sale']; ?> </strong></span>
                         </div>
-                        <span class="group hide">Sản phẩm nổi bật</span>
                         <div class="caption padpro">
                             <h4 class="f13 nomargin"><strong><?php echo $product['title_product'] ?></strong></h4>
                             <div class="gray-light f11 line-height-normal mb-0"><?php echo $product['p_type_name']; ?>

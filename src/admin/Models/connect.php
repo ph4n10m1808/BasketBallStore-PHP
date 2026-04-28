@@ -30,5 +30,7 @@ class Connect
             $retry_count++;
             sleep(2); // Wait for 2 seconds before retrying
         }
+
+        die("Connection failed after $max_retries retries: unable to connect to database.");
     }
 }

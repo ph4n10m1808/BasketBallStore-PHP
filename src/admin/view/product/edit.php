@@ -1,9 +1,4 @@
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-    <?php if (isset($_COOKIE['msg'])) { ?>
-        <div class="alert alert-warning">
-            <strong>Thông báo</strong> <?= $_COOKIE['msg'] ?>
-        </div>
-    <?php } ?>
     <form action="?mod=product&act=update&id=<?= $_GET['id'] ?>" method="POST" role="form" enctype="multipart/form-data">
         <div class="form-group">
             <label for="">ID</label>
@@ -63,7 +58,7 @@
         <div class="form-group">
             <label for="">Hình ảnh 3</label>
             <img style="max-width: 100px" src="../public/<?= $detailProduct['image3'] ?>" alt="">
-            <input type="file" class="form-control" id="" placeholder="" name="image3" ">
+            <input type="file" class="form-control" id="" placeholder="" name="image3">
             <input type="text" hidden name="old_image3" value="<?= $detailProduct['image3'] ?>">
 
         </div>
@@ -94,7 +89,7 @@
         </div>
         <div class="form-group">
             <label for="">Trạng thái</label>
-            <input type="checkbox" id="" placeholder="" value="1" name="status"><em>(Check cho phép hiện thị sản phẩm)</em>
+            <input type="checkbox" id="" placeholder="" value="1" name="status" <?= (isset($detailProduct['status']) && $detailProduct['status'] >= 1) ? "checked" : "" ?>><em>(Check cho phép hiện thị sản phẩm)</em>
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
     </form>

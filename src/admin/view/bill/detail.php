@@ -30,7 +30,7 @@
         <label for="">Note: <?= $bill['note'] ?></label>
     </div>
     <?php if ($bill['status'] === "0") { ?>
-        <a href="?mod=bill&act=confirm&id=<?= $_GET['id'] ?>" type="button" class="btn btn-success">Done</a>
+        <a href="?mod=bill&act=confirm&id=<?= $_GET['id'] ?>" class="btn btn-success">Done</a>
 
     <?php } ?>
 </table>

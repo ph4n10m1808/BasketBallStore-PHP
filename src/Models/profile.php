@@ -7,8 +7,6 @@ class Profile extends model
 {
     public function handleChange($idUser, $firstName, $lastName, $gender, $email, $phone, $address): void
     {
-        $username = $_SESSION['user']['username'];
-
         $sql = "UPDATE user SET last_name = '$lastName', first_name = '$firstName', phone = '$phone', gender = '$gender', email = '$email', address = '$address' WHERE id_user = '$idUser'";
         $this->conn->query($sql);
         $_SESSION['user']['last_name'] = $lastName;

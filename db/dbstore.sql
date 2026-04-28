@@ -347,7 +347,8 @@ CREATE TABLE `product_reviews` (
   `comment` text NOT NULL,
   `timestamp` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id_review`),
-  KEY `review_product` (`id_product`)
+  KEY `review_product` (`id_product`),
+  CONSTRAINT `fk_review_product` FOREIGN KEY (`id_product`) REFERENCES `product` (`id_product`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

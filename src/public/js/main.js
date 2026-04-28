@@ -51,10 +51,10 @@ $(".input-number").focusin(function () {
   $(this).data("oldValue", $(this).val());
 });
 $(".input-number").change(function () {
-  minValue = parseInt($(this).attr("min"));
-  maxValue = parseInt($(this).attr("max"));
-  valueCurrent = parseInt($(this).val());
-  name = $(this).attr("name");
+  let minValue = parseInt($(this).attr("min"));
+  let maxValue = parseInt($(this).attr("max"));
+  let valueCurrent = parseInt($(this).val());
+  let name = $(this).attr("name");
   if (valueCurrent >= minValue) {
     $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr(
       "disabled",
@@ -98,6 +98,5 @@ function selectSize(data) {
   const sizeSelected = document.querySelector("#size-selected");
   listSizeBtn.forEach((e) => e.classList.remove("select-button-size"));
   data.classList.toggle("select-button-size");
-  console.log(data.children[0].children[0].textContent);
   sizeSelected.setAttribute("value", data.children[0].children[0].textContent);
 }

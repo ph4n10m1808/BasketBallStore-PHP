@@ -16,7 +16,6 @@
                            href="?page=detail&id=<?= $product['id_product'] ?>">
                             <img src="public/<?php echo $product['main_image'] ?>" alt="<?php echo $product['name_product'] ?>"
                                  class="img-responsive image-new-product">
-                            <span class="gitf hide"><img src=''></span>
                             <div class="b_dis_home">
                             <span class="discounts">
                                 <strong>
@@ -32,7 +31,7 @@
                         </a>
                         <div class="gray-light f11 line-height-normal" style="color: #999999; font-size: 12px"><?php echo $product['p_type_name'];?></div>
                         <div class="content_price">
-                            <span class="price text-danger"> <span class=""><?php echo number_format($product['d_price']);?> ₫</span></span>
+                            <span class="price text-danger"> <span><?php echo number_format($product['d_price']);?> ₫</span></span>
                             &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-decoration-line-through fs-7" style="color: #999999"><?php echo number_format($product['price']) ?><span
                                     class="f13">₫</span></span>
                         </div>

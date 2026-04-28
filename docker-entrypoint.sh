@@ -7,7 +7,9 @@ find /var/www/html -type f -exec chmod 640 {} \;
 find /var/www/html -type d -exec chmod 750 {} \;
 
 # Upload directories cần writable bởi www-data (group)
-find /var/www/html/public/imgs -type d -exec chmod 770 {} \;
-find /var/www/html/public/imgs -type f -exec chmod 660 {} \;
+if [ -d /var/www/html/public/imgs ]; then
+  find /var/www/html/public/imgs -type d -exec chmod 770 {} \;
+  find /var/www/html/public/imgs -type f -exec chmod 660 {} \;
+fi
 
 exec "$@"

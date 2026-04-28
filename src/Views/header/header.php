@@ -77,7 +77,7 @@
                             <li class="border"><a class="dropdown-item" href="?page=product&id=3">Adidas</a></li>
                             <li class="border"><a class="dropdown-item" href="?page=product&id=2">Anta</a></li>
                             <li class="border"><a class="dropdown-item" href="?page=product&id=4">Peak</a></li>
-                            <li class="border"><a class="dropdown-item" href="?page=product&id=">Lining</a></li>
+                            <li class="border"><a class="dropdown-item" href="?page=product&type=1">Lining</a></li>
                             <li class="border"><a class="dropdown-item" href="?page=product&type=1">Other</a></li>
                         </ul>
                         </span>
@@ -104,7 +104,6 @@
                             <li class="border"><a class="dropdown-item" href="?page=product&id=11">Bóng rổ</a></li>
                             <li class="border"><a class="dropdown-item" href="?page=product&id=12">Balo</a></li>
                             <li class="border"><a class="dropdown-item" href="?page=product&id=10">Tất</a></li>
-<!--                            <li class="border"><a class="dropdown-item" href="#">Bandages</a></li>-->
 
 
                         </ul>

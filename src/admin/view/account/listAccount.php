@@ -1,4 +1,4 @@
-<a href="?mod=account&act=add" type="button" class="btn btn-primary">Thêm mới</a>
+<a href="?mod=account&act=add" class="btn btn-primary">Thêm mới</a>
 <hr>
 <div class="table-responsive">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -43,9 +43,9 @@
                     echo "User";
                 } ?></td>
                 <td>
-                    <a href="?mod=account&act=detail&id=<?= $account['id_user'] ?>" type="button" class="btn btn-success">Xem</a>
-                    <a href="?mod=account&act=edit&id=<?= $account['id_user'] ?>" type="button" class="btn btn-warning">Sửa</a>
-                    <a href="?mod=account&act=delete&id=<?= $account['id_user'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
+                    <a href="?mod=account&act=detail&id=<?= $account['id_user'] ?>" class="btn btn-success">Xem</a>
+                    <a href="?mod=account&act=edit&id=<?= $account['id_user'] ?>" class="btn btn-warning">Sửa</a>
+                    <a href="?mod=account&act=delete&id=<?= $account['id_user'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" class="btn btn-danger">Xóa</a>
 
                     <?php if (isset($_SESSION['isLogin_Admin']) && $_SESSION['isLogin_Admin'] == true) { ?>
 

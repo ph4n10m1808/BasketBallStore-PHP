@@ -1,4 +1,4 @@
-<a href="?mod=bill&act=add" type="button" class="btn btn-primary">Thêm mới</a>
+<a href="?mod=bill&act=add" class="btn btn-primary">Thêm mới</a>
 <hr>
 <div class="table-responsive">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -37,9 +37,9 @@
                 <td style="max-width: 100px"><?= $bill["timestamp"] ?></td>
                 <td><?= $bill["status"] === "1" ? "Done" : "Unpaid" ?></td>
                 <td>
-                    <a href="?mod=bill&act=detail&id=<?= $bill['id_bill'] ?>" type="button" class="btn btn-primary">View</a>
-                    <a href="?mod=bill&act=edit&id=<?= $bill['id_bill'] ?>" type="button" class="btn btn-warning">Edit</a>
-                    <a href="?mod=bill&act=delete&id=<?= $bill['id_bill'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Delete</a>
+                    <a href="?mod=bill&act=detail&id=<?= $bill['id_bill'] ?>" class="btn btn-primary">View</a>
+                    <a href="?mod=bill&act=edit&id=<?= $bill['id_bill'] ?>" class="btn btn-warning">Edit</a>
+                    <a href="?mod=bill&act=delete&id=<?= $bill['id_bill'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" class="btn btn-danger">Delete</a>
                     <?php if ($bill['status'] === "0") { ?>
                         <a href='?mod=bill&act=confirm&id=<?= $bill['id_bill'] ?>' type='button' class='btn btn-success'>Done</a>
                     <?php } ?>

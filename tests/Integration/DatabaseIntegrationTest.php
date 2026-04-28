@@ -22,7 +22,7 @@ class DatabaseIntegrationTest extends TestCase
         $host     = getenv('MYSQL_HOSTNAME') ?: '127.0.0.1';
         $user     = getenv('MYSQL_USER') ?: 'test_user';
         $password = getenv('MYSQL_PASSWORD') ?: 'test_password';
-        $dbname   = getenv('MYSQL_DATABASE') ?: 'basketball_store_test';
+        $dbname   = getenv('MYSQL_DATABASE') ?: 'basketball_store';
 
         $maxRetries = 15;
         $retry = 0;

@@ -5,11 +5,7 @@
 <?php } ?>
 <hr>
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-    <?php if (isset($_COOKIE['msg'])) { ?>
-        <div class="alert alert-warning">
-            <strong>Thông báo</strong> <?= $_COOKIE['msg'] ?>
-        </div>
-    <?php } ?>
+
     <form action="?mod=account&act=update&id=<?= $_GET['id'] ?>" method="POST" role="form" enctype="multipart/form-data">
         <div class="form-group">
             <label for="">ID</label>
@@ -26,7 +22,7 @@
         <div class="form-group">
             <label for="">Giới tính</label>
             <select id="" name="gender" class="form-control">
-                <option value="1" >Nam</option>
+                <option value="1" <?= $account['gender'] === "1" ? "selected" : ""?>>Nam</option>
                 <option value="0" <?= $account['gender'] === "0" ? "selected" : ""?>>Nữ</option>
             </select>
         </div>
@@ -46,10 +42,7 @@
             <label for="">Email</label>
             <input type="Email" class="form-control" id="" placeholder="" name="email" value="<?= $account['email'] ?>">
         </div>
-<!--        <div class="form-group">-->
-<!--            <label for="">Mật Khẩu</label>-->
-<!--            <input type="Password" class="form-control" id="" placeholder="" name="password">-->
-<!--        </div>-->
+
         <div class="form-group">
             <label for="">Phân quyền</label>
             <select id="" name="id_auth" class="form-control">
@@ -59,6 +52,6 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </table>

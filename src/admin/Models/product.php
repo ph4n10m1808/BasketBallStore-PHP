@@ -52,10 +52,10 @@ class product extends modelAdmin
         header("location: ?mod=product");
     }
 
-    public function update($id, $mainImage, $image1, $image2, $image3, $image4, $size, $titleProduct, $nameProduct, $price, $quantity, $idCategory, $idProductType, $idPromotion, $description): void
+    public function update($id, $mainImage, $image1, $image2, $image3, $image4, $size, $titleProduct, $nameProduct, $price, $quantity, $idCategory, $idProductType, $idPromotion, $description, $status = 0): void
     {
         $query = "UPDATE product 
-                    SET title_product = '$titleProduct', name_product = '$nameProduct', price = '$price', quantity = '$quantity', id_category = '$idCategory', id_product_type = '$idProductType', main_image = '$mainImage', image1 = '$image1', image2 = '$image2', image3 = '$image3', image4 = '$image4', size = '$size', id_promotion = '$idPromotion', description = '$description'
+                    SET title_product = '$titleProduct', name_product = '$nameProduct', price = '$price', quantity = '$quantity', id_category = '$idCategory', id_product_type = '$idProductType', main_image = '$mainImage', image1 = '$image1', image2 = '$image2', image3 = '$image3', image4 = '$image4', size = '$size', id_promotion = '$idPromotion', description = '$description', status = '$status'
                     WHERE id_product = '$id'";
         $this->conn->query($query);
         header("location: ?mod=product");

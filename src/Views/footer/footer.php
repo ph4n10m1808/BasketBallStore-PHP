@@ -25,7 +25,7 @@
             <div class="row mt-3">
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">
-                        <i class="fas fa-gem me-3"></i>Introduire
+                        <i class="fas fa-gem me-3"></i>Introduction
                     </h6>
                     <p>
                         The website provides the best, newest and best quality products about basketball
@@ -40,7 +40,7 @@
                         <a href="?page=product&type=1" class="text-reset">Shoes</a>
                     </p>
                     <p>
-                        <a href="?page=product&type=2" class="text-reset">Clother</a>
+                        <a href="?page=product&type=2" class="text-reset">Clothing</a>
                     </p>
                     <p>
                         <a href="?page=product&id=11" class="text-reset">Ball</a>

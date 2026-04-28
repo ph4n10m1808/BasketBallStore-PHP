@@ -78,7 +78,8 @@ class BannerController
             return;
         }
 
-        $this->bannerModel->update($id, $bannerImage);
+        $status = $_POST['status'] ?? 1;
+        $this->bannerModel->update($id, $bannerImage, $status);
     }
 
 }

@@ -5,11 +5,6 @@
 <?php } ?>
 <hr>
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-    <?php if (isset($_COOKIE['msg'])) { ?>
-        <div class="alert alert-warning">
-            <strong>Thông báo</strong> <?= $_COOKIE['msg'] ?>
-        </div>
-    <?php } ?>
 
     <form action="?mod=bill&act=update&id=<?= $_GET['id'] ?>" method="POST" role="form" enctype="multipart/form-data">
         <div class="form-group">
@@ -38,13 +33,13 @@
         <div class="form-group">
             <label for="">Payment Method</label>
             <select id="" name="payment_method" class="form-control">
-                <option value="1">Credit Cast</option>
+                <option value="1" <?= $bill['payment_method'] === "1" ? "selected" : "" ?>>Credit Card</option>
                 <option value="0" <?= $bill['payment_method'] === "0" ? "selected" : "" ?>>COD</option>
             </select>
         </div>
         <div class="form-group">
             <label for="">Total Cost</label>
-            <input type="text" class="form-control" id="" placeholder="" name="total_cost" value="<?= number_format($bill['total_cost']) ?>">
+            <input type="text" class="form-control" id="" placeholder="" name="total_cost" value="<?= $bill['total_cost'] ?>">
         </div>
         <div class="form-group">
             <label for="">Status</label>
@@ -57,6 +52,6 @@
             <label for="">Note</label>
             <textarea name="note" class="form-control"><?= $bill['note'] ?></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </table>

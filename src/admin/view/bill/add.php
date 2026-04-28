@@ -5,11 +5,6 @@
 <?php } ?>
 <hr>
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-    <?php if (isset($_COOKIE['msg'])) { ?>
-        <div class="alert alert-warning">
-            <strong>Thông báo</strong> <?= $_COOKIE['msg'] ?>
-        </div>
-    <?php } ?>
 
     <form action="?mod=bill&act=store" method="POST" role="form" enctype="multipart/form-data">
         <div class="form-group">
@@ -36,7 +31,7 @@
         <div class="form-group">
             <label for="">Payment Method</label>
             <select id="" name="payment_method" class="form-control">
-                <option value="1">Credit Cast</option>
+                <option value="1">Credit Card</option>
                 <option value="0">COD</option>
             </select>
         </div>

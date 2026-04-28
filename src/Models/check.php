@@ -43,9 +43,6 @@ class Check extends model
         if (!$checkRegEx) {
             return "Email chưa đúng";
         }
-        //        if(mysqli_num_rows(mysqli_query($this->conn, $sql))){
-        //            return "Email đã tồn tại";
-        //        }
         return "";
     }
 
@@ -56,9 +53,6 @@ class Check extends model
         if (!$checkRegEx) {
             return "Số điện thoại chưa đúng";
         }
-        //        if(mysqli_num_rows(mysqli_query($this->conn, $sql))){
-        //            return "SĐT đã tồn tại";
-        //        }
         return "";
     }
 }

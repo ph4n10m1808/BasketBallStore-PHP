@@ -1,4 +1,4 @@
-<a href="?mod=category&act=add" type="button" class="btn btn-primary">Thêm mới</a>
+<a href="?mod=category&act=add" class="btn btn-primary">Thêm mới</a>
 <hr>
 <div class="table-responsive">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -22,9 +22,9 @@
                 <td><?= $category["id_category"] ?></td>
                 <td><?= $category["name_category"] ?></td>
                 <td>
-                    <a href="?mod=category&act=detail&id=<?= $category['id_category'] ?>" type="button" class="btn btn-success">Xem</a>
-                    <a href="?mod=category&act=edit&id=<?= $category['id_category'] ?>" type="button" class="btn btn-warning">Sửa</a>
-                    <a href="?mod=category&act=delete&id=<?= $category['id_category'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
+                    <a href="?mod=category&act=detail&id=<?= $category['id_category'] ?>" class="btn btn-success">Xem</a>
+                    <a href="?mod=category&act=edit&id=<?= $category['id_category'] ?>" class="btn btn-warning">Sửa</a>
+                    <a href="?mod=category&act=delete&id=<?= $category['id_category'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" class="btn btn-danger">Xóa</a>
 
                     <?php if (isset($_SESSION['isLogin_Admin']) && $_SESSION['isLogin_Admin'] == true) { ?>
 

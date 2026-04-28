@@ -1,4 +1,4 @@
-<a href="?mod=promotion&act=add" type="button" class="btn btn-primary">Thêm mới</a>
+<a href="?mod=promotion&act=add" class="btn btn-primary">Thêm mới</a>
 <hr>
 <div class="table-responsive">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -31,9 +31,9 @@
                 <td><?= $promotion["value"] ?></td>
                 <td><?= $promotion["start_day"] ?></td>
                 <td>
-                    <a href="?mod=promotion&act=detail&id=<?= $promotion['id_promotion'] ?>" type="button" class="btn btn-success">Xem</a>
-                    <a href="?mod=promotion&act=edit&id=<?= $promotion['id_promotion'] ?>" type="button" class="btn btn-warning">Sửa</a>
-                    <a href="?mod=promotion&act=delete&id=<?= $promotion['id_promotion'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
+                    <a href="?mod=promotion&act=detail&id=<?= $promotion['id_promotion'] ?>" class="btn btn-success">Xem</a>
+                    <a href="?mod=promotion&act=edit&id=<?= $promotion['id_promotion'] ?>" class="btn btn-warning">Sửa</a>
+                    <a href="?mod=promotion&act=delete&id=<?= $promotion['id_promotion'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" class="btn btn-danger">Xóa</a>
 
                     <?php if (isset($_SESSION['isLogin_Admin']) && $_SESSION['isLogin_Admin'] == true) { ?>
 

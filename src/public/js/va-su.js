@@ -37,7 +37,6 @@ $(document).ready(() => {
       },
       (data) => {
         const msg = JSON.parse(data);
-        console.log(msg);
 
         // Check only login-related message fields (not redirect)
         const hasError = msg.msgUsername || msg.msgPassword || msg.msgLogin;
@@ -162,10 +161,9 @@ $(document).ready(function () {
         address: $("#reg-address").val(),
       },
       function (data) {
-        console.log(data);
         let check = true;
         let msg;
-        if (typeof data !== "String") {
+        if (typeof data !== "string") {
           msg = JSON.parse(data);
           for (const each in msg) {
             if (msg[each]) {
@@ -202,22 +200,18 @@ $(document).ready(function () {
       function (data) {
         let check = true;
         let msg;
-        console.log(data);
-        if (typeof data !== "String") {
+        if (typeof data !== "string") {
           msg = JSON.parse(data);
           for (const each in msg) {
-            if (msg[each] && each !== "msgCheckOld") {
+            if (msg[each]) {
               check = false;
-              console.log(each);
             }
           }
         }
         if (!check) {
-          $("#register-container .msg-check-old-password").html(msg?.msgOldPw);
-          $("#register-container .msg-check-pass").html(msg?.msgCheckConfirm);
+          $("#register-container .msg-check-old-password").html(msg?.msgCheckOld || msg?.msgOldPw || "");
+          $("#register-container .msg-check-pass").html(msg?.msgCheckConfirm || msg?.msgNewPw || "");
           // $("#register-container .msg-check-retype-pass").html(msg?.msgCheckConfirm);
-        } else if (check && msg?.msgCheckOld) {
-          alert("Sai mật khẩu");
         } else {
           alert("Thay đổi mật khẩu thành công, vui lòng đăng nhập lại");
           window.location = "?page=logout";
@@ -256,6 +250,7 @@ $(document).ready(function () {
       "Middlewares/deleteCartSession.php",
       {
         id: $(this).val(),
+        size: $(this).data("size") || "",
       },
       function (data) {
         if (data) {

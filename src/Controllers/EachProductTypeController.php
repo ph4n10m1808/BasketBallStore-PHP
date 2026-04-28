@@ -1,6 +1,6 @@
 <?php
 
-require_once "Models/eachProductType.php";
+require_once __DIR__ . "/../Models/eachProductType.php";
 
 class EachProductTypeController
 {

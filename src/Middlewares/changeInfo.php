@@ -16,4 +16,5 @@ $address = $_POST['address'] ?? $_SESSION['user']['address'];
 try {
     echo json_encode($profileObj->handleChangeInfo($firstName, $lastName, $gender, $email, $phone, $address), JSON_THROW_ON_ERROR);
 } catch (JsonException $ex) {
+    error_log('changeInfo JSON error: ' . $ex->getMessage());
 }

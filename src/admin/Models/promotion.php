@@ -10,11 +10,11 @@ class promotion extends modelAdmin
         return $this->conn->query($query);
     }
 
-    public function add($namePromotion, $typePromotion, $value): void
+    public function add($namePromotion, $typePromotion, $typeSale, $value): void
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $time =  date('Y-m-d H:i:s');
-        $query = "INSERT INTO promotion(name_promotion, type_promotion, value, start_day) VALUES ('$namePromotion', '$typePromotion', '$value', '$time')";
+        $query = "INSERT INTO promotion(name_promotion, type_promotion, type_sale, value, start_day) VALUES ('$namePromotion', '$typePromotion', '$typeSale', '$value', '$time')";
         $this->conn->query($query);
         header("location: ?mod=promotion");
     }

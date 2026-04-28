@@ -1,4 +1,4 @@
-<a href="?mod=productType&act=add" type="button" class="btn btn-primary">Thêm mới</a>
+<a href="?mod=productType&act=add" class="btn btn-primary">Thêm mới</a>
 <hr>
 <div class="table-responsive">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -28,9 +28,9 @@
                 <td><?= $productType["description"]?></td>
                 <td class="text-center"><img style="max-width: 50px" src="../public/<?= $productType["logo_pt"] ?>" alt=""></td>
                 <td>
-                    <a href="?mod=productType&act=detail&id=<?= $productType['id_product_type'] ?>" type="button" class="btn btn-success">Xem</a>
-                    <a href="?mod=productType&act=edit&id=<?= $productType['id_product_type'] ?>" type="button" class="btn btn-warning">Sửa</a>
-                    <a href="?mod=productType&act=delete&id=<?= $productType['id_product_type'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
+                    <a href="?mod=productType&act=detail&id=<?= $productType['id_product_type'] ?>" class="btn btn-success">Xem</a>
+                    <a href="?mod=productType&act=edit&id=<?= $productType['id_product_type'] ?>" class="btn btn-warning">Sửa</a>
+                    <a href="?mod=productType&act=delete&id=<?= $productType['id_product_type'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>
         <?php } ?>

@@ -29,9 +29,9 @@ class CartController
         $this->cartModel->addCartNotLogin($idProduct, $quantity, $size, $restQuantity);
     }
 
-    public function deleteItemSession($id)
+    public function deleteItemSession($id, $size = null)
     {
-        $this->cartModel->deleteItemSession($id);
+        $this->cartModel->deleteItemSession($id, $size);
     }
 
     public function updateCart($id, $type, $size)

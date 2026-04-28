@@ -11,13 +11,11 @@
         <ul class="gridpro d-flex flex-wrap">
             <?php foreach ($data_outstanding_product as $product) {?>
                 <li class="col-xs-6 col-sm-3 col-md-3 col-lg-3 col-gr grid li-normal">
-                    <a class="product_img_link pro_img_home gray-darker nodeco " title=" Zoom Freak 3 Low Battery " href="?page=detail&id=<?= $product['id_product'] ?>" >
-                        <img src="public/<?php echo $product['main_image']?>" alt=" Zoom Freak 3 Low Battery " class="img-responsive front" >
-                        <span class="gitf hide"><img src=''></span>
+                    <a class="product_img_link pro_img_home gray-darker nodeco " title="<?= $product['title_product'] ?>" href="?page=detail&id=<?= $product['id_product'] ?>" >
+                        <img src="public/<?php echo $product['main_image']?>" alt="<?= $product['title_product'] ?>" class="img-responsive front" >
                         <div class="b_dis_home">
                             <span class="discounts"><strong><span class="fa-solid fa-heart" aria-hidden="true"></span> <?php echo $product['name_sale'];?> </strong></span>
                         </div>
-                        <span class="group hide">Sản phẩm nổi bật</span>
                         <div class="caption padpro">
                             <a class="gray-darker nodeco fw-semibold" href="?page=detail&id=<?= $product['id_product'] ?>">
                                 <?php echo $product['title_product'] ?>

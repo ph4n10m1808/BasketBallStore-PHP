@@ -15,4 +15,5 @@ $phone = $_POST['phone'] ?? '';
 try {
     echo json_encode($LoginController->handleRegister($firstName, $lastName, $gender, $username, $password, $confirmPassword, $email, $phone), JSON_THROW_ON_ERROR);
 } catch (JsonException $e) {
+    error_log('register JSON error: ' . $e->getMessage());
 }

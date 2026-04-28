@@ -1,4 +1,4 @@
-<a href="?mod=banner&act=add" type="button" class="btn btn-primary">Thêm mới</a>
+<a href="?mod=banner&act=add" class="btn btn-primary">Thêm mới</a>
 <hr>
 <div class="table-responsive">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -28,9 +28,9 @@
                 <td><?= $banner["status"]?></td>
                 <td><?= $banner["timestamp"]?></td>
                 <td>
-                    <a href="?mod=banner&act=detail&id=<?= $banner['id_banner'] ?>" type="button" class="btn btn-success">Xem</a>
-                    <a href="?mod=banner&act=edit&id=<?= $banner['id_banner'] ?>" type="button" class="btn btn-warning">Sửa</a>
-                    <a href="?mod=banner&act=delete&id=<?= $banner['id_banner'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
+                    <a href="?mod=banner&act=detail&id=<?= $banner['id_banner'] ?>" class="btn btn-success">Xem</a>
+                    <a href="?mod=banner&act=edit&id=<?= $banner['id_banner'] ?>" class="btn btn-warning">Sửa</a>
+                    <a href="?mod=banner&act=delete&id=<?= $banner['id_banner'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>
         <?php } ?>

@@ -6,8 +6,25 @@ class DetailProduct extends model
 {
     public function getData($id): bool|array|null
     {
-        $query = "SELECT * FROM product WHERE id_product = '$id'";
-        return $this->conn->query($query)->fetch_assoc();
+        $query = "SELECT p.*, 
+                    prom.value as d_price,
+                    prom.type_sale as type_p,
+                    prom.type_promotion as name_sale
+                FROM product p
+                LEFT JOIN promotion prom ON p.id_promotion = prom.id_promotion
+                WHERE p.id_product = '$id'";
+        $row = $this->conn->query($query)->fetch_assoc();
+        if ($row) {
+            // Apply promotion calculation (same logic as queryWithPromotion)
+            if ($row["type_p"] === "0") {
+                $row["d_price"] = $row["price"] - $row['d_price'];
+            } elseif ($row["type_p"] === "1") {
+                $row["d_price"] = $row["price"] * (1 - $row['d_price'] / 100);
+            } else {
+                $row["d_price"] = $row["price"];
+            }
+        }
+        return $row;
     }
 
     public function getRelated($idCategory): array

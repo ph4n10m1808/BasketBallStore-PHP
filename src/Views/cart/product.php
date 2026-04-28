@@ -102,7 +102,7 @@
                                                                                          aria-hidden="true"></span> <?php echo $item['name_sale']; ?> </strong></span>
                     <p class="text-danger"><?= number_format($item['d_price']) ?> ₫</p>
                     <button class="border-0 text-muted button-delete-item"
-                            value="<?= $item['id_product'] ?>">Xoá</button>
+                            value="<?= $item['id_product'] ?>" data-size="<?= $item['size'] ?? '' ?>">Xoá</button>
                 </span>
 
             </li>

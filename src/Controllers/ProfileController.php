@@ -39,9 +39,8 @@ class ProfileController
         $checkRegex = implode('', $result);
         if (!$checkRegex) {
             $this->profileModel->handleChange($idUser, $firstName, $lastName, $gender, $email, $phone, $address);
-        } else {
-            return $result;
         }
+        return $result;
     }
 
     public function handleChangePassword($oldPassword, $newPassword, $confirmPassword)
@@ -54,10 +53,12 @@ class ProfileController
         $result["msgCheckOld"] = (md5($oldPassword) === $_SESSION['user']['password']) ? "" : "Sai mật khẩu";
         $checkRegex = implode('', $result);
         if (!$checkRegex) {
-            $this->profileModel->changePassword($_SESSION['user']['id_user'], md5($newPassword));
-        } else {
-            return $result;
+            $hashedPassword = md5($newPassword);
+            $this->profileModel->changePassword($_SESSION['user']['id_user'], $hashedPassword);
+            // Cập nhật session để lần đổi mật khẩu tiếp theo không bị lỗi
+            $_SESSION['user']['password'] = $hashedPassword;
         }
+        return $result;
 
     }
 }

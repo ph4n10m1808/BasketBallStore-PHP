@@ -28,8 +28,9 @@ class PromotionController
     {
         $namePromotion = $_POST["name_promotion"] ?? "";
         $typePromotion = $_POST["type_promotion"] ?? "";
+        $typeSale = $_POST["type_sale"] ?? "1";
         $value = $_POST["value"] ?? "";
-        $this->promotionModel->add($namePromotion, $typePromotion, $value);
+        $this->promotionModel->add($namePromotion, $typePromotion, $typeSale, $value);
     }
 
     public function viewDetail(): void

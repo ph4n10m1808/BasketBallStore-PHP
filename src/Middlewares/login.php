@@ -13,4 +13,5 @@ try {
     $result['redirect'] = $redirect;
     echo json_encode($result, JSON_THROW_ON_ERROR);
 } catch (JsonException $e) {
+    error_log('login JSON error: ' . $e->getMessage());
 }

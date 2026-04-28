@@ -108,8 +108,9 @@ class ProductController
         $idProductType = $_POST["id_product_type"] ?? "";
         $idPromotion = $_POST["id_promotion"] ?? "";
         $description = $_POST["description"] ?? "";
+        $status = isset($_POST["status"]) ? 1 : 0;
 
-        $this->productModel->update($id, $mainImage, $image1, $image2, $image3, $image4, $size, $titleProduct, $nameProduct, $price, $quantity, $idCategory, $idProductType, $idPromotion, $description);
+        $this->productModel->update($id, $mainImage, $image1, $image2, $image3, $image4, $size, $titleProduct, $nameProduct, $price, $quantity, $idCategory, $idProductType, $idPromotion, $description, $status);
     }
 
     // [VULN] Command Injection: tên file không được sanitize, cho phép chèn lệnh OS

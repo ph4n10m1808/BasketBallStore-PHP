@@ -6,21 +6,16 @@
 </nav>
 <h4>Kết quả tìm kiếm cho "<strong><?= $keyword ?></strong>"</h4>
 
-<div class="">
-<!--    <h4>--><?//= $categoryName['name_category'] ?? $productTypeName['name_pt'] ?><!--</h4>-->
-
-    <div class="mt-4">
+<div class="mt-4">
         <div class="bg-white mt-2">
             <ul class="gridpro d-flex flex-wrap">
                 <?php foreach ($searchResults as $product) {?>
                     <li class="col-xs-6 col-sm-3 col-md-3 col-lg-3 col-gr grid li-normal">
-                        <a class="product_img_link pro_img_home gray-darker nodeco " title=" Zoom Freak 3 Low Battery " href="?page=detail&id=<?= $product['id_product'] ?>" >
-                            <img src="public/<?php echo $product['main_image']?>" alt=" Zoom Freak 3 Low Battery " class="img-responsive front" >
-                            <span class="gitf hide"><img src=''></span>
+                        <a class="product_img_link pro_img_home gray-darker nodeco " title="<?= $product['title_product'] ?>" href="?page=detail&id=<?= $product['id_product'] ?>" >
+                            <img src="public/<?php echo $product['main_image']?>" alt="<?= $product['title_product'] ?>" class="img-responsive front" >
                             <div class="b_dis_home">
                                 <span class="discounts"><strong><span class="fa-solid fa-heart" aria-hidden="true"></span> <?php echo $product['name_sale'];?> </strong></span>
                             </div>
-                            <span class="group hide">Sản phẩm nổi bật</span>
                             <div class="caption padpro">
                                 <h4 class="f13 nomargin"><strong><?php echo $product['title_product'] ?></strong></h4>
                                 <div class="gray-light f11 line-height-normal mb-0"><?php echo $product['p_type_name'];?></div>
@@ -35,5 +30,4 @@
                 <?php } ?>
             </ul>
         </div>
-    </div>
 </div>

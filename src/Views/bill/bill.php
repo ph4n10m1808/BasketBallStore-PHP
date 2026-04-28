@@ -26,7 +26,7 @@
                 <td style="max-width: 100px"><?= $bill["timestamp"] ?></td>
                 <td><?= $bill["status"] === "1" ? "Đã giao" : "Đang xử lý" ?></td>
                 <td>
-                    <a href="?page=bill&act=delete&id=<?= $bill['id_bill'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Delete</a>
+                    <a href="?page=bill&act=delete&id=<?= $bill['id_bill'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         <?php } ?>

@@ -38,10 +38,8 @@ class LoginController
         $checkRegex = implode('', $result);
         if (!$checkRegex) {
             $this->login_model->handleRegister($firstName, $lastName, $gender, $username, md5($password), $email, $phone);
-
-        } else {
-            return $result;
         }
+        return $result;
     }
 
     public function handleLogin($username, $password): array

@@ -30,10 +30,10 @@ class banner extends modelAdmin
         header("location: ?mod=banner");
     }
 
-    public function update($id, $banner): void
+    public function update($id, $banner, $status = 1): void
     {
         $query = "UPDATE banner 
-                    SET url_banner = '$banner'
+                    SET url_banner = '$banner', status = '$status'
                     WHERE id_banner = '$id'";
         $this->conn->query($query);
         header("location: ?mod=banner");
