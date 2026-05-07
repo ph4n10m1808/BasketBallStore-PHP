@@ -70,6 +70,9 @@ generate_password() {
 }
 
 # --- Defaults ---
+DEFAULT_APP_VERSION="latest"
+DEFAULT_GITHUB_REPOSITORY="ph4n10m1808/basketballstore-php"
+DEFAULT_WEB_PORT="80"
 DEFAULT_ROOT_PASSWORD="$(generate_password)"
 DEFAULT_DATABASE="basketball_store"
 DEFAULT_USER="db_user"
@@ -78,6 +81,9 @@ DEFAULT_HOSTNAME="db"
 
 # --- Collect values ---
 if [ "$USE_DEFAULTS" = true ]; then
+    APP_VERSION="$DEFAULT_APP_VERSION"
+    GITHUB_REPOSITORY="$DEFAULT_GITHUB_REPOSITORY"
+    WEB_PORT="$DEFAULT_WEB_PORT"
     MYSQL_ROOT_PASSWORD="$DEFAULT_ROOT_PASSWORD"
     MYSQL_DATABASE="$DEFAULT_DATABASE"
     MYSQL_USER="$DEFAULT_USER"
@@ -90,6 +96,15 @@ else
     echo ""
     echo -e "Press ${GREEN}Enter${NC} to accept the [default] value."
     echo ""
+
+    read -rp "  APP_VERSION [$DEFAULT_APP_VERSION]: " APP_VERSION
+    APP_VERSION="${APP_VERSION:-$DEFAULT_APP_VERSION}"
+
+    read -rp "  GITHUB_REPOSITORY [$DEFAULT_GITHUB_REPOSITORY]: " GITHUB_REPOSITORY
+    GITHUB_REPOSITORY="${GITHUB_REPOSITORY:-$DEFAULT_GITHUB_REPOSITORY}"
+
+    read -rp "  WEB_PORT [$DEFAULT_WEB_PORT]: " WEB_PORT
+    WEB_PORT="${WEB_PORT:-$DEFAULT_WEB_PORT}"
 
     read -rp "  MYSQL_ROOT_PASSWORD [$DEFAULT_ROOT_PASSWORD]: " MYSQL_ROOT_PASSWORD
     MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD:-$DEFAULT_ROOT_PASSWORD}"
@@ -109,6 +124,12 @@ fi
 
 # --- Write .env ---
 cat > "$ENV_FILE" <<EOF
+# Docker Image Configuration
+APP_VERSION=${APP_VERSION}
+GITHUB_REPOSITORY=${GITHUB_REPOSITORY}
+WEB_PORT=${WEB_PORT}
+
+# Database Configuration
 MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
 MYSQL_DATABASE=${MYSQL_DATABASE}
 MYSQL_USER=${MYSQL_USER}
@@ -121,6 +142,9 @@ chmod 640 "$ENV_FILE"
 echo ""
 echo -e "${GREEN}✅ .env created successfully at ${ENV_FILE}${NC}"
 echo ""
+echo -e "  ${CYAN}APP_VERSION${NC}         = ${APP_VERSION}"
+echo -e "  ${CYAN}GITHUB_REPOSITORY${NC}   = ${GITHUB_REPOSITORY}"
+echo -e "  ${CYAN}WEB_PORT${NC}            = ${WEB_PORT}"
 echo -e "  ${CYAN}MYSQL_ROOT_PASSWORD${NC} = ${MYSQL_ROOT_PASSWORD}"
 echo -e "  ${CYAN}MYSQL_DATABASE${NC}      = ${MYSQL_DATABASE}"
 echo -e "  ${CYAN}MYSQL_USER${NC}          = ${MYSQL_USER}"

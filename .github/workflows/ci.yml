@@ -230,16 +230,16 @@ jobs:
           sed -i 's/your_root_password/root_test_password/' .env
           sed -i 's/your_db_password/test_password/' .env
           
-          docker compose up -d --build
+          docker compose -f docker-compose.dev.yml up -d --build
           
           echo "⏳ Waiting for services to be healthy..."
           sleep 15
           
           echo "🔍 Checking service status..."
-          docker compose ps
+          docker compose -f docker-compose.dev.yml ps
           
           # Check web container is running
-          WEB_STATUS=$(docker compose ps web --format '{{.State}}')
+          WEB_STATUS=$(docker compose -f docker-compose.dev.yml ps web --format '{{.State}}')
           echo "Web status: $WEB_STATUS"
           
           # Test HTTP response
@@ -256,9 +256,9 @@ jobs:
           
           if [ "$HTTP_CODE" = "000" ]; then
             echo "⚠️ Could not connect to web server"
-            docker compose logs web
+            docker compose -f docker-compose.dev.yml logs web
             exit 1
           fi
           
-          docker compose down -v
+          docker compose -f docker-compose.dev.yml down -v
           echo "✅ Docker Compose smoke test passed"
