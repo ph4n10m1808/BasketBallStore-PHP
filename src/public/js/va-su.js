@@ -179,7 +179,18 @@ $(document).ready(function () {
           $("#register-container .msg-check-phone").html(msg?.msgPhone);
           $("#register-container .msg-check-address").html(msg?.msgAddress);
         } else {
-          alert("Cập nhập thông tin thành công");
+          if (typeof $.toast === "function") {
+            $.toast({
+              heading: "Thành công!",
+              text: "Cập nhật thông tin thành công",
+              icon: "success",
+              position: "top-right",
+              showHideTransition: "slide",
+              hideAfter: 1500,
+            });
+          } else {
+            alert("Cập nhật thông tin thành công");
+          }
           window.location = "?page=profile";
         }
       },
@@ -213,7 +224,18 @@ $(document).ready(function () {
           $("#register-container .msg-check-pass").html(msg?.msgCheckConfirm || msg?.msgNewPw || "");
           // $("#register-container .msg-check-retype-pass").html(msg?.msgCheckConfirm);
         } else {
-          alert("Thay đổi mật khẩu thành công, vui lòng đăng nhập lại");
+          if (typeof $.toast === "function") {
+            $.toast({
+              heading: "Thành công!",
+              text: "Thay đổi mật khẩu thành công, vui lòng đăng nhập lại",
+              icon: "success",
+              position: "top-right",
+              showHideTransition: "slide",
+              hideAfter: 2000,
+            });
+          } else {
+            alert("Thay đổi mật khẩu thành công, vui lòng đăng nhập lại");
+          }
           window.location = "?page=logout";
         }
       },
@@ -237,7 +259,18 @@ $(document).ready(function () {
           $("#alert-cart").html("Vui lòng chọn size");
           setTimeout(() => $("#alert-cart").html(""), 5000);
         } else {
-          alert("Đã thêm vào giỏ hàng");
+          if (typeof $.toast === "function") {
+            $.toast({
+              heading: "Thành công!",
+              text: "Đã thêm sản phẩm vào giỏ hàng",
+              icon: "success",
+              position: "top-right",
+              showHideTransition: "slide",
+              hideAfter: 2000,
+            });
+          } else {
+            alert("Đã thêm vào giỏ hàng");
+          }
         }
       },
     );
@@ -254,7 +287,18 @@ $(document).ready(function () {
       },
       function (data) {
         if (data) {
-          alert("Xoá thành công");
+          if (typeof $.toast === "function") {
+            $.toast({
+              heading: "Thành công!",
+              text: "Đã xoá sản phẩm khỏi giỏ hàng",
+              icon: "success",
+              position: "top-right",
+              showHideTransition: "slide",
+              hideAfter: 1500,
+            });
+          } else {
+            alert("Xoá thành công");
+          }
           window.location = "?page=cart";
         }
       },

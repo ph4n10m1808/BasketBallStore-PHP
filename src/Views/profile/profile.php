@@ -2,12 +2,12 @@
 <section class="h-50" id="register-container">
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center">
-            <div class="col">
-                <div class="card card-registration ">
-                    <h3 class="mt-3 mb-4 text-uppercase text-center">Thông tin tài khoản</h3>
-                    <div class="row g-0 d-flex justify-content-center">
-                        <form class="col-xl-4" action="?page=profile&act=update" method="post" style="border-right: 1px solid #000000;">
-                            <div class="card-body text-black">
+            <div class="col-lg-10">
+                <div class="card card-registration border-0 shadow-sm rounded-4 mt-4 mb-5">
+                    <h4 class="mt-4 mb-4 text-uppercase text-center fw-bold" style="color: #1e293b;"><i class="fas fa-user-circle me-2" style="color: #4f46e5;"></i>Thông tin tài khoản</h4>
+                    <div class="row g-0 d-flex justify-content-center px-4 pb-4">
+                        <form class="col-xl-5 pe-xl-4 mb-4 mb-xl-0" action="?page=profile&act=update" method="post" style="border-right: 1px solid #e2e8f0;">
+                            <div class="card-body text-black p-0">
                                 <div class="row">
                                     <div class="col-md-6 mb-0">
                                         <div class="form-outline">
@@ -75,16 +75,16 @@
                                            class="form-control form-control-sm mb-2" required value="<?= $userAccount['address'] ?>"
                                            />
                                 </div>
-                                <div class="d-flex justify-content-end pt-3">
-                                    <button type="submit" id="button-update-info" class="btn btn-primary btn-sm ms-2">
-                                        Cập nhập thông tin
+                                <div class="d-flex justify-content-end pt-4">
+                                    <button type="submit" id="button-update-info" class="btn btn-primary ms-2" style="border-radius: 10px; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); border: none; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);">
+                                        <i class="fas fa-save me-2"></i>Cập nhập thông tin
                                     </button>
                                 </div>
 
 
                             </div>
                         </form>
-                        <div class="col-xl-3 d-none d-xl-block mt-3 me-3 mb-2" style="margin-left: 20px">
+                        <div class="col-xl-5 ps-xl-4 mt-3 mt-xl-0 mb-2">
                             <form action="?page=profile&act=password" method="post">
                                 <div class="form-outline mb-1">
                                     <h6 class="form-label mb-0" for="old-password">Mật khẩu cũ <span
@@ -104,11 +104,10 @@
                                     <input type="password" name="new-password-2" id="confirm-password"
                                            class="form-control form-control-sm mb-2" required/>
                                 </div>
-                                <div class="d-flex justify-content-end pt-3">
-
-                                <button href="#" type="submit" id="button-change-password" class="btn btn-primary btn-sm ms-2">
-                                    Thay đổi mật khẩu
-                                </button>
+                                <div class="d-flex justify-content-end pt-4">
+                                    <button href="#" type="submit" id="button-change-password" class="btn btn-primary ms-2" style="border-radius: 10px; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); border: none; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);">
+                                        <i class="fas fa-key me-2"></i>Thay đổi mật khẩu
+                                    </button>
                                 </div>
                             </form>
                         </div>

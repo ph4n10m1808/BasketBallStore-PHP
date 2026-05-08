@@ -30,6 +30,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Enable Apache modules for performance + functionality
 RUN a2enmod rewrite headers deflate expires
 
+# ─── Apache MPM: Tuned for high-concurrency stress tests ───
+RUN { \
+    echo '<IfModule mpm_prefork_module>'; \
+    echo '  StartServers           10'; \
+    echo '  MinSpareServers        10'; \
+    echo '  MaxSpareServers        30'; \
+    echo '  MaxRequestWorkers      300'; \
+    echo '  MaxConnectionsPerChild 5000'; \
+    echo '</IfModule>'; \
+    } > /etc/apache2/conf-available/mpm-tuning.conf \
+    && a2enconf mpm-tuning
+
 # ─── OPcache: Aggressive production tuning ───
 RUN { \
     echo 'opcache.memory_consumption=64'; \
@@ -42,7 +54,7 @@ RUN { \
 
 # ─── PHP: Reduced memory + upload settings ───
 RUN { \
-    echo 'memory_limit=64M'; \
+    echo 'memory_limit=128M'; \
     echo 'upload_max_filesize=64M'; \
     echo 'post_max_size=64M'; \
     echo 'realpath_cache_size=4096K'; \

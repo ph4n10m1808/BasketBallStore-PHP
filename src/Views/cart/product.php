@@ -7,7 +7,7 @@
 //    $_SESSION['totalCart'] = $total;
 ?>
 <div>
-    <a class="text-danger fw-semibold" id="clear-cart" href="?page=cart&act=clear">Xoá giỏ hàng</a>
+    <a class="text-danger fw-semibold text-decoration-none mb-3 d-inline-block" id="clear-cart" href="?page=cart&act=clear"><i class="fa-solid fa-trash-can me-1"></i>Xoá toàn bộ giỏ hàng</a>
     <ul class="list-group list-group-light">
         <li class="list-group-item d-flex justify-content-between align-items-center mt-4 mb-4">
 
@@ -32,7 +32,7 @@
                                 <p class="fw-bold">Address:</p>
                                 <p class="fw-bold float-end"><?= $_SESSION['user']['address'] ?></p>
                             </div>
-                            <a href="?page=cart&act=pay" class="btn btn-primary float-end" onclick="alert('Thanh toán thành công')">Thanh toán</a>
+                            <a href="?page=cart&act=pay" class="btn btn-primary float-end" style="border-radius: 10px; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); border: none; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);" onclick="alert('Thanh toán thành công')"><i class="fa-solid fa-credit-card me-2"></i>Thanh toán</a>
                         <?php } else { ?>
                             <div class="float-end">
                                 <p class="text-danger">Bạn cần cập nhập địa chỉ để tiến hành thanh toán</p>
@@ -42,7 +42,7 @@
                     <?php } else { ?>
                         <div class="float-end d-flex align-content-center justify-content-center">
                             <p class="text-danger fw-bold m-0 m-2">Bạn cần đăng nhập để tiến hành thanh toán</p>
-                            <a href="?page=login&act=pay" class="btn btn-primary ">Đăng nhập</a>
+                            <a href="?page=login&act=pay" class="btn btn-primary" style="border-radius: 10px; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); border: none;"><i class="fa-solid fa-right-to-bracket me-2"></i>Đăng nhập</a>
                         </div>
                     <?php } ?>
 
@@ -55,8 +55,8 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center" style="width: 100% !important;">
                     <a href="?page=detail&id=<?= $item['id_product'] ?>">
-                        <img src="public/<?= $item['main_image'] ?>" alt="" style="width: 100px; height: 100px"
-                             class="rounded-circle"/>
+                        <img src="public/<?= $item['main_image'] ?>" alt="" style="width: 100px; height: 100px; object-fit: cover;"
+                             class="rounded-3 shadow-sm"/>
                     </a>
 
                     <div class="ms-3">
@@ -96,13 +96,13 @@
                         </div>
                     </div>
                 </div>
-                <span class="badge rounded-pill badge-success" style="color: black; font-size: 13px">
-                    <p class="line-through mb-4"><?= number_format($item['price']) ?> ₫</p>
-                    <span class="discounts" style="right: 30px; top: 36px"><strong><span class="fa-solid fa-heart"
+                <span class="badge rounded-pill badge-success d-flex flex-column align-items-end justify-content-center bg-transparent" style="color: black; font-size: 13px">
+                    <p class="line-through mb-1 text-muted"><del><?= number_format($item['price']) ?> ₫</del></p>
+                    <span class="discounts position-static mb-2" style="transform: none;"><strong><span class="fa-solid fa-heart"
                                                                                          aria-hidden="true"></span> <?php echo $item['name_sale']; ?> </strong></span>
-                    <p class="text-danger"><?= number_format($item['d_price']) ?> ₫</p>
-                    <button class="border-0 text-muted button-delete-item"
-                            value="<?= $item['id_product'] ?>" data-size="<?= $item['size'] ?? '' ?>">Xoá</button>
+                    <p class="text-danger fw-bold fs-6 mb-3"><?= number_format($item['d_price']) ?> ₫</p>
+                    <button class="border-0 bg-transparent text-danger fw-semibold button-delete-item d-flex align-items-center"
+                            value="<?= $item['id_product'] ?>" data-size="<?= $item['size'] ?? '' ?>"><i class="fa-solid fa-trash-can me-1"></i>Xoá</button>
                 </span>
 
             </li>

@@ -25,7 +25,7 @@
             <div class="row mt-3">
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">
-                        <i class="fas fa-gem me-3"></i>Introduction
+                        <i class="fas fa-gem me-2" style="color: #4f46e5; width: 20px; text-align: center;"></i>Introduction
                     </h6>
                     <p>
                         The website provides the best, newest and best quality products about basketball
@@ -70,14 +70,20 @@
 
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">Contact with us</h6>
-                    <p><i class="fas fa-home me-3"></i> 470 Tran Dai Nghia, Da Nang, Viet Nam</p>
-                    <p><i class="fas fa-phone me-3"></i> 0123 45 67 89</p>
-                    <p>
-                        <a href="mailto:info@example.com" class="text-decoration-none">
-                            <i class="fas fa-envelope me-3"></i>
-                            info@example.com
+                    <div class="d-flex align-items-start mb-3" style="transition: transform 0.2s ease;">
+                        <i class="fas fa-home mt-1 me-2" style="color: #4f46e5; width: 20px; text-align: center;"></i>
+                        <span style="font-size: 14.5px;">470 Tran Dai Nghia, Da Nang, Viet Nam</span>
+                    </div>
+                    <div class="d-flex align-items-center mb-3" style="transition: transform 0.2s ease;">
+                        <i class="fas fa-phone me-2" style="color: #4f46e5; width: 20px; text-align: center;"></i>
+                        <span style="font-size: 14.5px;">0123 45 67 89</span>
+                    </div>
+                    <div class="d-flex align-items-center mb-3" style="transition: transform 0.2s ease;">
+                        <a href="mailto:info@example.com" class="text-decoration-none text-reset d-flex align-items-center w-100 footer-email-link">
+                            <i class="fas fa-envelope me-2" style="color: #4f46e5; width: 20px; text-align: center;"></i>
+                            <span style="font-size: 14.5px;">info@example.com</span>
                         </a>
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>

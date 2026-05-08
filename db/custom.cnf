@@ -8,11 +8,13 @@ tmp_table_size = 16M
 max_heap_table_size = 16M
 
 # ─── Connection Tuning ───
-# Match PHP persistent connections — limit idle connections
-max_connections = 50
-wait_timeout = 300
-interactive_timeout = 300
-thread_cache_size = 8
+# Tuned for high-concurrency stress tests (DDoS simulation)
+max_connections = 300
+back_log = 150
+wait_timeout = 60
+interactive_timeout = 60
+thread_cache_size = 32
+connect_timeout = 10
 
 # ─── Query Performance ───
 query_cache_type = ON

@@ -45,6 +45,10 @@ html,
 .product_img_link img {
   border-radius: 15px;
   transition: all 0.5s ease;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background-color: #f8fafc;
 }
 .product_img_link:hover img {
   transform: scale(1.08);
@@ -924,4 +928,31 @@ header .btn-outline-success:hover {
   .register-gender-group {
     flex-direction: column;
   }
+}
+
+/* ==========================================================================
+   Global Custom Scrollbar
+   ========================================================================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #818cf8;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f8fafc;
+  scroll-behavior: smooth;
 }

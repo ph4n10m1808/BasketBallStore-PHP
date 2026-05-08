@@ -17,18 +17,18 @@
 </div>
 <div class="d-flex">
     <div class="d-flex">
-        <div class="d-flex flex-column">
-            <img style="max-width: 150px; margin: 4px; border: 1px solid #dddddd; cursor: pointer"
-                src="public/<?= $productDetail['image1'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="">
-            <img style="max-width: 150px; margin: 4px; border: 1px solid #dddddd; cursor: pointer"
-                src="public/<?= $productDetail['image2'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="">
-            <img style="max-width: 150px; margin: 4px; border: 1px solid #dddddd; cursor: pointer"
-                src="public/<?= $productDetail['image3'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="">
-            <img style="max-width: 150px; margin: 4px; border: 1px solid #dddddd; cursor: pointer"
-                src="public/<?= $productDetail['image4'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="">
+        <div class="d-flex flex-column gap-2 me-3">
+            <img class="rounded-3 shadow-sm" style="width: 80px; height: 80px; object-fit: cover; border: 2px solid transparent; cursor: pointer; transition: all 0.2s ease;"
+                src="public/<?= $productDetail['image1'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="" onmouseover="this.style.borderColor='#4f46e5'" onmouseout="this.style.borderColor='transparent'">
+            <img class="rounded-3 shadow-sm" style="width: 80px; height: 80px; object-fit: cover; border: 2px solid transparent; cursor: pointer; transition: all 0.2s ease;"
+                src="public/<?= $productDetail['image2'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="" onmouseover="this.style.borderColor='#4f46e5'" onmouseout="this.style.borderColor='transparent'">
+            <img class="rounded-3 shadow-sm" style="width: 80px; height: 80px; object-fit: cover; border: 2px solid transparent; cursor: pointer; transition: all 0.2s ease;"
+                src="public/<?= $productDetail['image3'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="" onmouseover="this.style.borderColor='#4f46e5'" onmouseout="this.style.borderColor='transparent'">
+            <img class="rounded-3 shadow-sm" style="width: 80px; height: 80px; object-fit: cover; border: 2px solid transparent; cursor: pointer; transition: all 0.2s ease;"
+                src="public/<?= $productDetail['image4'] ?>" onclick="changeImage(this.getAttribute('src'))" alt="" onmouseover="this.style.borderColor='#4f46e5'" onmouseout="this.style.borderColor='transparent'">
         </div>
         <div>
-            <img id="image-detail" class="" style=" margin: 4px; border: 1px solid #dddddd; width: 50vw"
+            <img id="image-detail" class="rounded-4 shadow-sm" style="width: 100%; max-width: 500px; aspect-ratio: 1/1; object-fit: cover;"
                 src="public/<?= $productDetail['image1'] ?>" alt="">
         </div>
     </div>
@@ -56,9 +56,9 @@
 
             <?php foreach ($sizeList as $sizeValue) {
                 ?>
-            <li class="text-center size-button" onclick="selectSize(this)"
-                style="width: 60px;background-color: #FFFFFF; border: 1px solid #dddddd; padding: 4px 8px; margin: 4px; cursor: pointer; height: 60px">
-                <a style="font-size: 14px; text-align: center"><strong><?= $sizeValue ?></strong>
+            <li class="text-center size-button rounded-3" onclick="selectSize(this)"
+                style="width: 60px;background-color: #f8fafc; border: 2px solid #e2e8f0; padding: 4px 8px; margin: 4px; cursor: pointer; height: 60px; transition: all 0.2s ease;" onmouseover="this.style.borderColor='#818cf8'" onmouseout="this.style.borderColor='#e2e8f0'">
+                <a style="font-size: 14px; text-align: center; color: #1e293b; text-decoration: none;"><strong><?= $sizeValue ?></strong>
                     <?php if ($productDetail['id_category'] === "1") { ?>
                     <p class="text-muted m-0 fs-7"><strong><?= ((float) $sizeValue) - 33.5 ?></strong> <span
                             style="font-size: 8px;">US</span></p>
@@ -70,24 +70,14 @@
         </ul>
 
 
-        <div id="tab" class="d-flex w-100" data-toggle="buttons">
-            <a href="#buy2" id="type_buy2" class="btn btn-primary" style="width: 100%;" data-toggle="tab">
-                <div><strong class="f13 text-white">GIAO HÀNG COD <span
-                            class="glyphicon glyphicon-ok-sign ok-sign-cod  hide " aria-hidden="true"></span></strong>
-                </div>
-                <div class="fs-7 fw-semibold text-white">
-                    Nội thành Đà Nẵng
-                </div>
+        <div id="tab" class="d-flex w-100 mt-3 mb-3 gap-3" data-toggle="buttons">
+            <a href="#buy2" id="type_buy2" class="btn flex-fill text-start" style="border-radius: 12px; background-color: #f8fafc; border: 2px solid #e2e8f0; color: #1e293b; padding: 12px;" data-toggle="tab">
+                <div><strong class="f13">GIAO HÀNG COD <i class="fa-solid fa-truck-fast text-success ms-1"></i></strong></div>
+                <div class="fs-7 fw-semibold text-muted mt-1">Nội thành Đà Nẵng</div>
             </a>
-            <a href="#buy1" id="type_buy1" class="btn btn-danger" style="width: 100%;margin-left: 5px;"
-                data-toggle="tab ">
-                <div>
-                    <strong class="f13 text-white">CHUYỂN KHOẢN</strong>
-                    <span class="glyphicon glyphicon-ok-sign ok-sign-ck  " aria-hidden="true"></span>
-                </div>
-                <div class="fs-7 fw-semibold text-white">
-                    Ship toàn quốc
-                </div>
+            <a href="#buy1" id="type_buy1" class="btn flex-fill text-start" style="border-radius: 12px; background-color: #f8fafc; border: 2px solid #e2e8f0; color: #1e293b; padding: 12px;" data-toggle="tab">
+                <div><strong class="f13">CHUYỂN KHOẢN <i class="fa-solid fa-money-bill-transfer text-primary ms-1"></i></strong></div>
+                <div class="fs-7 fw-semibold text-muted mt-1">Ship toàn quốc</div>
             </a>
         </div>
         <hr>
@@ -119,12 +109,9 @@
                 </div>
             </div>
             <button type="submit" name="submit-buy" id="submit-buy" value="submit-buy"
-                class="btn btn-primary d-inline-block" style="position: relative;top: -2px;">
-                <i class="fa fa-shopping-cart white f12" aria-hidden="true"></i>
-                <strong>
-                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">
-                    </span> Add
-                </strong>
+                class="btn btn-primary btn-lg px-4 fw-semibold ms-2" style="border-radius: 10px; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4); background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); border: none;">
+                <i class="fa-solid fa-cart-plus me-2"></i>
+                <span>Thêm vào giỏ hàng</span>
             </button>
             <p class="text-danger fw-semibold" id="alert-cart"></p>
         </div>
