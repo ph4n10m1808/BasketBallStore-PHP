@@ -40,7 +40,7 @@ jobs:
       - name: Check PHP syntax (all files)
         run: |
           echo "🔎 Scanning PHP files for syntax errors..."
-          find src/ -name "*.php" -print0 | xargs -0 -P$(nproc) -I{} php -l {} 2>&1 | tee /tmp/lint-output.txt
+          find src/web/ -name "*.php" -print0 | xargs -0 -P$(nproc) -I{} php -l {} 2>&1 | tee /tmp/lint-output.txt
           if grep -q "Parse error" /tmp/lint-output.txt; then
             echo "❌ PHP syntax errors found!"
             exit 1
@@ -72,17 +72,17 @@ jobs:
       - name: Cache Composer dependencies
         uses: actions/cache@v5
         with:
-          path: vendor
-          key: composer-${{ runner.os }}-${{ hashFiles('composer.lock') }}
+          path: src/web/vendor
+          key: composer-${{ runner.os }}-${{ hashFiles('src/web/composer.lock') }}
           restore-keys: composer-${{ runner.os }}-
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-interaction
+        run: composer install --working-dir=src/web --prefer-dist --no-progress --no-interaction
 
       - name: Run unit tests
         run: |
           echo "🧪 Running Unit Tests..."
-          vendor/bin/phpunit --testsuite Unit --testdox --colors=always
+          src/web/vendor/bin/phpunit -c src/web/phpunit.xml --testsuite Unit --testdox --colors=always
 
   # ── Job 3: Integration Tests (with MariaDB) ───────────────────
   integration-tests:
@@ -120,12 +120,12 @@ jobs:
       - name: Cache Composer dependencies
         uses: actions/cache@v5
         with:
-          path: vendor
-          key: composer-${{ runner.os }}-${{ hashFiles('composer.json') }}
+          path: src/web/vendor
+          key: composer-${{ runner.os }}-${{ hashFiles('src/web/composer.json') }}
           restore-keys: composer-${{ runner.os }}-
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-interaction
+        run: composer install --working-dir=src/web --prefer-dist --no-progress --no-interaction
 
       - name: Wait for MariaDB
         run: |
@@ -148,7 +148,7 @@ jobs:
       - name: Import database schema
         run: |
           echo "📦 Importing database schema..."
-          mysql -h 127.0.0.1 -u root -p"$MYSQL_ROOT_PASSWORD" < db/dbstore.sql
+          mysql -h 127.0.0.1 -u root -p"$MYSQL_ROOT_PASSWORD" < src/db/dbstore.sql
           echo "✅ Schema imported successfully"
 
       - name: Verify schema imported
@@ -173,7 +173,7 @@ jobs:
           MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
         run: |
           echo "🗄️ Running Integration Tests..."
-          vendor/bin/phpunit --testsuite Integration --testdox --colors=always
+          src/web/vendor/bin/phpunit -c src/web/phpunit.xml --testsuite Integration --testdox --colors=always
 
   # ── Job 4: Docker Build Test ───────────────────────────────────
   docker-build:
@@ -191,8 +191,8 @@ jobs:
       - name: Build web image
         uses: docker/build-push-action@v7
         with:
-          context: .
-          file: ./Dockerfile
+          context: src/web
+          file: src/web/Dockerfile
           push: false
           load: true
           tags: basketballstore-web:test
@@ -202,8 +202,8 @@ jobs:
       - name: Build db image
         uses: docker/build-push-action@v7
         with:
-          context: ./db
-          file: ./db/Dockerfile
+          context: src/db
+          file: src/db/Dockerfile
           push: false
           load: true
           tags: basketballstore-db:test

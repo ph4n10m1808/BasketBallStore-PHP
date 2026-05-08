@@ -78,8 +78,8 @@ jobs:
       - name: Build and push web image
         uses: docker/build-push-action@v7
         with:
-          context: .
-          file: ./Dockerfile
+          context: src/web
+          file: src/web/Dockerfile
           push: true
           tags: ${{ steps.meta-web.outputs.tags }}
           labels: ${{ steps.meta-web.outputs.labels }}
@@ -101,8 +101,8 @@ jobs:
       - name: Build and push db image
         uses: docker/build-push-action@v7
         with:
-          context: ./db
-          file: ./db/Dockerfile
+          context: src/db
+          file: src/db/Dockerfile
           push: true
           tags: ${{ steps.meta-db.outputs.tags }}
           labels: ${{ steps.meta-db.outputs.labels }}
