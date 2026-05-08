@@ -21,13 +21,13 @@ class Home extends model
 
     public function getBanner(): array
     {
-        $query = "SELECT * FROM banner WHERE status = 1 ORDER BY timestamp DESC";
+        $query = "SELECT id_banner, url_banner FROM banner WHERE status = 1 ORDER BY timestamp DESC";
         return $this->resultReturnArray($query);
     }
 
     public function getTypicalProducts($start, $end): array
     {
-        $query = "SELECT * FROM typical_products LIMIT $start, $end";
+        $query = "SELECT id_t_product, url_image, url_event, title, description FROM typical_products LIMIT $start, $end";
         return $this->resultReturnArray($query);
     }
 

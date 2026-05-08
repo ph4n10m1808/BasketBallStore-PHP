@@ -10,6 +10,18 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - backend_network
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
   web:
     image: ghcr.io/${GITHUB_REPOSITORY:-ph4n10m1808/basketballstore-php}-web:${APP_VERSION:-latest}
@@ -18,9 +30,16 @@ services:
       - ${WEB_PORT:-80}:80
     env_file: .env
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - backend_network
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
 
 volumes:
   db_data:

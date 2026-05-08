@@ -1,0 +1,33 @@
+[mysqld]
+# ─── Memory Optimization ───
+# Reduced from defaults for a small e-commerce DB (~50 products)
+innodb_buffer_pool_size = 64M
+innodb_log_buffer_size = 4M
+key_buffer_size = 8M
+tmp_table_size = 16M
+max_heap_table_size = 16M
+
+# ─── Connection Tuning ───
+# Match PHP persistent connections — limit idle connections
+max_connections = 50
+wait_timeout = 300
+interactive_timeout = 300
+thread_cache_size = 8
+
+# ─── Query Performance ───
+query_cache_type = ON
+query_cache_size = 16M
+query_cache_limit = 1M
+sort_buffer_size = 256K
+read_buffer_size = 128K
+read_rnd_buffer_size = 256K
+join_buffer_size = 256K
+
+# ─── InnoDB Tuning ───
+innodb_flush_log_at_trx_commit = 2
+innodb_flush_method = O_DIRECT
+innodb_file_per_table = ON
+
+# ─── Logging ───
+slow_query_log = ON
+long_query_time = 1

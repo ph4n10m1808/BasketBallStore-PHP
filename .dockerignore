@@ -16,5 +16,21 @@ package-lock.json
 .env
 .env.example
 docker-compose.yml
+docker-compose.dev.yml
+docker-compose.user.yml
 Dockerfile
 db/
+
+# Lọc testing & dev tools
+tests/
+.phpunit.cache/
+phpunit.xml
+vendor/
+composer.json
+composer.lock
+
+# Lọc CI/CD
+.github/
+
+# Lọc setup scripts
+setup-env.sh

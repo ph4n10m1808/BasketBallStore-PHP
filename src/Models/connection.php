@@ -16,9 +16,9 @@ class Connection
 
         while ($retry_count < $max_retries) {
             try {
-                $this->conn = new mysqli($servername, $username, $password, $db_name);
+                $this->conn = new mysqli('p:' . $servername, $username, $password, $db_name);
                 if (!$this->conn->connect_error) {
-                    $this->conn->set_charset('utf8');
+                    $this->conn->set_charset('utf8mb4');
                     return;
                 }
             } catch (mysqli_sql_exception $e) {

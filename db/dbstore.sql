@@ -356,3 +356,23 @@ CREATE TABLE `product_reviews` (
 --
 
 ALTER TABLE `user` ADD COLUMN IF NOT EXISTS `reset_token` varchar(255) DEFAULT NULL;
+
+--
+-- Performance indexes for common queries
+--
+
+-- Product listing queries filter by category + status + timestamp/stars
+ALTER TABLE `product` ADD INDEX IF NOT EXISTS `idx_category_status` (`id_category`, `status`);
+ALTER TABLE `product` ADD INDEX IF NOT EXISTS `idx_product_type_status` (`id_product_type`, `status`);
+ALTER TABLE `product` ADD INDEX IF NOT EXISTS `idx_status_stars` (`status`, `n_stars`);
+
+-- Search queries use LIKE on name_product and title_product
+ALTER TABLE `product` ADD INDEX IF NOT EXISTS `idx_name_product` (`name_product`);
+ALTER TABLE `product` ADD INDEX IF NOT EXISTS `idx_title_product` (`title_product`);
+
+-- Bill lookups by user
+ALTER TABLE `bill` ADD INDEX IF NOT EXISTS `idx_bill_user` (`id_user`);
+
+-- Banner status filter
+ALTER TABLE `banner` ADD INDEX IF NOT EXISTS `idx_banner_status` (`status`);
+
