@@ -1,0 +1,22 @@
+# Ignore local dev files
+.env
+.env.example
+docker-compose.yml
+docker-compose.dev.yml
+docker-compose.user.yml
+Dockerfile
+
+# Ignore testing & cache
+.phpunit.cache/
+phpunit.xml
+
+# Ignore local dependencies
+vendor/
+node_modules/
+
+# Ignore metadata
+.git
+.github
+.gitignore
+*.md
+setup-env.sh

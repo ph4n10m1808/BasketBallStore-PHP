@@ -1,0 +1,12 @@
+# Ignore everything except SQL and Dockerfile
+*
+!dbstore.sql
+!Dockerfile
+!custom.cnf
+
+# Ignore local dev
+.env
+.env.example
+docker-compose.yml
+docker-compose.dev.yml
+docker-compose.user.yml
