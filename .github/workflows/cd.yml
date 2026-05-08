@@ -78,13 +78,13 @@ jobs:
       - name: Build and push web image
         uses: docker/build-push-action@v7
         with:
-          context: .
-          file: ./Dockerfile
+          context: src/web
+          file: src/web/Dockerfile
           push: true
           tags: ${{ steps.meta-web.outputs.tags }}
           labels: ${{ steps.meta-web.outputs.labels }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-to: type=gha,mode=min
 
       # ── DB Image ──
       - name: Extract metadata (db)
@@ -101,13 +101,13 @@ jobs:
       - name: Build and push db image
         uses: docker/build-push-action@v7
         with:
-          context: ./db
-          file: ./db/Dockerfile
+          context: src/db
+          file: src/db/Dockerfile
           push: true
           tags: ${{ steps.meta-db.outputs.tags }}
           labels: ${{ steps.meta-db.outputs.labels }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-to: type=gha,mode=min
 
   # ── Job 3: Create Release ──────────────────────────────────────
   create-release:

@@ -1,6 +1,6 @@
 services:
   db:
-    build: ./db
+    build: ./src/db
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: unless-stopped
     expose:
@@ -24,7 +24,7 @@ services:
       start_period: 30s
 
   web:
-    build: ./
+    build: ./src/web
     restart: unless-stopped
     ports:
       - 80:80
