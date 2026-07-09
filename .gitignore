@@ -4,6 +4,7 @@ WALKTHROUGH.md
 CHANGELOG.md
 .env
 docs/private/
+.worktrees/
 
 # PHP / Composer
 /vendor/
