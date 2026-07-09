@@ -3,6 +3,7 @@ log-union.txt
 WALKTHROUGH.md
 CHANGELOG.md
 .env
+docs/private/
 
 # PHP / Composer
 /vendor/
