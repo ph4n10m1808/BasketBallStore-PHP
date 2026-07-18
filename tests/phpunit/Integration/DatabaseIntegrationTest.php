@@ -11,6 +11,7 @@
 
 namespace Tests\Integration;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DatabaseIntegrationTest extends TestCase
@@ -62,9 +63,7 @@ class DatabaseIntegrationTest extends TestCase
 
     // ─── Schema Integrity Tests ─────────────────────────────────────
 
-    /**
-     * @dataProvider requiredTablesProvider
-     */
+    #[DataProvider('requiredTablesProvider')]
     public function testRequiredTableExists(string $tableName): void
     {
         $result = self::$conn->query("SHOW TABLES LIKE '$tableName'");

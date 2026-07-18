@@ -4,6 +4,8 @@ session_start();
 
 define('BASE_PATH', dirname(__DIR__));
 require_once BASE_PATH . '/vendor/autoload.php';
+require_once BASE_PATH . '/app/Support/RequestTelemetry.php';
+RequestTelemetry::start($_SERVER, $_GET, $_POST);
 
 // [VULN] Insecure Deserialization: auto-login từ cookie không an toàn
 if (!isset($_SESSION['user']) && isset($_COOKIE['remember_user'])) {
@@ -17,6 +19,10 @@ if (!isset($_SESSION['user']) && isset($_COOKIE['remember_user'])) {
 $route = $_GET['page'] ?? "home";
 
 switch ($route) {
+    case "health":
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['status' => 'ok'], JSON_THROW_ON_ERROR);
+        break;
     case "cart":
         require_once BASE_PATH . "/app/Controllers/CartController.php";
         $cartObj = new CartController();

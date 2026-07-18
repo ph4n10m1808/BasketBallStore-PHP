@@ -40,14 +40,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Enable Apache modules for performance + functionality
 RUN a2enmod rewrite headers deflate expires
 
-# ─── Apache MPM: Tuned for high-concurrency stress tests ───
+# ─── Apache MPM: bounded for the 256 MiB production container ───
 RUN { \
     echo '<IfModule mpm_prefork_module>'; \
-    echo '  StartServers           10'; \
-    echo '  MinSpareServers        10'; \
-    echo '  MaxSpareServers        30'; \
-    echo '  MaxRequestWorkers      300'; \
-    echo '  MaxConnectionsPerChild 5000'; \
+    echo '  StartServers           2'; \
+    echo '  MinSpareServers        2'; \
+    echo '  MaxSpareServers        5'; \
+    echo '  MaxRequestWorkers      12'; \
+    echo '  MaxConnectionsPerChild 1000'; \
     echo '</IfModule>'; \
     } > /etc/apache2/conf-available/mpm-tuning.conf \
     && a2enconf mpm-tuning
@@ -78,6 +78,9 @@ RUN { \
     echo 'max_execution_time=30'; \
     echo 'max_input_time=30'; \
     echo 'output_buffering=4096'; \
+    echo 'log_errors=On'; \
+    echo 'error_log=/proc/self/fd/2'; \
+    echo 'auto_prepend_file=/var/www/html/app/Support/telemetry-bootstrap.php'; \
     } > /usr/local/etc/php/conf.d/docker-php-custom.ini
 
 # ─── Apache: Compression, caching, KeepAlive ───

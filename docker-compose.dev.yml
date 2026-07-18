@@ -29,11 +29,20 @@ services:
     ports:
       - 80:80
     env_file: .env
+    environment:
+      APP_TELEMETRY: ${APP_TELEMETRY:-1}
+      APP_LOG_INPUT_VALUES: ${APP_LOG_INPUT_VALUES:-1}
     depends_on:
       db:
         condition: service_healthy
     networks:
       - backend_network
+    healthcheck:
+      test: ["CMD", "php", "-r", "$$body = @file_get_contents('http://127.0.0.1/?page=health'); exit($$body === '{\"status\":\"ok\"}' ? 0 : 1);"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
     deploy:
       resources:
         limits:

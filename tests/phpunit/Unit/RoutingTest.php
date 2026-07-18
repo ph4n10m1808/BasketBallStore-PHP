@@ -10,6 +10,7 @@
 
 namespace Tests\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class RoutingTest extends TestCase
@@ -26,9 +27,7 @@ class RoutingTest extends TestCase
         parent::tearDown();
     }
 
-    /**
-     * @dataProvider routeProvider
-     */
+    #[DataProvider('routeProvider')]
     public function testRouteResolution(string $page, string $expectedRoute): void
     {
         $_GET['page'] = $page;

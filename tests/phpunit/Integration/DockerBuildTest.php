@@ -10,15 +10,14 @@
 
 namespace Tests\Integration;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DockerBuildTest extends TestCase
 {
     // ─── Required File Existence ────────────────────────────────────
 
-    /**
-     * @dataProvider requiredFilesProvider
-     */
+    #[DataProvider('requiredFilesProvider')]
     public function testRequiredFileExists(string $filePath): void
     {
         $fullPath = __DIR__ . '/../../../' . $filePath;
@@ -40,9 +39,7 @@ class DockerBuildTest extends TestCase
 
     // ─── PHP Syntax Validation ──────────────────────────────────────
 
-    /**
-     * @dataProvider phpFilesProvider
-     */
+    #[DataProvider('phpFilesProvider')]
     public function testPhpFileSyntax(string $filePath): void
     {
         $fullPath = __DIR__ . '/../../../' . $filePath;
@@ -59,10 +56,10 @@ class DockerBuildTest extends TestCase
     public static function phpFilesProvider(): array
     {
         $files = [];
-        $files = [];
-        $appDir = __DIR__ . '/../../../src/web/app';
-        $adminDir = __DIR__ . '/../../../src/web/admin';
-        $publicDir = __DIR__ . '/../../../src/web/public';
+        $repositoryRoot = dirname(__DIR__, 3);
+        $appDir = $repositoryRoot . '/src/web/app';
+        $adminDir = $repositoryRoot . '/src/web/admin';
+        $publicDir = $repositoryRoot . '/src/web/public';
         
         $dirs = [$appDir, $adminDir, $publicDir];
         
@@ -74,8 +71,8 @@ class DockerBuildTest extends TestCase
 
             foreach ($iterator as $file) {
                 if ($file->isFile() && $file->getExtension() === 'php') {
-                    $relativePath = str_replace(dirname(__DIR__, 2) . '/', '', $file->getPathname());
-                    $files[basename($file->getPathname())] = [$relativePath];
+                    $relativePath = substr($file->getPathname(), strlen($repositoryRoot) + 1);
+                    $files[$relativePath] = [$relativePath];
                 }
             }
         }

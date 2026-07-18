@@ -4,6 +4,8 @@ session_start();
 
 define('BASE_PATH', dirname(__DIR__));
 require_once BASE_PATH . '/vendor/autoload.php';
+require_once BASE_PATH . '/app/Support/RequestTelemetry.php';
+RequestTelemetry::start($_SERVER, $_GET, $_POST);
 
 $auth = $_SESSION['auth'] ?? 0;
 // [VULN] Type Juggling: dùng == thay vì === — có thể bypass bằng session manipulation
